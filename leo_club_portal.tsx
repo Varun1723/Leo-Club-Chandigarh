@@ -24,18 +24,19 @@ const FEES = {
 
 // Public assets are served from /public by Vite. Keep any new logo or cause-icon paths here.
 const ASSETS = {
-  lionsEmblem: '/icons/lions-emblem.png',
-  leoLogo: '/icons/leo-logo.png',
+  lionsEmblem: "/icons/lions-emblem.png",
+  leoLogo: "/icons/leo-logo.png",
+
   causes: {
-    childhoodCancer: '/icons/cause-childhood-cancer.png',
-    diabetes: '/icons/cause-diabetes.png',
-    disasterRelief: '/icons/cause-disaster-relief.png',
-    environment: '/icons/cause-environment.png',
-    humanitarianEfforts: '/icons/cause-humanitarian-efforts.png',
-    hunger: '/icons/cause-hunger.png',
-    vision: '/icons/cause-vision.png',
-    youth: '/icons/cause-youth.png'
-  }
+    diabetes: "/icons/cause-diabetes.png",
+    environment: "/icons/cause-environment.png",
+    hunger: "/icons/cause-hunger.png",
+    vision: "/icons/cause-vision.png",
+    childhoodCancer: "/icons/cause-childhood-cancer.png",
+    disasterRelief: "/icons/cause-disaster-relief.png",
+    youth: "/icons/cause-youth.png",
+    humanitarianEfforts: "/icons/cause-humanitarian-efforts.png",
+  },
 };
 
 export default function LeoClubApp() {
@@ -57,8 +58,8 @@ export default function LeoClubApp() {
         <div className="flex justify-between h-20">
           <div className="flex items-center gap-4 cursor-pointer" onClick={() => navigate('home')}>
             <div className="flex items-center gap-3 py-2" aria-label="Lions International and Leo Club logos">
-              <img src={ASSETS.lionsEmblem} alt="Lions International emblem" className="w-11 h-11 object-contain" />
-              <img src={ASSETS.leoLogo} alt="Leo Club emblem" className="w-11 h-11 object-contain" />
+              <img src="/icons/lions-emblem.png" alt="Lions International emblem" className="w-11 h-11 object-contain" />
+              <img src="/icons/leo-logo.png" alt="Leo Club emblem" className="w-11 h-11 object-contain" />
             </div>
             <div className="hidden sm:block border-l border-[#B3B2B1] pl-4">
               <h1 className="font-bold text-[#00338D] text-lg leading-tight">Leo Club Chandigarh Fortune</h1>
@@ -68,14 +69,42 @@ export default function LeoClubApp() {
 
           {/* Desktop Nav */}
           <div className="hidden md:flex items-center space-x-1">
-            <button onClick={() => navigate('home')} className={`px-4 py-2 rounded-lg font-medium transition-colors ${currentView === 'home' ? 'text-[#00338D] bg-blue-50' : 'text-gray-600 hover:text-[#00338D] hover:bg-gray-50'}`}>Home</button>
-            <button onClick={() => navigate('projects')} className={`px-4 py-2 rounded-lg font-medium transition-colors ${currentView === 'projects' ? 'text-[#00338D] bg-blue-50' : 'text-gray-600 hover:text-[#00338D] hover:bg-gray-50'}`}>Projects</button>
-            <button onClick={() => navigate('contact')} className={`px-4 py-2 rounded-lg font-medium transition-colors ${currentView === 'contact' ? 'text-[#00338D] bg-blue-50' : 'text-gray-600 hover:text-[#00338D] hover:bg-gray-50'}`}>Contact</button>
+            <button onClick={() => navigate('home')} className={`px-4 py-2 rounded-lg font-medium transition-all duration-300 ${
+                currentView === 'home'
+                  ? isDarkTheme
+                    ? 'bg-[#00338D] text-white'
+                    : 'bg-blue-50 text-[#00338D]'
+                  : isDarkTheme
+                    ? 'text-white hover:bg-[#EBB700] hover:text-[#172033]'
+                    : 'text-gray-600 hover:bg-gray-100 hover:text-[#00338D]'
+              }`}>Home</button>
+            <button onClick={() => navigate('projects')} className={`px-4 py-2 rounded-lg font-medium transition-all duration-300 ${
+                currentView === 'projects'
+                  ? isDarkTheme
+                    ? 'bg-[#00338D] text-white'
+                    : 'bg-blue-50 text-[#00338D]'
+                  : isDarkTheme
+                    ? 'text-white hover:bg-[#EBB700] hover:text-[#172033]'
+                    : 'text-gray-600 hover:bg-gray-100 hover:text-[#00338D]'
+              }`}>Projects</button>
+            <button onClick={() => navigate('contact')} className={`px-4 py-2 rounded-lg font-medium transition-all duration-300 ${
+                currentView === 'contact'
+                  ? isDarkTheme
+                    ? 'bg-[#00338D] text-white'
+                    : 'bg-blue-50 text-[#00338D]'
+                  : isDarkTheme
+                    ? 'text-white hover:bg-[#EBB700] hover:text-[#172033]'
+                    : 'text-gray-600 hover:bg-gray-100 hover:text-[#00338D]'
+              }`}>Contact</button>
             
             <button 
               onClick={() => setIsDarkTheme(!isDarkTheme)} 
               aria-label={isDarkTheme ? 'Switch to light theme' : 'Switch to dark theme'} 
-              className="ml-2 w-10 h-10 rounded-full border border-[#55565A] text-[#00338D] hover:bg-[#00338D] hover:text-white transition-colors flex items-center justify-center"
+              className={`ml-2 w-10 h-10 rounded-full border flex items-center justify-center transition-all duration-300 ${
+                isDarkTheme
+                  ? 'border-[#EBB700] text-[#EBB700] hover:bg-[#EBB700] hover:text-[#172033]'
+                  : 'border-[#55565A] text-[#00338D] hover:bg-[#00338D] hover:text-white'
+              }`}
             >
               {isDarkTheme ? <Sun size={18} className="text-[#EBB700]" /> : <Moon size={18} />}
             </button>
@@ -126,7 +155,7 @@ export default function LeoClubApp() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
           <div className="md:col-span-1">
             <div className="flex items-center gap-3 mb-6">
-               <img src={ASSETS.leoLogo} alt="Leo Club emblem" className="w-10 h-10 object-contain" />
+              <img src="/icons/leo-logo.png" alt="Leo Club emblem" className="w-10 h-10 object-contain" />
               <span className="font-bold text-lg">Leo Club Chandigarh Fortune</span>
             </div>
             <p className="text-gray-400 text-sm leading-relaxed">
@@ -177,15 +206,16 @@ export default function LeoClubApp() {
             <span className="text-[#EBB700] font-bold tracking-widest uppercase text-sm mb-4 block flex items-center gap-2">
               <ShieldCheck size={18} /> Lions Clubs International
             </span>
-            <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight mb-6 leading-[1.1]">
-              Serve. Lead. <span className="text-[#EBB700]">Inspire.</span>
+            <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-6 text-white dark:text-white">
+              Serve. Lead.<br />
+              <span className="text-[#EBB700]">Inspire.</span>
             </h1>
-            <p className="text-xl text-gray-200 mb-10 max-w-2xl leading-relaxed">
+            <p className="text-black dark:text-gray-200 mt-4 text-xl max-w-2xl leading-relaxed">
               We have more volunteers in more places than any other service organization in the world. Join Chandigarh's premier youth leadership movement.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
-              <button onClick={() => navigate('join')} className="bg-[#EBB700] text-[#172033] px-8 py-4 rounded-xl font-bold text-lg hover:bg-yellow-400 transition-all flex items-center justify-center gap-2">
-                Join the Club <ArrowRight size={20} />
+              <button onClick={() => navigate('join')} className="bg-[#EBB700] text-white hover:bg-yellow-600 transition-colors px-8 py-4 rounded-md font-bold text-lg flex items-center gap-2">
+                Join the Club <ArrowRight className="w-5 h-5" />
               </button>
             </div>
           </div>

@@ -27,13 +27,13 @@ p, li {
 }
 
 /* In light mode, blue replaces the yellow accent and surfaces stay white. */
-.theme-light .bg-\[\#EBB700\] {
+/* .theme-light .bg-\[\#EBB700\] {
   background-color: #00338D !important;
-}
+} */
 
-.theme-light .text-\[\#EBB700\] {
+/* .theme-light .text-\[\#EBB700\] {
   color: #00338D !important;
-}
+} */
 
 .theme-light .border-\[\#EBB700\] {
   border-color: #00338D !important;
@@ -55,6 +55,12 @@ p, li {
 .theme-light footer .text-gray-400,
 .theme-light footer .text-gray-500 {
   color: #55565A !important;
+}
+
+.theme-light .text-gray-100,
+.theme-light .text-gray-200,
+.theme-light .text-gray-300 {
+    color: #172033 !important;
 }
 
 /* Dark Theme (Gray / Charcoal Palette Combination) */
