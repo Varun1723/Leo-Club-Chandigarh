@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   Menu, X, Home, Info, FolderHeart, UserPlus, 
   RefreshCw, Mail, CheckCircle2, ChevronRight, 
@@ -221,7 +221,7 @@ const HomeView = ({ navigate, isDarkTheme }) => (
   </div>
 );
 
-const ProjectsView = ({ isDarkTheme }) => (
+const ProjectsView = ({ navigate, isDarkTheme }) => (
   <div className="min-h-screen">
     <section className={`${isDarkTheme ? 'bg-black text-white' : 'bg-blue-50 text-[#172033]'} border-b-4 border-[#EBB700] relative overflow-hidden transition-colors duration-200`}>
       <div className={`absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] ${isDarkTheme ? 'from-[#00338D]' : 'from-blue-300'} via-transparent to-transparent`}></div>
@@ -275,7 +275,7 @@ const ProjectsView = ({ isDarkTheme }) => (
   </div>
 );
 
-const ContactView = ({ isDarkTheme }) => {
+const ContactView = ({ navigate, isDarkTheme }) => {
   const [submitted, setSubmitted] = useState(false);
 
   const handleSubmit = (event) => {
@@ -734,15 +734,38 @@ const AdminDashboardView = ({ navigate, isDarkTheme, setIsAdminLoggedIn }) => (
    ========================================================================= */
 
 export default function LeoClubApp() {
-  const [currentView, setCurrentView] = useState('home');
+  const [currentView, setCurrentView] = useState(() => {
+    const hash = window.location.hash.replace('#', '');
+    return hash || 'home';
+  });
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isDarkTheme, setIsDarkTheme] = useState(false);
   const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(false);
 
+  // Handle browser back button (Hardware back button on mobile)
+  useEffect(() => {
+    const handleHashChange = () => {
+      const hash = window.location.hash.replace('#', '');
+      if (hash) {
+        setCurrentView(hash);
+      } else {
+        setCurrentView('home');
+      }
+    };
+
+    // Set initial hash if none exists
+    if (!window.location.hash) {
+      window.history.replaceState(null, '', '#home');
+    }
+
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, []);
+
   const navigate = (view) => {
-    setCurrentView(view);
     setIsMobileMenuOpen(false);
     window.scrollTo(0, 0);
+    window.location.hash = view; // This will trigger handleHashChange and update currentView
   };
 
   return (
@@ -759,8 +782,8 @@ export default function LeoClubApp() {
       <main>
         {currentView === 'home' && <HomeView navigate={navigate} isDarkTheme={isDarkTheme} />}
         {currentView === 'join' && <JoinView navigate={navigate} isDarkTheme={isDarkTheme} />}
-        {currentView === 'projects' && <ProjectsView isDarkTheme={isDarkTheme} />}
-        {currentView === 'contact' && <ContactView isDarkTheme={isDarkTheme} />}
+        {currentView === 'projects' && <ProjectsView navigate={navigate} isDarkTheme={isDarkTheme} />}
+        {currentView === 'contact' && <ContactView navigate={navigate} isDarkTheme={isDarkTheme} />}
         {currentView === 'admin-login' && <AdminLoginView navigate={navigate} isDarkTheme={isDarkTheme} setIsAdminLoggedIn={setIsAdminLoggedIn} />}
         {currentView === 'admin' && (isAdminLoggedIn ? <AdminDashboardView navigate={navigate} isDarkTheme={isDarkTheme} setIsAdminLoggedIn={setIsAdminLoggedIn} /> : <AdminLoginView navigate={navigate} isDarkTheme={isDarkTheme} setIsAdminLoggedIn={setIsAdminLoggedIn} />)}
       </main>
