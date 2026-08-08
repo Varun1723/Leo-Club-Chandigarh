@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { 
-  Menu, X, Home, Info, FolderHeart, UserPlus, 
-  RefreshCw, Mail, CheckCircle2, ChevronRight, 
-  UploadCloud, CreditCard, ShieldCheck, HeartPulse, 
+import {
+  Menu, X, Home, Info, FolderHeart, UserPlus,
+  RefreshCw, Mail, CheckCircle2, ChevronRight,
+  UploadCloud, CreditCard, ShieldCheck, HeartPulse,
   Leaf, Eye, Utensils, Baby, ShieldAlert, ArrowRight,
   Users, Phone, Send, MapPin, LayoutDashboard, Sun, Moon,
   LogOut, IndianRupee
@@ -52,41 +52,41 @@ const NavBar = ({ currentView, isDarkTheme, setIsDarkTheme, isMobileMenuOpen, se
             <img src={ASSETS.leoLogo} alt="Leo Club emblem" className="w-11 h-11 object-contain" />
           </div>
           <div className="hidden sm:block border-l border-[#B3B2B1] pl-4">
-            <h1 className={`font-bold text-lg leading-tight ${ isDarkTheme ? "text-white" : "text-[#00338D]"}`}>Leo Club Chandigarh Fortune</h1>
+            <h1 className={`font-bold text-lg leading-tight ${isDarkTheme ? "text-white" : "text-[#00338D]"}`}>Leo Club Chandigarh Fortune</h1>
             <p className="text-xs text-[#55565A] font-medium tracking-[0.18em] uppercase">We Serve</p>
           </div>
         </a>
 
         {/* Desktop Nav */}
         <div className="hidden md:flex items-center space-x-1">
-          <a href="#home" className={`px-4 py-2 rounded-lg font-medium transition-all duration-300 ${
-              currentView === 'home'
-                ? isDarkTheme ? 'bg-[#00338D] text-white' : 'bg-blue-50 text-[#00338D]'
-                : isDarkTheme ? 'text-white hover:bg-[#EBB700] hover:text-[#172033]' : 'text-gray-600 hover:bg-gray-100 hover:text-[#00338D]'
+          <a href="#home" className={`px-4 py-2 rounded-lg font-medium transition-all duration-300 ${currentView === 'home'
+              ? isDarkTheme ? 'bg-[#00338D] text-white' : 'bg-blue-50 text-[#00338D]'
+              : isDarkTheme ? 'text-white hover:bg-[#EBB700] hover:text-[#172033]' : 'text-gray-600 hover:bg-gray-100 hover:text-[#00338D]'
             }`}>Home</a>
-          <a href="#projects" className={`px-4 py-2 rounded-lg font-medium transition-all duration-300 ${
-              currentView === 'projects'
-                ? isDarkTheme ? 'bg-[#00338D] text-white' : 'bg-blue-50 text-[#00338D]'
-                : isDarkTheme ? 'text-white hover:bg-[#EBB700] hover:text-[#172033]' : 'text-gray-600 hover:bg-gray-100 hover:text-[#00338D]'
+          <a href="#projects" className={`px-4 py-2 rounded-lg font-medium transition-all duration-300 ${currentView === 'projects'
+              ? isDarkTheme ? 'bg-[#00338D] text-white' : 'bg-blue-50 text-[#00338D]'
+              : isDarkTheme ? 'text-white hover:bg-[#EBB700] hover:text-[#172033]' : 'text-gray-600 hover:bg-gray-100 hover:text-[#00338D]'
             }`}>Projects</a>
-          <a href="#contact" className={`px-4 py-2 rounded-lg font-medium transition-all duration-300 ${
-              currentView === 'contact'
-                ? isDarkTheme ? 'bg-[#00338D] text-white' : 'bg-blue-50 text-[#00338D]'
-                : isDarkTheme ? 'text-white hover:bg-[#EBB700] hover:text-[#172033]' : 'text-gray-600 hover:bg-gray-100 hover:text-[#00338D]'
+          <a href="#contact" className={`px-4 py-2 rounded-lg font-medium transition-all duration-300 ${currentView === 'contact'
+              ? isDarkTheme ? 'bg-[#00338D] text-white' : 'bg-blue-50 text-[#00338D]'
+              : isDarkTheme ? 'text-white hover:bg-[#EBB700] hover:text-[#172033]' : 'text-gray-600 hover:bg-gray-100 hover:text-[#00338D]'
             }`}>Contact</a>
-          
-          <button 
-            onClick={() => setIsDarkTheme(!isDarkTheme)} 
-            aria-label={isDarkTheme ? 'Switch to light theme' : 'Switch to dark theme'} 
-            className={`ml-2 w-10 h-10 rounded-full border flex items-center justify-center transition-all duration-300 ${
-              isDarkTheme ? 'border-[#EBB700] text-[#EBB700] hover:bg-[#EBB700] hover:text-[#172033]' : 'border-[#55565A] text-[#00338D] hover:bg-[#00338D] hover:text-white'
-            }`}
+          <a href="#admin-login" className={`px-4 py-2 rounded-lg font-medium transition-all duration-300 ${currentView === 'admin-login' || currentView === 'admin'
+              ? isDarkTheme ? 'bg-[#00338D] text-white' : 'bg-blue-50 text-[#00338D]'
+              : isDarkTheme ? 'text-white hover:bg-[#EBB700] hover:text-[#172033]' : 'text-gray-600 hover:bg-gray-100 hover:text-[#00338D]'
+            }`}>Admin</a>
+
+          <button
+            onClick={() => setIsDarkTheme(!isDarkTheme)}
+            aria-label={isDarkTheme ? 'Switch to light theme' : 'Switch to dark theme'}
+            className={`ml-2 w-10 h-10 rounded-full border flex items-center justify-center transition-all duration-300 ${isDarkTheme ? 'border-[#EBB700] text-[#EBB700] hover:bg-[#EBB700] hover:text-[#172033]' : 'border-[#55565A] text-[#00338D] hover:bg-[#00338D] hover:text-white'
+              }`}
           >
             {isDarkTheme ? <Sun size={18} className="text-[#EBB700]" /> : <Moon size={18} />}
           </button>
-          
+
           <div className="h-6 w-px bg-gray-300 mx-2"></div>
-          
+
           <a href="#join" className="ml-2 bg-[#00338D] text-white px-6 py-2.5 rounded-full font-bold hover:bg-[#EBB700] hover:text-[#172033] hover:-translate-y-0.5 hover:shadow-lg transition-all duration-300 inline-flex items-center gap-2 group">
             Join Leo <ChevronRight className="transition-transform duration-300 group-hover:translate-x-1" size={16} />
           </a>
@@ -133,7 +133,7 @@ const Footer = ({ isDarkTheme }) => (
             Affiliated with Lions Clubs International. Empowering youth to lead, serve, and inspire in Chandigarh and beyond.
           </p>
         </div>
-        
+
         <div>
           <h3 className="font-bold text-lg mb-4 text-[#EBB700]">Organization</h3>
           <ul className={`space-y-3 text-sm ${isDarkTheme ? 'text-gray-400' : 'text-gray-600'}`}>
@@ -169,6 +169,7 @@ const Footer = ({ isDarkTheme }) => (
 
 const HomeView = ({ isDarkTheme }) => (
   <div className="min-h-screen">
+    {/* Hero Section */}
     <div className={`${isDarkTheme ? 'bg-black text-white' : 'bg-blue-50 text-[#172033]'} relative overflow-hidden transition-colors duration-200 border-b-4 border-[#EBB700]`}>
       <div className={`absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] ${isDarkTheme ? 'from-[#00338D]' : 'from-blue-300'} via-transparent to-transparent`}></div>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-32 relative z-10">
@@ -192,6 +193,7 @@ const HomeView = ({ isDarkTheme }) => (
       </div>
     </div>
 
+    {/* Global Causes Section */}
     <div className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 ${isDarkTheme ? 'bg-[#121212]' : 'bg-white'}`}>
       <div className="text-center mb-16">
         <h2 className={`text-3xl font-bold mb-4 ${isDarkTheme ? 'text-white' : 'text-[#00338D]'}`}>Our Global Causes</h2>
@@ -256,29 +258,27 @@ const ProjectsView = ({ isDarkTheme }) => {
 
       <section className={`${isDarkTheme ? 'bg-[#121212]' : 'bg-white'} py-16 transition-colors duration-200`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          
+
           <div className="text-center mb-12">
             <h2 className={`text-3xl font-bold mb-4 ${isDarkTheme ? 'text-white' : 'text-[#00338D]'}`}>Recent & Upcoming Projects</h2>
             <div className="w-16 h-1.5 bg-[#EBB700] mx-auto rounded-full mb-8"></div>
-            
+
             <div className="flex justify-center gap-3">
-              <button 
-                onClick={() => setFilter('All')} 
-                className={`px-6 py-2 rounded-full font-bold transition-all duration-300 ${
-                  filter === 'All' 
-                    ? 'bg-[#00338D] text-white shadow-md' 
+              <button
+                onClick={() => setFilter('All')}
+                className={`px-6 py-2 rounded-full font-bold transition-all duration-300 ${filter === 'All'
+                    ? 'bg-[#00338D] text-white shadow-md'
                     : isDarkTheme ? 'border border-gray-500 text-white hover:bg-[#2A2A2A]' : 'border border-gray-300 text-gray-600 hover:bg-gray-100'
-                }`}
+                  }`}
               >
                 All
               </button>
-              <button 
-                onClick={() => setFilter('UPCOMING')} 
-                className={`px-6 py-2 rounded-full font-bold transition-all duration-300 ${
-                  filter === 'UPCOMING' 
-                    ? 'bg-[#00338D] text-white shadow-md' 
+              <button
+                onClick={() => setFilter('UPCOMING')}
+                className={`px-6 py-2 rounded-full font-bold transition-all duration-300 ${filter === 'UPCOMING'
+                    ? 'bg-[#00338D] text-white shadow-md'
                     : isDarkTheme ? 'border border-gray-500 text-white hover:bg-[#2A2A2A]' : 'border border-gray-300 text-gray-600 hover:bg-gray-100'
-                }`}
+                  }`}
               >
                 Upcoming
               </button>
@@ -287,8 +287,8 @@ const ProjectsView = ({ isDarkTheme }) => {
 
           <div className="grid md:grid-cols-3 gap-6" key={filter}>
             {filteredProjects.map((proj, i) => (
-              <div 
-                key={proj.title} 
+              <div
+                key={proj.title}
                 className={`animate-pop-in ${isDarkTheme ? 'bg-[#1E1E1E] border-[#333] hover:border-[#EBB700]' : 'bg-white border-gray-200 hover:border-[#00338D] hover:shadow-md'} rounded-2xl overflow-hidden border transition-all`}
                 style={{ animationDelay: `${i * 100}ms`, opacity: 0 }}
               >
@@ -323,7 +323,7 @@ const ContactView = ({ isDarkTheme }) => {
 
   return (
     <div className={`min-h-screen ${isDarkTheme ? 'bg-[#121212]' : 'bg-white'}`}>
-      
+
       <style>{`
         @keyframes slideUpFade {
           from { opacity: 0; transform: translateY(30px); }
@@ -357,8 +357,8 @@ const ContactView = ({ isDarkTheme }) => {
           </div>
         </aside>
 
-        <div 
-          className={`border p-7 md:p-10 transition-all duration-300 animate-slide-up delay-200 ${isDarkTheme ? 'bg-[#1E1E1E] border-[#333]' : 'bg-white border-gray-300'}`} 
+        <div
+          className={`border p-7 md:p-10 transition-all duration-300 animate-slide-up delay-200 ${isDarkTheme ? 'bg-[#1E1E1E] border-[#333]' : 'bg-white border-gray-300'}`}
           style={{ boxShadow: isDarkTheme ? '8px 8px 0 #EBB700' : '8px 8px 0 #00338D' }}
         >
           {submitted ? (
@@ -393,10 +393,10 @@ const JoinView = ({ currentView, isDarkTheme }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [interviewDate, setInterviewDate] = useState('');
   const [interviewTime, setInterviewTime] = useState('');
-  
+
   const [dob, setDob] = useState('');
   const [age, setAge] = useState('');
-  
+
   const [hasReference, setHasReference] = useState('No');
   const [referenceName, setReferenceName] = useState('');
 
@@ -445,7 +445,7 @@ const JoinView = ({ currentView, isDarkTheme }) => {
 
   // 8 PM to 10 PM slots (20:00 to 21:50) - 10 min each
   const interviewTimes = Array.from({ length: 12 }, (_, index) => {
-    const minutes = 20 * 60 + index * 10; 
+    const minutes = 20 * 60 + index * 10;
     const hours = String(Math.floor(minutes / 60)).padStart(2, '0');
     const mins = String(minutes % 60).padStart(2, '0');
     return `${hours}:${mins}`;
@@ -455,12 +455,12 @@ const JoinView = ({ currentView, isDarkTheme }) => {
     window.scrollTo(0, 0);
     setStep(s => s + 1);
   };
-  
+
   const handleBack = () => {
     window.scrollTo(0, 0);
     setStep(s => s - 1);
   };
-  
+
   const handleSubmit = () => {
     setIsSubmitting(true);
     setTimeout(() => {
@@ -506,7 +506,7 @@ const JoinView = ({ currentView, isDarkTheme }) => {
                 <span className={`text-4xl font-black ${isDarkTheme ? 'text-white' : 'text-[#172033]'}`}>₹719</span>
                 <span className={`text-sm ${isDarkTheme ? 'text-gray-500' : 'text-gray-500'}`}>/year</span>
               </div>
-              <button onClick={() => { setSelectedPlan('Regular'); window.location.hash='join-form'; window.scrollTo(0,0); }} className={`w-full py-3 rounded-xl font-bold transition-all duration-300 border-2 hover:scale-105 active:scale-95 ${isDarkTheme ? 'border-gray-700 text-white hover:bg-gray-800 hover:border-gray-500' : 'border-gray-200 text-[#172033] hover:bg-gray-50 hover:border-[#00338D]/30'}`}>
+              <button onClick={() => { setSelectedPlan('Regular'); window.location.hash = 'join-form'; window.scrollTo(0, 0); }} className={`w-full py-3 rounded-xl font-bold transition-all duration-300 border-2 hover:scale-105 active:scale-95 ${isDarkTheme ? 'border-gray-700 text-white hover:bg-gray-800 hover:border-gray-500' : 'border-gray-200 text-[#172033] hover:bg-gray-50 hover:border-[#00338D]/30'}`}>
                 Choose Regular
               </button>
               <ul className="mt-8 space-y-4">
@@ -535,7 +535,7 @@ const JoinView = ({ currentView, isDarkTheme }) => {
                   <span className={`text-sm ${isDarkTheme ? 'text-gray-400' : 'text-gray-500'}`}>/year</span>
                 </div>
               </div>
-              <button onClick={() => { setSelectedPlan('Fellowship'); window.location.hash='join-form'; window.scrollTo(0,0); }} className="w-full bg-[#EBB700] text-[#172033] py-3 rounded-xl font-bold transition-all duration-300 hover:bg-yellow-400 hover:shadow-lg hover:shadow-[#EBB700]/30 hover:scale-105 active:scale-95">
+              <button onClick={() => { setSelectedPlan('Fellowship'); window.location.hash = 'join-form'; window.scrollTo(0, 0); }} className="w-full bg-[#EBB700] text-[#172033] py-3 rounded-xl font-bold transition-all duration-300 hover:bg-yellow-400 hover:shadow-lg hover:shadow-[#EBB700]/30 hover:scale-105 active:scale-95">
                 Choose Fellowship
               </button>
               <ul className="mt-8 space-y-4">
@@ -560,7 +560,7 @@ const JoinView = ({ currentView, isDarkTheme }) => {
                   <span className={`text-sm ${isDarkTheme ? 'text-gray-500' : 'text-gray-500'}`}>/year</span>
                 </div>
               </div>
-              <button onClick={() => { setSelectedPlan('Elite'); window.location.hash='join-form'; window.scrollTo(0,0); }} className={`w-full py-3 rounded-xl font-bold transition-all duration-300 border-2 hover:scale-105 active:scale-95 ${isDarkTheme ? 'border-gray-600 text-white hover:bg-gray-800 hover:border-gray-400' : 'border-gray-300 text-[#172033] hover:bg-white hover:border-gray-500'}`}>
+              <button onClick={() => { setSelectedPlan('Elite'); window.location.hash = 'join-form'; window.scrollTo(0, 0); }} className={`w-full py-3 rounded-xl font-bold transition-all duration-300 border-2 hover:scale-105 active:scale-95 ${isDarkTheme ? 'border-gray-600 text-white hover:bg-gray-800 hover:border-gray-400' : 'border-gray-300 text-[#172033] hover:bg-white hover:border-gray-500'}`}>
                 Choose Elite
               </button>
               <ul className="mt-8 space-y-4">
@@ -583,26 +583,26 @@ const JoinView = ({ currentView, isDarkTheme }) => {
                 <button onClick={() => window.location.hash = 'join'} className="text-[#EBB700] hover:underline font-bold">Change Plan</button>
               </div>
               <div className={`w-full rounded-full h-2 ${isDarkTheme ? 'bg-gray-800' : 'bg-gray-200'}`}>
-                <div className="bg-[#EBB700] h-2 rounded-full transition-all duration-500 ease-out" style={{ width: `${(step/4)*100}%` }}></div>
+                <div className="bg-[#EBB700] h-2 rounded-full transition-all duration-500 ease-out" style={{ width: `${(step / 4) * 100}%` }}></div>
               </div>
             </div>
           )}
 
           <div className={`rounded-3xl shadow-lg border overflow-hidden transition-all duration-300 ${isDarkTheme ? 'bg-[#1E1E1E] border-gray-800' : 'bg-white border-gray-100'}`}>
-            
+
             {/* STEP 1: PERSONAL DETAILS */}
             {step === 1 && (
               <div className="p-8 md:p-10 step-animation">
                 <h2 className={`text-3xl font-bold mb-2 ${isDarkTheme ? 'text-white' : 'text-[#172033]'}`}>Personal Details</h2>
                 <p className={`mb-8 ${isDarkTheme ? 'text-gray-400' : 'text-gray-600'}`}>Tell us about yourself so we can begin your Leo membership application.</p>
-                
+
                 <div className="mb-10">
                   <h3 className={`text-lg font-bold mb-5 border-b pb-2 ${isDarkTheme ? 'text-[#EBB700] border-gray-700' : 'text-[#00338D] border-gray-200'}`}>Basic Information</h3>
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
                     <div><label className={`block text-sm font-bold mb-2 ${isDarkTheme ? 'text-gray-300' : 'text-gray-700'}`}>First Name *</label><input required type="text" className={`w-full border rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#EBB700] outline-none ${isDarkTheme ? 'bg-[#2A2A2A] border-gray-700 text-white' : 'bg-white border-gray-300 text-black'}`} /></div>
                     <div><label className={`block text-sm font-bold mb-2 ${isDarkTheme ? 'text-gray-300' : 'text-gray-700'}`}>Middle Name</label><input type="text" className={`w-full border rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#EBB700] outline-none ${isDarkTheme ? 'bg-[#2A2A2A] border-gray-700 text-white' : 'bg-white border-gray-300 text-black'}`} /></div>
                     <div><label className={`block text-sm font-bold mb-2 ${isDarkTheme ? 'text-gray-300' : 'text-gray-700'}`}>Last Name *</label><input required type="text" className={`w-full border rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#EBB700] outline-none ${isDarkTheme ? 'bg-[#2A2A2A] border-gray-700 text-white' : 'bg-white border-gray-300 text-black'}`} /></div>
-                    
+
                     <div>
                       <label className={`block text-sm font-bold mb-2 ${isDarkTheme ? 'text-gray-300' : 'text-gray-700'}`}>Date of Birth *</label>
                       <input required type="date" max={todayStr} value={dob} onChange={handleDobChange} className={`w-full border rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#EBB700] outline-none ${isDarkTheme ? 'bg-[#2A2A2A] border-gray-700 text-white' : 'bg-white border-gray-300 text-black'}`} />
@@ -680,7 +680,7 @@ const JoinView = ({ currentView, isDarkTheme }) => {
               <div className="p-8 md:p-10 step-animation">
                 <h2 className={`text-3xl font-bold mb-2 ${isDarkTheme ? 'text-white' : 'text-[#172033]'}`}>Documents & References</h2>
                 <p className={`mb-10 ${isDarkTheme ? 'text-gray-400' : 'text-gray-600'}`}>Upload required documents and provide your emergency contact & reference.</p>
-                
+
                 <h3 className={`text-lg font-bold mb-4 border-b pb-2 ${isDarkTheme ? 'text-[#EBB700] border-gray-700' : 'text-[#00338D] border-gray-200'}`}>File Uploads</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-10">
                   <div>
@@ -735,27 +735,26 @@ const JoinView = ({ currentView, isDarkTheme }) => {
               <div className="p-8 md:p-10 step-animation">
                 <h2 className={`text-3xl font-bold mb-2 ${isDarkTheme ? 'text-white' : 'text-[#172033]'}`}>Choose your interview slot</h2>
                 <p className={`mb-10 ${isDarkTheme ? 'text-gray-400' : 'text-gray-600'}`}>Interviews are available from 9 August to 6 September, between 8:00 PM and 10:00 PM.</p>
-                
+
                 <label className={`block text-lg font-bold mb-3 ${isDarkTheme ? 'text-gray-200' : 'text-gray-800'}`}>Select Interview Date *</label>
                 <select value={interviewDate} onChange={(e) => setInterviewDate(e.target.value)} className={`w-full border rounded-xl px-4 py-4 text-lg focus:ring-2 focus:ring-[#EBB700] outline-none mb-8 ${isDarkTheme ? 'bg-[#2A2A2A] border-gray-700 text-white' : 'bg-white border-gray-300 text-black'}`}>
                   <option value="">-- Choose a date --</option>
                   {interviewDates.map((date) => <option key={date.value} value={date.value}>{date.label}</option>)}
                 </select>
-                
+
                 <p className={`text-lg font-bold mb-4 ${isDarkTheme ? 'text-gray-200' : 'text-gray-800'}`}>Select Available Time *</p>
                 <div className="grid grid-cols-3 sm:grid-cols-4 gap-4 mb-8">
                   {interviewTimes.map((time) => (
-                    <button 
-                      key={time} 
-                      type="button" 
-                      onClick={() => setInterviewTime(time)} 
-                      className={`border-2 rounded-xl px-3 py-4 font-bold text-lg transition-all ${
-                        interviewTime === time 
-                          ? 'bg-[#EBB700] text-[#172033] border-[#EBB700] shadow-md transform scale-105' 
-                          : isDarkTheme 
-                            ? 'border-gray-700 text-gray-300 hover:border-[#EBB700]' 
+                    <button
+                      key={time}
+                      type="button"
+                      onClick={() => setInterviewTime(time)}
+                      className={`border-2 rounded-xl px-3 py-4 font-bold text-lg transition-all ${interviewTime === time
+                          ? 'bg-[#EBB700] text-[#172033] border-[#EBB700] shadow-md transform scale-105'
+                          : isDarkTheme
+                            ? 'border-gray-700 text-gray-300 hover:border-[#EBB700]'
                             : 'border-gray-200 text-gray-700 hover:border-[#EBB700] bg-gray-50'
-                      }`}
+                        }`}
                     >
                       {time}
                     </button>
@@ -773,7 +772,7 @@ const JoinView = ({ currentView, isDarkTheme }) => {
             {step === 4 && (
               <div className="p-8 md:p-10 step-animation">
                 <h2 className={`text-3xl font-bold mb-8 ${isDarkTheme ? 'text-white' : 'text-[#172033]'}`}>Final Declaration</h2>
-                
+
                 <div className={`p-6 border rounded-2xl mb-8 ${isDarkTheme ? 'bg-[#2A2A2A] border-gray-700' : 'bg-yellow-50 border-yellow-200'}`}>
                   <label className="flex items-start gap-4 cursor-pointer">
                     <input required type="checkbox" className="mt-1.5 w-6 h-6 accent-[#EBB700] cursor-pointer" />
@@ -785,8 +784,8 @@ const JoinView = ({ currentView, isDarkTheme }) => {
 
                 <div className="mt-10 flex justify-between gap-4">
                   <button onClick={handleBack} disabled={isSubmitting} className={`px-8 py-3.5 rounded-xl font-bold border transition-colors ${isDarkTheme ? 'text-gray-300 border-gray-700 hover:bg-gray-800' : 'text-gray-600 border-gray-300 hover:bg-gray-50'}`}>Back</button>
-                  <button 
-                    onClick={handleSubmit} 
+                  <button
+                    onClick={handleSubmit}
                     disabled={isSubmitting}
                     className="flex-1 bg-[#EBB700] text-[#172033] px-8 py-3.5 rounded-xl font-bold hover:bg-yellow-500 transition-all shadow-lg flex items-center justify-center gap-3"
                   >
@@ -808,8 +807,8 @@ const JoinView = ({ currentView, isDarkTheme }) => {
                 </div>
                 <h2 className={`text-4xl font-bold mb-4 ${isDarkTheme ? 'text-white' : 'text-[#172033]'}`}>Application Submitted!</h2>
                 <p className={`text-lg mb-10 max-w-lg mx-auto leading-relaxed ${isDarkTheme ? 'text-gray-300' : 'text-gray-600'}`}>
-                  Thank you. Your interview is scheduled for <br/>
-                  <strong className={isDarkTheme ? 'text-[#EBB700]' : 'text-[#00338D]'}>{interviewDate}</strong> at <strong className={isDarkTheme ? 'text-[#EBB700]' : 'text-[#00338D]'}>{interviewTime}</strong>.<br/><br/>
+                  Thank you. Your interview is scheduled for <br />
+                  <strong className={isDarkTheme ? 'text-[#EBB700]' : 'text-[#00338D]'}>{interviewDate}</strong> at <strong className={isDarkTheme ? 'text-[#EBB700]' : 'text-[#00338D]'}>{interviewTime}</strong>.<br /><br />
                   We will contact you on WhatsApp or email with the next steps.
                 </p>
                 <a href="#home" className="bg-[#EBB700] text-[#172033] px-10 py-4 rounded-xl font-bold text-lg hover:bg-yellow-500 shadow-lg transition-transform hover:-translate-y-1 inline-block">
@@ -892,8 +891,8 @@ const AdminDashboardView = ({ isDarkTheme, setIsAdminLoggedIn }) => (
           <UserPlus size={18} /> Applications
         </button>
       </div>
-      <button 
-        onClick={() => { setIsAdminLoggedIn(false); window.location.hash = 'home'; }} 
+      <button
+        onClick={() => { setIsAdminLoggedIn(false); window.location.hash = 'home'; }}
         className="mt-auto flex items-center gap-2 text-red-500 font-bold px-4 py-3 hover:bg-red-500/10 rounded-xl"
       >
         <LogOut size={18} /> Sign Out
@@ -957,12 +956,12 @@ export default function LeoClubApp() {
 
   return (
     <div className={isDarkTheme ? 'theme-dark min-h-screen' : 'theme-light min-h-screen'}>
-      <NavBar 
-        currentView={currentView} 
-        isDarkTheme={isDarkTheme} 
-        setIsDarkTheme={setIsDarkTheme} 
-        isMobileMenuOpen={isMobileMenuOpen} 
-        setIsMobileMenuOpen={setIsMobileMenuOpen} 
+      <NavBar
+        currentView={currentView}
+        isDarkTheme={isDarkTheme}
+        setIsDarkTheme={setIsDarkTheme}
+        isMobileMenuOpen={isMobileMenuOpen}
+        setIsMobileMenuOpen={setIsMobileMenuOpen}
       />
 
       <main>
