@@ -16,8 +16,9 @@ const BRAND = {
 };
 
 const FEES = {
-  regular: 700,
-  fellowship: 1100,
+  regular: 719,
+  fellowship: 1149,
+  elite: 2199,
   generalRenewal: 650,
   boardRenewal: 1000
 };
@@ -41,11 +42,11 @@ const ASSETS = {
    COMPONENTS
    ========================================================================= */
 
-const NavBar = ({ navigate, currentView, isDarkTheme, setIsDarkTheme, isMobileMenuOpen, setIsMobileMenuOpen }) => (
+const NavBar = ({ currentView, isDarkTheme, setIsDarkTheme, isMobileMenuOpen, setIsMobileMenuOpen }) => (
   <nav className={`sticky top-0 z-50 border-b-4 border-[#EBB700] shadow-sm transition-colors duration-200 ${isDarkTheme ? 'bg-[#1E1E1E]' : 'bg-white'}`}>
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div className="flex justify-between h-20">
-        <div className="flex items-center gap-4 cursor-pointer" onClick={() => navigate('home')}>
+        <a href="#home" className="flex items-center gap-4 cursor-pointer">
           <div className="flex items-center gap-3 py-2" aria-label="Lions International and Leo Club logos">
             <img src={ASSETS.lionsEmblem} alt="Lions International emblem" className="w-11 h-11 object-contain" />
             <img src={ASSETS.leoLogo} alt="Leo Club emblem" className="w-11 h-11 object-contain" />
@@ -54,25 +55,25 @@ const NavBar = ({ navigate, currentView, isDarkTheme, setIsDarkTheme, isMobileMe
             <h1 className={`font-bold text-lg leading-tight ${ isDarkTheme ? "text-white" : "text-[#00338D]"}`}>Leo Club Chandigarh Fortune</h1>
             <p className="text-xs text-[#55565A] font-medium tracking-[0.18em] uppercase">We Serve</p>
           </div>
-        </div>
+        </a>
 
         {/* Desktop Nav */}
         <div className="hidden md:flex items-center space-x-1">
-          <button onClick={() => navigate('home')} className={`px-4 py-2 rounded-lg font-medium transition-all duration-300 ${
+          <a href="#home" className={`px-4 py-2 rounded-lg font-medium transition-all duration-300 ${
               currentView === 'home'
                 ? isDarkTheme ? 'bg-[#00338D] text-white' : 'bg-blue-50 text-[#00338D]'
                 : isDarkTheme ? 'text-white hover:bg-[#EBB700] hover:text-[#172033]' : 'text-gray-600 hover:bg-gray-100 hover:text-[#00338D]'
-            }`}>Home</button>
-          <button onClick={() => navigate('projects')} className={`px-4 py-2 rounded-lg font-medium transition-all duration-300 ${
+            }`}>Home</a>
+          <a href="#projects" className={`px-4 py-2 rounded-lg font-medium transition-all duration-300 ${
               currentView === 'projects'
                 ? isDarkTheme ? 'bg-[#00338D] text-white' : 'bg-blue-50 text-[#00338D]'
                 : isDarkTheme ? 'text-white hover:bg-[#EBB700] hover:text-[#172033]' : 'text-gray-600 hover:bg-gray-100 hover:text-[#00338D]'
-            }`}>Projects</button>
-          <button onClick={() => navigate('contact')} className={`px-4 py-2 rounded-lg font-medium transition-all duration-300 ${
+            }`}>Projects</a>
+          <a href="#contact" className={`px-4 py-2 rounded-lg font-medium transition-all duration-300 ${
               currentView === 'contact'
                 ? isDarkTheme ? 'bg-[#00338D] text-white' : 'bg-blue-50 text-[#00338D]'
                 : isDarkTheme ? 'text-white hover:bg-[#EBB700] hover:text-[#172033]' : 'text-gray-600 hover:bg-gray-100 hover:text-[#00338D]'
-            }`}>Contact</button>
+            }`}>Contact</a>
           
           <button 
             onClick={() => setIsDarkTheme(!isDarkTheme)} 
@@ -86,9 +87,9 @@ const NavBar = ({ navigate, currentView, isDarkTheme, setIsDarkTheme, isMobileMe
           
           <div className="h-6 w-px bg-gray-300 mx-2"></div>
           
-          <button onClick={() => navigate('join')} className="ml-2 bg-[#00338D] text-white px-6 py-2.5 rounded-full font-bold hover:bg-blue-900 transition-all shadow-md shadow-blue-900/20 flex items-center gap-2">
+          <a href="#join" className="ml-2 bg-[#00338D] text-white px-6 py-2.5 rounded-full font-bold hover:bg-blue-900 transition-all shadow-md shadow-blue-900/20 inline-flex items-center gap-2">
             Join Leo <ChevronRight size={16} />
-          </button>
+          </a>
         </div>
 
         {/* Mobile Menu Button */}
@@ -96,7 +97,7 @@ const NavBar = ({ navigate, currentView, isDarkTheme, setIsDarkTheme, isMobileMe
           <button onClick={() => setIsDarkTheme(!isDarkTheme)} className={`w-9 h-9 rounded-full border flex items-center justify-center ${isDarkTheme ? 'border-[#EBB700]' : 'border-gray-300 text-gray-700'}`}>
             {isDarkTheme ? <Sun size={16} className="text-[#EBB700]" /> : <Moon size={16} />}
           </button>
-          <button onClick={() => navigate('join')} className="bg-[#00338D] text-white px-4 py-2 rounded-full font-bold text-sm">Join</button>
+          <a href="#join" className="bg-[#00338D] text-white px-4 py-2 rounded-full font-bold text-sm inline-block">Join</a>
           <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className={isDarkTheme ? 'text-white' : 'text-gray-600'}>
             {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
           </button>
@@ -108,18 +109,18 @@ const NavBar = ({ navigate, currentView, isDarkTheme, setIsDarkTheme, isMobileMe
     {isMobileMenuOpen && (
       <div className={`md:hidden absolute w-full shadow-xl border-t ${isDarkTheme ? 'bg-[#1E1E1E] border-gray-800' : 'bg-white border-gray-100'}`}>
         <div className="px-4 pt-2 pb-6 space-y-1">
-          <button onClick={() => navigate('home')} className={`block w-full text-left px-4 py-3 text-base font-medium rounded-xl ${isDarkTheme ? 'text-white hover:bg-gray-800' : 'text-gray-700 hover:bg-gray-50'}`}>Home</button>
-          <button onClick={() => navigate('projects')} className={`block w-full text-left px-4 py-3 text-base font-medium rounded-xl ${isDarkTheme ? 'text-white hover:bg-gray-800' : 'text-gray-700 hover:bg-gray-50'}`}>Projects & Causes</button>
-          <button onClick={() => navigate('contact')} className={`block w-full text-left px-4 py-3 text-base font-medium rounded-xl ${isDarkTheme ? 'text-white hover:bg-gray-800' : 'text-gray-700 hover:bg-gray-50'}`}>Contact Us</button>
+          <a href="#home" onClick={() => setIsMobileMenuOpen(false)} className={`block w-full text-left px-4 py-3 text-base font-medium rounded-xl ${isDarkTheme ? 'text-white hover:bg-gray-800' : 'text-gray-700 hover:bg-gray-50'}`}>Home</a>
+          <a href="#projects" onClick={() => setIsMobileMenuOpen(false)} className={`block w-full text-left px-4 py-3 text-base font-medium rounded-xl ${isDarkTheme ? 'text-white hover:bg-gray-800' : 'text-gray-700 hover:bg-gray-50'}`}>Projects & Causes</a>
+          <a href="#contact" onClick={() => setIsMobileMenuOpen(false)} className={`block w-full text-left px-4 py-3 text-base font-medium rounded-xl ${isDarkTheme ? 'text-white hover:bg-gray-800' : 'text-gray-700 hover:bg-gray-50'}`}>Contact Us</a>
           <div className={`h-px w-full my-2 ${isDarkTheme ? 'bg-gray-800' : 'bg-gray-100'}`}></div>
-          <button onClick={() => navigate('admin-login')} className={`block w-full text-left px-4 py-3 text-base font-medium rounded-xl ${isDarkTheme ? 'text-gray-400 hover:bg-gray-800' : 'text-gray-500 hover:bg-gray-50'}`}>Admin Portal</button>
+          <a href="#admin-login" onClick={() => setIsMobileMenuOpen(false)} className={`block w-full text-left px-4 py-3 text-base font-medium rounded-xl ${isDarkTheme ? 'text-gray-400 hover:bg-gray-800' : 'text-gray-500 hover:bg-gray-50'}`}>Admin Portal</a>
         </div>
       </div>
     )}
   </nav>
 );
 
-const Footer = ({ navigate, isDarkTheme }) => (
+const Footer = ({ isDarkTheme }) => (
   <footer className={`${isDarkTheme ? 'bg-black text-white' : 'bg-gray-50 text-[#172033]'} pt-16 pb-8 border-t-[6px] border-[#EBB700] transition-colors duration-200`}>
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
@@ -136,17 +137,17 @@ const Footer = ({ navigate, isDarkTheme }) => (
         <div>
           <h3 className="font-bold text-lg mb-4 text-[#EBB700]">Organization</h3>
           <ul className={`space-y-3 text-sm ${isDarkTheme ? 'text-gray-400' : 'text-gray-600'}`}>
-            <li><button onClick={() => navigate('home')} className={`transition-colors ${isDarkTheme ? 'hover:text-white' : 'hover:text-[#00338D]'}`}>About Us</button></li>
-            <li><button onClick={() => navigate('projects')} className={`transition-colors ${isDarkTheme ? 'hover:text-white' : 'hover:text-[#00338D]'}`}>Global Causes</button></li>
-            <li><button onClick={() => navigate('projects')} className={`transition-colors ${isDarkTheme ? 'hover:text-white' : 'hover:text-[#00338D]'}`}>Our Projects</button></li>
+            <li><a href="#home" className={`transition-colors ${isDarkTheme ? 'hover:text-white' : 'hover:text-[#00338D]'}`}>About Us</a></li>
+            <li><a href="#projects" className={`transition-colors ${isDarkTheme ? 'hover:text-white' : 'hover:text-[#00338D]'}`}>Global Causes</a></li>
+            <li><a href="#projects" className={`transition-colors ${isDarkTheme ? 'hover:text-white' : 'hover:text-[#00338D]'}`}>Our Projects</a></li>
           </ul>
         </div>
 
         <div>
           <h3 className="font-bold text-lg mb-4 text-[#EBB700]">Membership</h3>
           <ul className={`space-y-3 text-sm ${isDarkTheme ? 'text-gray-400' : 'text-gray-600'}`}>
-            <li><button onClick={() => navigate('join')} className={`transition-colors ${isDarkTheme ? 'hover:text-white' : 'hover:text-[#00338D]'}`}>Join as New Member</button></li>
-            <li><button onClick={() => navigate('contact')} className={`transition-colors ${isDarkTheme ? 'hover:text-white' : 'hover:text-[#00338D]'}`}>Contact Us</button></li>
+            <li><a href="#join" className={`transition-colors ${isDarkTheme ? 'hover:text-white' : 'hover:text-[#00338D]'}`}>Join as New Member</a></li>
+            <li><a href="#contact" className={`transition-colors ${isDarkTheme ? 'hover:text-white' : 'hover:text-[#00338D]'}`}>Contact Us</a></li>
           </ul>
         </div>
 
@@ -166,7 +167,7 @@ const Footer = ({ navigate, isDarkTheme }) => (
   </footer>
 );
 
-const HomeView = ({ navigate, isDarkTheme }) => (
+const HomeView = ({ isDarkTheme }) => (
   <div className="min-h-screen">
     {/* Hero Section */}
     <div className={`${isDarkTheme ? 'bg-black text-white' : 'bg-blue-50 text-[#172033]'} relative overflow-hidden transition-colors duration-200 border-b-4 border-[#EBB700]`}>
@@ -184,9 +185,9 @@ const HomeView = ({ navigate, isDarkTheme }) => (
             We have more volunteers in more places than any other service organization in the world. Join Chandigarh's premier youth leadership movement.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 mt-8">
-            <button onClick={() => navigate('join')} className="bg-[#EBB700] text-white hover:bg-yellow-600 transition-colors px-8 py-4 rounded-md font-bold text-lg flex items-center gap-2 w-fit">
+            <a href="#join" className="bg-[#EBB700] text-white hover:bg-yellow-600 transition-colors px-8 py-4 rounded-md font-bold text-lg inline-flex items-center gap-2 w-fit">
               Join the Club <ArrowRight className="w-5 h-5" />
-            </button>
+            </a>
           </div>
         </div>
       </div>
@@ -211,17 +212,17 @@ const HomeView = ({ navigate, isDarkTheme }) => (
           { name: "Youth", icon: ASSETS.causes.youth },
           { name: "Humanitarian Efforts", icon: ASSETS.causes.humanitarianEfforts }
         ].map((cause, idx) => (
-          <div key={idx} className={`${isDarkTheme ? 'bg-[#1E1E1E] border-[#333] hover:border-[#EBB700]' : 'bg-white border-gray-200 hover:border-[#00338D] hover:shadow-md'} rounded-2xl p-6 border flex flex-col items-center text-center transition-all cursor-pointer`} onClick={() => navigate('projects')}>
+          <a href="#projects" key={idx} className={`block ${isDarkTheme ? 'bg-[#1E1E1E] border-[#333] hover:border-[#EBB700]' : 'bg-white border-gray-200 hover:border-[#00338D] hover:shadow-md'} rounded-2xl p-6 border flex flex-col items-center text-center transition-all cursor-pointer`}>
             <img src={cause.icon} alt="" className="w-16 h-16 object-contain mb-4" />
             <h3 className={`font-bold ${isDarkTheme ? 'text-white' : 'text-[#172033]'}`}>{cause.name}</h3>
-          </div>
+          </a>
         ))}
       </div>
     </div>
   </div>
 );
 
-const ProjectsView = ({ navigate, isDarkTheme }) => (
+const ProjectsView = ({ isDarkTheme }) => (
   <div className="min-h-screen">
     <section className={`${isDarkTheme ? 'bg-black text-white' : 'bg-blue-50 text-[#172033]'} border-b-4 border-[#EBB700] relative overflow-hidden transition-colors duration-200`}>
       <div className={`absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] ${isDarkTheme ? 'from-[#00338D]' : 'from-blue-300'} via-transparent to-transparent`}></div>
@@ -275,7 +276,7 @@ const ProjectsView = ({ navigate, isDarkTheme }) => (
   </div>
 );
 
-const ContactView = ({ navigate, isDarkTheme }) => {
+const ContactView = ({ isDarkTheme }) => {
   const [submitted, setSubmitted] = useState(false);
 
   const handleSubmit = (event) => {
@@ -336,7 +337,8 @@ const ContactView = ({ navigate, isDarkTheme }) => {
   );
 };
 
-const JoinView = ({ navigate, isDarkTheme }) => {
+const JoinView = ({ isDarkTheme }) => {
+  const [selectedPlan, setSelectedPlan] = useState('');
   const [step, setStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [interviewDate, setInterviewDate] = useState('');
@@ -378,6 +380,13 @@ const JoinView = ({ navigate, isDarkTheme }) => {
     }, 1500);
   };
 
+  const FeatureItem = ({ text, bold }) => (
+    <li className="flex items-start gap-3 text-sm group cursor-default">
+      <CheckCircle2 className="text-[#EBB700] shrink-0 mt-0.5 transition-transform duration-300 group-hover:scale-125" size={18} />
+      <span className={`${isDarkTheme ? 'text-gray-300' : 'text-gray-700'} ${bold ? 'font-bold' : ''} transition-colors duration-300 group-hover:${isDarkTheme ? 'text-white' : 'text-black'}`}>{text}</span>
+    </li>
+  );
+
   return (
     <div className={`min-h-screen py-12 px-4 sm:px-6 lg:px-8 ${isDarkTheme ? 'bg-[#121212]' : 'bg-gray-50'}`}>
       
@@ -392,250 +401,340 @@ const JoinView = ({ navigate, isDarkTheme }) => {
         }
       `}</style>
 
-      <div className="max-w-4xl mx-auto">
-        {step < 5 && (
-          <div className="mb-8">
-            <div className="flex items-center justify-between text-sm font-medium text-gray-500 mb-2">
-              <span>Step {step} of 4</span>
-              <button onClick={() => navigate('home')} className="text-[#EBB700] hover:underline font-bold">Cancel Application</button>
-            </div>
-            <div className={`w-full rounded-full h-2 ${isDarkTheme ? 'bg-gray-800' : 'bg-gray-200'}`}>
-              <div className="bg-[#EBB700] h-2 rounded-full transition-all duration-500 ease-out" style={{ width: `${(step/4)*100}%` }}></div>
-            </div>
+      {!selectedPlan ? (
+        // PRICING CARDS VIEW
+        <div className="max-w-6xl mx-auto step-animation py-8">
+          <div className="text-center mb-16">
+            <h1 className={`text-4xl md:text-5xl font-bold mb-4 ${isDarkTheme ? 'text-white' : 'text-[#00338D]'}`}>Choose Your Membership</h1>
+            <div className="w-16 h-1.5 bg-[#EBB700] mx-auto rounded-full mb-6"></div>
+            <p className={`text-lg max-w-2xl mx-auto ${isDarkTheme ? 'text-gray-400' : 'text-gray-600'}`}>Select the perfect plan to begin your leadership journey with Leo Club Chandigarh Fortune.</p>
           </div>
-        )}
 
-        <div className={`rounded-3xl shadow-lg border overflow-hidden transition-all duration-300 ${isDarkTheme ? 'bg-[#1E1E1E] border-gray-800' : 'bg-white border-gray-100'}`}>
-          
-          {/* STEP 1: PERSONAL DETAILS */}
-          {step === 1 && (
-            <div className="p-8 md:p-10 step-animation">
-              <h2 className={`text-3xl font-bold mb-2 ${isDarkTheme ? 'text-white' : 'text-[#172033]'}`}>Personal Details</h2>
-              <p className={`mb-8 ${isDarkTheme ? 'text-gray-400' : 'text-gray-600'}`}>Tell us about yourself so we can begin your Leo membership application.</p>
-              
-              {/* Basic Information */}
-              <div className="mb-10">
-                <h3 className={`text-lg font-bold mb-5 border-b pb-2 ${isDarkTheme ? 'text-[#EBB700] border-gray-700' : 'text-[#00338D] border-gray-200'}`}>Basic Information</h3>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-                  <div><label className={`block text-sm font-bold mb-2 ${isDarkTheme ? 'text-gray-300' : 'text-gray-700'}`}>First Name *</label><input required type="text" className={`w-full border rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#EBB700] outline-none ${isDarkTheme ? 'bg-[#2A2A2A] border-gray-700 text-white' : 'bg-white border-gray-300 text-black'}`} /></div>
-                  <div><label className={`block text-sm font-bold mb-2 ${isDarkTheme ? 'text-gray-300' : 'text-gray-700'}`}>Middle Name</label><input type="text" className={`w-full border rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#EBB700] outline-none ${isDarkTheme ? 'bg-[#2A2A2A] border-gray-700 text-white' : 'bg-white border-gray-300 text-black'}`} /></div>
-                  <div><label className={`block text-sm font-bold mb-2 ${isDarkTheme ? 'text-gray-300' : 'text-gray-700'}`}>Last Name *</label><input required type="text" className={`w-full border rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#EBB700] outline-none ${isDarkTheme ? 'bg-[#2A2A2A] border-gray-700 text-white' : 'bg-white border-gray-300 text-black'}`} /></div>
-                  
-                  <div><label className={`block text-sm font-bold mb-2 ${isDarkTheme ? 'text-gray-300' : 'text-gray-700'}`}>Age *</label><input required min="12" max="30" type="number" className={`w-full border rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#EBB700] outline-none ${isDarkTheme ? 'bg-[#2A2A2A] border-gray-700 text-white' : 'bg-white border-gray-300 text-black'}`} /></div>
-                  <div><label className={`block text-sm font-bold mb-2 ${isDarkTheme ? 'text-gray-300' : 'text-gray-700'}`}>Date of Birth *</label><input required type="date" className={`w-full border rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#EBB700] outline-none ${isDarkTheme ? 'bg-[#2A2A2A] border-gray-700 text-white' : 'bg-white border-gray-300 text-black'}`} /></div>
-                  <div>
-                    <label className={`block text-sm font-bold mb-2 ${isDarkTheme ? 'text-gray-300' : 'text-gray-700'}`}>Gender *</label>
-                    <select required defaultValue="" className={`w-full border rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#EBB700] outline-none ${isDarkTheme ? 'bg-[#2A2A2A] border-gray-700 text-white' : 'bg-white border-gray-300 text-black'}`}>
-                      <option value="" disabled>Select gender</option><option>Female</option><option>Male</option><option>Non-binary</option><option>Prefer not to say</option>
-                    </select>
-                  </div>
+          <div className="grid md:grid-cols-3 gap-8 items-center max-w-5xl mx-auto">
+            
+            {/* Regular Plan */}
+            <div className={`p-8 rounded-3xl border transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl ${isDarkTheme ? 'bg-[#1A1A1A] border-gray-800 hover:border-gray-600 hover:shadow-white/5' : 'bg-white border-gray-200 hover:border-[#00338D]/40'}`}>
+              <h3 className={`text-xl font-bold ${isDarkTheme ? 'text-gray-300' : 'text-gray-600'}`}>Regular</h3>
+              <div className="mt-4 mb-6">
+                <span className={`text-4xl font-black ${isDarkTheme ? 'text-white' : 'text-[#172033]'}`}>₹719</span>
+                <span className={`text-sm ${isDarkTheme ? 'text-gray-500' : 'text-gray-500'}`}>/year</span>
+              </div>
+              <button onClick={() => { setSelectedPlan('Regular'); window.scrollTo(0,0); }} className={`w-full py-3 rounded-xl font-bold transition-all duration-300 border-2 hover:scale-105 active:scale-95 ${isDarkTheme ? 'border-gray-700 text-white hover:bg-gray-800 hover:border-gray-500' : 'border-gray-200 text-[#172033] hover:bg-gray-50 hover:border-[#00338D]/30'}`}>
+                Choose Regular
+              </button>
+              <ul className="mt-8 space-y-4">
+                <FeatureItem text="LinkedIn Resource Kit" />
+                <FeatureItem text="Resume Building" />
+                <FeatureItem text="Digital Membership Badge" />
+                <FeatureItem text="Physical Joining Kit" />
+                <FeatureItem text="Orientation Ceremony" />
+                <FeatureItem text="T-shirt available separately at ₹499" />
+              </ul>
+            </div>
 
-                  <div>
-                    <label className={`block text-sm font-bold mb-2 ${isDarkTheme ? 'text-gray-300' : 'text-gray-700'}`}>Blood Group *</label>
-                    <select required defaultValue="" className={`w-full border rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#EBB700] outline-none ${isDarkTheme ? 'bg-[#2A2A2A] border-gray-700 text-white' : 'bg-white border-gray-300 text-black'}`}>
-                      <option value="" disabled>Select blood group</option><option>A+</option><option>A-</option><option>B+</option><option>B-</option><option>AB+</option><option>AB-</option><option>O+</option><option>O-</option>
-                    </select>
+            {/* Fellowship Plan - Highlighted */}
+            <div className={`p-8 rounded-3xl border-2 relative transform md:-translate-y-4 md:scale-105 transition-all duration-300 hover:-translate-y-6 ${isDarkTheme ? 'bg-gradient-to-b from-[#1A1D2B] to-[#121212] border-[#00338D] shadow-[0_0_20px_rgba(0,51,141,0.4)] hover:shadow-[0_0_35px_rgba(0,51,141,0.6)]' : 'bg-white border-[#00338D] shadow-xl shadow-[#00338D]/10 hover:shadow-2xl hover:shadow-[#00338D]/20'}`}>
+              <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-[#EBB700] text-[#172033] px-4 py-1 rounded-full text-xs font-bold tracking-widest uppercase shadow-md">
+                Best Value
+              </div>
+              <h3 className={`text-xl font-bold ${isDarkTheme ? 'text-[#EBB700]' : 'text-[#00338D]'}`}>Fellowship</h3>
+              <div className="mt-4 mb-6 flex flex-col">
+                <div className="flex items-center gap-2 mb-1">
+                  <span className={`text-lg line-through font-semibold ${isDarkTheme ? 'text-gray-500' : 'text-gray-400'}`}>₹1,999</span>
+                  <span className={`text-xs font-bold px-2.5 py-0.5 rounded-full border ${isDarkTheme ? 'bg-[#EBB700]/10 text-[#EBB700] border-[#EBB700]/30' : 'bg-[#00338D]/10 text-[#00338D] border-[#00338D]/30'}`}>SAVE ₹850</span>
+                </div>
+                <div>
+                  <span className={`text-4xl font-black ${isDarkTheme ? 'text-white' : 'text-[#172033]'}`}>₹1,149</span>
+                  <span className={`text-sm ${isDarkTheme ? 'text-gray-400' : 'text-gray-500'}`}>/year</span>
+                </div>
+              </div>
+              <button onClick={() => { setSelectedPlan('Fellowship'); window.scrollTo(0,0); }} className="w-full bg-[#EBB700] text-[#172033] py-3 rounded-xl font-bold transition-all duration-300 hover:bg-yellow-400 hover:shadow-lg hover:shadow-[#EBB700]/30 hover:scale-105 active:scale-95">
+                Choose Fellowship
+              </button>
+              <ul className="mt-8 space-y-4">
+                <FeatureItem text="Everything in Regular" bold={true} />
+                <FeatureItem text="Leo International Pin" />
+                <FeatureItem text="2 of 4 Fellowship Programs free" />
+                <FeatureItem text="Free networking opportunities" />
+                <FeatureItem text="T-shirt available separately at ₹499" />
+              </ul>
+            </div>
+
+            {/* Elite Plan */}
+            <div className={`p-8 rounded-3xl border transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl ${isDarkTheme ? 'bg-gradient-to-b from-[#1C1C1C] to-[#121212] border-gray-700 hover:border-gray-500 hover:shadow-white/10' : 'bg-gradient-to-b from-gray-50 to-white border-gray-200 hover:border-gray-400'}`}>
+              <h3 className={`text-xl font-bold ${isDarkTheme ? 'text-gray-300' : 'text-gray-800'}`}>Elite</h3>
+              <div className="mt-4 mb-6 flex flex-col">
+                <div className="flex items-center gap-2 mb-1">
+                  <span className={`text-lg line-through font-semibold ${isDarkTheme ? 'text-gray-500' : 'text-gray-400'}`}>₹2,799</span>
+                  <span className={`text-xs font-bold px-2.5 py-0.5 rounded-full border ${isDarkTheme ? 'bg-gray-800 text-gray-300 border-gray-600' : 'bg-gray-200 text-gray-700 border-gray-300'}`}>SAVE ₹600</span>
+                </div>
+                <div>
+                  <span className={`text-4xl font-black ${isDarkTheme ? 'text-white' : 'text-[#172033]'}`}>₹2,199</span>
+                  <span className={`text-sm ${isDarkTheme ? 'text-gray-500' : 'text-gray-500'}`}>/year</span>
+                </div>
+              </div>
+              <button onClick={() => { setSelectedPlan('Elite'); window.scrollTo(0,0); }} className={`w-full py-3 rounded-xl font-bold transition-all duration-300 border-2 hover:scale-105 active:scale-95 ${isDarkTheme ? 'border-gray-600 text-white hover:bg-gray-800 hover:border-gray-400' : 'border-gray-300 text-[#172033] hover:bg-white hover:border-gray-500'}`}>
+                Choose Elite
+              </button>
+              <ul className="mt-8 space-y-4">
+                <FeatureItem text="Everything in Fellowship" bold={true} />
+                <FeatureItem text="All 4 Fellowship Programs free" />
+                <FeatureItem text="Club T-shirt included" />
+                <FeatureItem text="Closing Party invitation" />
+                <FeatureItem text="Priority consideration to lead 1 service project" />
+              </ul>
+            </div>
+
+          </div>
+        </div>
+      ) : (
+        // FORM VIEW
+        <div className="max-w-4xl mx-auto">
+          {step < 5 && (
+            <div className="mb-8">
+              <div className="flex items-center justify-between text-sm font-medium text-gray-500 mb-2">
+                <span>Step {step} of 4</span>
+                <button onClick={() => setSelectedPlan('')} className="text-[#EBB700] hover:underline font-bold">Change Plan</button>
+              </div>
+              <div className={`w-full rounded-full h-2 ${isDarkTheme ? 'bg-gray-800' : 'bg-gray-200'}`}>
+                <div className="bg-[#EBB700] h-2 rounded-full transition-all duration-500 ease-out" style={{ width: `${(step/4)*100}%` }}></div>
+              </div>
+            </div>
+          )}
+
+          <div className={`rounded-3xl shadow-lg border overflow-hidden transition-all duration-300 ${isDarkTheme ? 'bg-[#1E1E1E] border-gray-800' : 'bg-white border-gray-100'}`}>
+            
+            {/* STEP 1: PERSONAL DETAILS */}
+            {step === 1 && (
+              <div className="p-8 md:p-10 step-animation">
+                <h2 className={`text-3xl font-bold mb-2 ${isDarkTheme ? 'text-white' : 'text-[#172033]'}`}>Personal Details</h2>
+                <p className={`mb-8 ${isDarkTheme ? 'text-gray-400' : 'text-gray-600'}`}>Tell us about yourself so we can begin your Leo membership application.</p>
+                
+                {/* Basic Information */}
+                <div className="mb-10">
+                  <h3 className={`text-lg font-bold mb-5 border-b pb-2 ${isDarkTheme ? 'text-[#EBB700] border-gray-700' : 'text-[#00338D] border-gray-200'}`}>Basic Information</h3>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+                    <div><label className={`block text-sm font-bold mb-2 ${isDarkTheme ? 'text-gray-300' : 'text-gray-700'}`}>First Name *</label><input required type="text" className={`w-full border rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#EBB700] outline-none ${isDarkTheme ? 'bg-[#2A2A2A] border-gray-700 text-white' : 'bg-white border-gray-300 text-black'}`} /></div>
+                    <div><label className={`block text-sm font-bold mb-2 ${isDarkTheme ? 'text-gray-300' : 'text-gray-700'}`}>Middle Name</label><input type="text" className={`w-full border rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#EBB700] outline-none ${isDarkTheme ? 'bg-[#2A2A2A] border-gray-700 text-white' : 'bg-white border-gray-300 text-black'}`} /></div>
+                    <div><label className={`block text-sm font-bold mb-2 ${isDarkTheme ? 'text-gray-300' : 'text-gray-700'}`}>Last Name *</label><input required type="text" className={`w-full border rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#EBB700] outline-none ${isDarkTheme ? 'bg-[#2A2A2A] border-gray-700 text-white' : 'bg-white border-gray-300 text-black'}`} /></div>
+                    
+                    <div><label className={`block text-sm font-bold mb-2 ${isDarkTheme ? 'text-gray-300' : 'text-gray-700'}`}>Age *</label><input required min="12" max="30" type="number" className={`w-full border rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#EBB700] outline-none ${isDarkTheme ? 'bg-[#2A2A2A] border-gray-700 text-white' : 'bg-white border-gray-300 text-black'}`} /></div>
+                    <div><label className={`block text-sm font-bold mb-2 ${isDarkTheme ? 'text-gray-300' : 'text-gray-700'}`}>Date of Birth *</label><input required type="date" className={`w-full border rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#EBB700] outline-none ${isDarkTheme ? 'bg-[#2A2A2A] border-gray-700 text-white' : 'bg-white border-gray-300 text-black'}`} /></div>
+                    <div>
+                      <label className={`block text-sm font-bold mb-2 ${isDarkTheme ? 'text-gray-300' : 'text-gray-700'}`}>Gender *</label>
+                      <select required defaultValue="" className={`w-full border rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#EBB700] outline-none ${isDarkTheme ? 'bg-[#2A2A2A] border-gray-700 text-white' : 'bg-white border-gray-300 text-black'}`}>
+                        <option value="" disabled>Select gender</option><option>Female</option><option>Male</option><option>Non-binary</option><option>Prefer not to say</option>
+                      </select>
+                    </div>
+
+                    <div>
+                      <label className={`block text-sm font-bold mb-2 ${isDarkTheme ? 'text-gray-300' : 'text-gray-700'}`}>Blood Group *</label>
+                      <select required defaultValue="" className={`w-full border rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#EBB700] outline-none ${isDarkTheme ? 'bg-[#2A2A2A] border-gray-700 text-white' : 'bg-white border-gray-300 text-black'}`}>
+                        <option value="" disabled>Select blood group</option><option>A+</option><option>A-</option><option>B+</option><option>B-</option><option>AB+</option><option>AB-</option><option>O+</option><option>O-</option>
+                      </select>
+                    </div>
+                    <div className="md:col-span-2">
+                      <label className={`block text-sm font-bold mb-2 ${isDarkTheme ? 'text-gray-300' : 'text-gray-700'}`}>Are you a person of determination (person with disability)?</label>
+                      <select defaultValue="No" className={`w-full border rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#EBB700] outline-none ${isDarkTheme ? 'bg-[#2A2A2A] border-gray-700 text-white' : 'bg-white border-gray-300 text-black'}`}>
+                        <option>Yes</option><option>No</option>
+                      </select>
+                    </div>
                   </div>
-                  <div className="md:col-span-2">
-                    <label className={`block text-sm font-bold mb-2 ${isDarkTheme ? 'text-gray-300' : 'text-gray-700'}`}>Are you a person of determination (person with disability)?</label>
+                </div>
+
+                {/* Contact Information */}
+                <div className="mb-10">
+                  <h3 className={`text-lg font-bold mb-4 border-b pb-2 ${isDarkTheme ? 'text-[#EBB700] border-gray-700' : 'text-[#00338D] border-gray-200'}`}>Contact Information</h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <div>
+                      <label className={`block text-sm font-bold mb-2 ${isDarkTheme ? 'text-gray-300' : 'text-gray-700'}`}>Contact Number <span className="font-normal text-xs block">(Should be available on WhatsApp) *</span></label>
+                      <input required type="tel" placeholder="+91" className={`w-full border rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#EBB700] outline-none ${isDarkTheme ? 'bg-[#2A2A2A] border-gray-700 text-white' : 'bg-white border-gray-300 text-black'}`} />
+                    </div>
+                    <div>
+                      <label className={`block text-sm font-bold mb-2 ${isDarkTheme ? 'text-gray-300' : 'text-gray-700'}`}>Personal Email ID * <span className="font-normal text-xs block opacity-0">spacer</span></label>
+                      <input required type="email" placeholder="name@example.com" className={`w-full border rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#EBB700] outline-none ${isDarkTheme ? 'bg-[#2A2A2A] border-gray-700 text-white' : 'bg-white border-gray-300 text-black'}`} />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Location Details */}
+                <div className="mb-10">
+                  <h3 className={`text-lg font-bold mb-4 border-b pb-2 ${isDarkTheme ? 'text-[#EBB700] border-gray-700' : 'text-[#00338D] border-gray-200'}`}>Location Details</h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <div className="md:col-span-2">
+                      <label className={`block text-sm font-bold mb-2 ${isDarkTheme ? 'text-gray-300' : 'text-gray-700'}`}>Current Address <span className="font-normal text-xs">(Please insert your complete Address) *</span></label>
+                      <textarea required rows="2" placeholder="House No, Street, Landmark" className={`w-full border rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#EBB700] outline-none ${isDarkTheme ? 'bg-[#2A2A2A] border-gray-700 text-white' : 'bg-white border-gray-300 text-black'}`} />
+                    </div>
+                    <div><label className={`block text-sm font-bold mb-2 ${isDarkTheme ? 'text-gray-300' : 'text-gray-700'}`}>City of Residence *</label><input required type="text" className={`w-full border rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#EBB700] outline-none ${isDarkTheme ? 'bg-[#2A2A2A] border-gray-700 text-white' : 'bg-white border-gray-300 text-black'}`} /></div>
+                    <div><label className={`block text-sm font-bold mb-2 ${isDarkTheme ? 'text-gray-300' : 'text-gray-700'}`}>Pin Code *</label><input required pattern="[0-9]{6}" inputMode="numeric" placeholder="6-digit PIN" className={`w-full border rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#EBB700] outline-none ${isDarkTheme ? 'bg-[#2A2A2A] border-gray-700 text-white' : 'bg-white border-gray-300 text-black'}`} /></div>
+                  </div>
+                </div>
+
+                {/* Professional Information */}
+                <div className="mb-8">
+                  <h3 className={`text-lg font-bold mb-4 border-b pb-2 ${isDarkTheme ? 'text-[#EBB700] border-gray-700' : 'text-[#00338D] border-gray-200'}`}>Professional Information</h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <div><label className={`block text-sm font-bold mb-2 ${isDarkTheme ? 'text-gray-300' : 'text-gray-700'}`}>Occupation *</label><input required type="text" placeholder="Student, Engineer, etc." className={`w-full border rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#EBB700] outline-none ${isDarkTheme ? 'bg-[#2A2A2A] border-gray-700 text-white' : 'bg-white border-gray-300 text-black'}`} /></div>
+                    <div><label className={`block text-sm font-bold mb-2 ${isDarkTheme ? 'text-gray-300' : 'text-gray-700'}`}>Name of Institute/Organisation/Business *</label><input required type="text" className={`w-full border rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#EBB700] outline-none ${isDarkTheme ? 'bg-[#2A2A2A] border-gray-700 text-white' : 'bg-white border-gray-300 text-black'}`} /></div>
+                  </div>
+                </div>
+
+                <div className="mt-8 flex justify-end">
+                  <button onClick={handleNext} className="w-full sm:w-auto bg-[#EBB700] text-[#172033] px-10 py-3.5 rounded-xl font-bold hover:bg-yellow-500 transition-colors shadow-lg">
+                    Continue to Documents
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {/* STEP 2: DOCUMENTS AND MEMBERSHIP */}
+            {step === 2 && (
+              <div className="p-8 md:p-10 step-animation">
+                <h2 className={`text-3xl font-bold mb-2 ${isDarkTheme ? 'text-white' : 'text-[#172033]'}`}>Documents & References</h2>
+                <p className={`mb-10 ${isDarkTheme ? 'text-gray-400' : 'text-gray-600'}`}>Upload required documents and provide your emergency contact & reference.</p>
+                
+                {/* Documents */}
+                <h3 className={`text-lg font-bold mb-4 border-b pb-2 ${isDarkTheme ? 'text-[#EBB700] border-gray-700' : 'text-[#00338D] border-gray-200'}`}>File Uploads</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-10">
+                  <div>
+                    <label className={`block text-sm font-bold mb-2 ${isDarkTheme ? 'text-gray-300' : 'text-gray-700'}`}>Upload Leo Omega Form *</label>
+                    <input required type="file" accept=".pdf,image/*" className={`w-full border rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#EBB700] outline-none ${isDarkTheme ? 'bg-[#2A2A2A] border-gray-700 text-white' : 'bg-white border-gray-300 text-black'}`} />
+                  </div>
+                  <div>
+                    <label className={`block text-sm font-bold mb-2 ${isDarkTheme ? 'text-gray-300' : 'text-gray-700'}`}>Upload Government ID <span className="font-normal text-xs">(Front & Back Scanned PDF) *</span></label>
+                    <input required type="file" accept="application/pdf" className={`w-full border rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#EBB700] outline-none ${isDarkTheme ? 'bg-[#2A2A2A] border-gray-700 text-white' : 'bg-white border-gray-300 text-black'}`} />
+                  </div>
+                </div>
+
+                {/* Membership */}
+                <h3 className={`text-lg font-bold mb-4 border-b pb-2 ${isDarkTheme ? 'text-[#EBB700] border-gray-700' : 'text-[#00338D] border-gray-200'}`}>Membership Details</h3>
+                <div className="mb-10">
+                  <label className={`block text-sm font-bold mb-2 ${isDarkTheme ? 'text-gray-300' : 'text-gray-700'}`}>Select your choosen Membership Type *</label>
+                  <select required value={selectedPlan} onChange={(e) => setSelectedPlan(e.target.value)} className={`w-full border rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#EBB700] outline-none ${isDarkTheme ? 'bg-[#2A2A2A] border-gray-700 text-white' : 'bg-white border-gray-300 text-black'}`}>
+                    <option value="" disabled>Select membership type</option>
+                    <option value="Regular">Regular Membership (₹{FEES.regular})</option>
+                    <option value="Fellowship">Fellowship Membership (₹{FEES.fellowship})</option>
+                    <option value="Elite">Elite Membership (₹{FEES.elite})</option>
+                  </select>
+                </div>
+
+                {/* Emergency & Reference */}
+                <h3 className={`text-lg font-bold mb-4 border-b pb-2 ${isDarkTheme ? 'text-[#EBB700] border-gray-700' : 'text-[#00338D] border-gray-200'}`}>Emergency & Reference</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-8">
+                  <div><label className={`block text-sm font-bold mb-2 ${isDarkTheme ? 'text-gray-300' : 'text-gray-700'}`}>Emergency Contact Person's Name *</label><input required type="text" className={`w-full border rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#EBB700] outline-none ${isDarkTheme ? 'bg-[#2A2A2A] border-gray-700 text-white' : 'bg-white border-gray-300 text-black'}`} /></div>
+                  <div><label className={`block text-sm font-bold mb-2 ${isDarkTheme ? 'text-gray-300' : 'text-gray-700'}`}>Emergency Contact Number *</label><input required type="tel" className={`w-full border rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#EBB700] outline-none ${isDarkTheme ? 'bg-[#2A2A2A] border-gray-700 text-white' : 'bg-white border-gray-300 text-black'}`} /></div>
+                  <div>
+                    <label className={`block text-sm font-bold mb-2 ${isDarkTheme ? 'text-gray-300' : 'text-gray-700'}`}>Do you have an existing Leo Member as your reference? *</label>
                     <select defaultValue="No" className={`w-full border rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#EBB700] outline-none ${isDarkTheme ? 'bg-[#2A2A2A] border-gray-700 text-white' : 'bg-white border-gray-300 text-black'}`}>
                       <option>Yes</option><option>No</option>
                     </select>
                   </div>
+                  <div><label className={`block text-sm font-bold mb-2 ${isDarkTheme ? 'text-gray-300' : 'text-gray-700'}`}>Reference Person's Name</label><input type="text" placeholder="If Yes, provide name" className={`w-full border rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#EBB700] outline-none ${isDarkTheme ? 'bg-[#2A2A2A] border-gray-700 text-white' : 'bg-white border-gray-300 text-black'}`} /></div>
+                </div>
+
+                <div className="mt-8 flex justify-between gap-4">
+                  <button onClick={handleBack} className={`px-8 py-3.5 rounded-xl font-bold border transition-colors ${isDarkTheme ? 'text-gray-300 border-gray-700 hover:bg-gray-800' : 'text-gray-600 border-gray-300 hover:bg-gray-50'}`}>Back</button>
+                  <button onClick={handleNext} className="flex-1 bg-[#EBB700] text-[#172033] px-8 py-3.5 rounded-xl font-bold hover:bg-yellow-500 shadow-lg">Choose Interview Slot</button>
                 </div>
               </div>
+            )}
 
-              {/* Contact Information */}
-              <div className="mb-10">
-                <h3 className={`text-lg font-bold mb-4 border-b pb-2 ${isDarkTheme ? 'text-[#EBB700] border-gray-700' : 'text-[#00338D] border-gray-200'}`}>Contact Information</h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                  <div>
-                    <label className={`block text-sm font-bold mb-2 ${isDarkTheme ? 'text-gray-300' : 'text-gray-700'}`}>Contact Number <span className="font-normal text-xs block">(Should be available on WhatsApp) *</span></label>
-                    <input required type="tel" placeholder="+91" className={`w-full border rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#EBB700] outline-none ${isDarkTheme ? 'bg-[#2A2A2A] border-gray-700 text-white' : 'bg-white border-gray-300 text-black'}`} />
-                  </div>
-                  <div>
-                    <label className={`block text-sm font-bold mb-2 ${isDarkTheme ? 'text-gray-300' : 'text-gray-700'}`}>Personal Email ID * <span className="font-normal text-xs block opacity-0">spacer</span></label>
-                    <input required type="email" placeholder="name@example.com" className={`w-full border rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#EBB700] outline-none ${isDarkTheme ? 'bg-[#2A2A2A] border-gray-700 text-white' : 'bg-white border-gray-300 text-black'}`} />
-                  </div>
-                </div>
-              </div>
-
-              {/* Location Details */}
-              <div className="mb-10">
-                <h3 className={`text-lg font-bold mb-4 border-b pb-2 ${isDarkTheme ? 'text-[#EBB700] border-gray-700' : 'text-[#00338D] border-gray-200'}`}>Location Details</h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                  <div className="md:col-span-2">
-                    <label className={`block text-sm font-bold mb-2 ${isDarkTheme ? 'text-gray-300' : 'text-gray-700'}`}>Current Address <span className="font-normal text-xs">(Please insert your complete Address) *</span></label>
-                    <textarea required rows="2" placeholder="House No, Street, Landmark" className={`w-full border rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#EBB700] outline-none ${isDarkTheme ? 'bg-[#2A2A2A] border-gray-700 text-white' : 'bg-white border-gray-300 text-black'}`} />
-                  </div>
-                  <div><label className={`block text-sm font-bold mb-2 ${isDarkTheme ? 'text-gray-300' : 'text-gray-700'}`}>City of Residence *</label><input required type="text" className={`w-full border rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#EBB700] outline-none ${isDarkTheme ? 'bg-[#2A2A2A] border-gray-700 text-white' : 'bg-white border-gray-300 text-black'}`} /></div>
-                  <div><label className={`block text-sm font-bold mb-2 ${isDarkTheme ? 'text-gray-300' : 'text-gray-700'}`}>Pin Code *</label><input required pattern="[0-9]{6}" inputMode="numeric" placeholder="6-digit PIN" className={`w-full border rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#EBB700] outline-none ${isDarkTheme ? 'bg-[#2A2A2A] border-gray-700 text-white' : 'bg-white border-gray-300 text-black'}`} /></div>
-                </div>
-              </div>
-
-              {/* Professional Information */}
-              <div className="mb-8">
-                <h3 className={`text-lg font-bold mb-4 border-b pb-2 ${isDarkTheme ? 'text-[#EBB700] border-gray-700' : 'text-[#00338D] border-gray-200'}`}>Professional Information</h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                  <div><label className={`block text-sm font-bold mb-2 ${isDarkTheme ? 'text-gray-300' : 'text-gray-700'}`}>Occupation *</label><input required type="text" placeholder="Student, Engineer, etc." className={`w-full border rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#EBB700] outline-none ${isDarkTheme ? 'bg-[#2A2A2A] border-gray-700 text-white' : 'bg-white border-gray-300 text-black'}`} /></div>
-                  <div><label className={`block text-sm font-bold mb-2 ${isDarkTheme ? 'text-gray-300' : 'text-gray-700'}`}>Name of Institute/Organisation/Business *</label><input required type="text" className={`w-full border rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#EBB700] outline-none ${isDarkTheme ? 'bg-[#2A2A2A] border-gray-700 text-white' : 'bg-white border-gray-300 text-black'}`} /></div>
-                </div>
-              </div>
-
-              <div className="mt-8 flex justify-end">
-                <button onClick={handleNext} className="w-full sm:w-auto bg-[#EBB700] text-[#172033] px-10 py-3.5 rounded-xl font-bold hover:bg-yellow-500 transition-colors shadow-lg">
-                  Continue to Documents
-                </button>
-              </div>
-            </div>
-          )}
-
-          {/* STEP 2: DOCUMENTS AND MEMBERSHIP */}
-          {step === 2 && (
-            <div className="p-8 md:p-10 step-animation">
-              <h2 className={`text-3xl font-bold mb-2 ${isDarkTheme ? 'text-white' : 'text-[#172033]'}`}>Documents & References</h2>
-              <p className={`mb-10 ${isDarkTheme ? 'text-gray-400' : 'text-gray-600'}`}>Upload required documents and provide your emergency contact & reference.</p>
-              
-              {/* Documents */}
-              <h3 className={`text-lg font-bold mb-4 border-b pb-2 ${isDarkTheme ? 'text-[#EBB700] border-gray-700' : 'text-[#00338D] border-gray-200'}`}>File Uploads</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-10">
-                <div>
-                  <label className={`block text-sm font-bold mb-2 ${isDarkTheme ? 'text-gray-300' : 'text-gray-700'}`}>Upload Leo Omega Form *</label>
-                  <input required type="file" accept=".pdf,image/*" className={`w-full border rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#EBB700] outline-none ${isDarkTheme ? 'bg-[#2A2A2A] border-gray-700 text-white' : 'bg-white border-gray-300 text-black'}`} />
-                </div>
-                <div>
-                  <label className={`block text-sm font-bold mb-2 ${isDarkTheme ? 'text-gray-300' : 'text-gray-700'}`}>Upload Government ID <span className="font-normal text-xs">(Front & Back Scanned PDF) *</span></label>
-                  <input required type="file" accept="application/pdf" className={`w-full border rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#EBB700] outline-none ${isDarkTheme ? 'bg-[#2A2A2A] border-gray-700 text-white' : 'bg-white border-gray-300 text-black'}`} />
-                </div>
-              </div>
-
-              {/* Membership */}
-              <h3 className={`text-lg font-bold mb-4 border-b pb-2 ${isDarkTheme ? 'text-[#EBB700] border-gray-700' : 'text-[#00338D] border-gray-200'}`}>Membership Details</h3>
-              <div className="mb-10">
-                <label className={`block text-sm font-bold mb-2 ${isDarkTheme ? 'text-gray-300' : 'text-gray-700'}`}>Select your choosen Membership Type *</label>
-                <select required defaultValue="" className={`w-full border rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#EBB700] outline-none ${isDarkTheme ? 'bg-[#2A2A2A] border-gray-700 text-white' : 'bg-white border-gray-300 text-black'}`}>
-                  <option value="" disabled>Select membership type</option>
-                  <option>Regular Membership (₹{FEES.regular})</option>
-                  <option>Fellowship Membership (₹{FEES.fellowship})</option>
+            {/* STEP 3: INTERVIEW SLOT */}
+            {step === 3 && (
+              <div className="p-8 md:p-10 step-animation">
+                <h2 className={`text-3xl font-bold mb-2 ${isDarkTheme ? 'text-white' : 'text-[#172033]'}`}>Choose your interview slot</h2>
+                <p className={`mb-10 ${isDarkTheme ? 'text-gray-400' : 'text-gray-600'}`}>Interviews are available from 9 August to 6 September, between 8:00 PM and 10:00 PM.</p>
+                
+                <label className={`block text-lg font-bold mb-3 ${isDarkTheme ? 'text-gray-200' : 'text-gray-800'}`}>Select Interview Date *</label>
+                <select value={interviewDate} onChange={(e) => setInterviewDate(e.target.value)} className={`w-full border rounded-xl px-4 py-4 text-lg focus:ring-2 focus:ring-[#EBB700] outline-none mb-8 ${isDarkTheme ? 'bg-[#2A2A2A] border-gray-700 text-white' : 'bg-white border-gray-300 text-black'}`}>
+                  <option value="">-- Choose a date --</option>
+                  {interviewDates.map((date) => <option key={date.value} value={date.value}>{date.label}</option>)}
                 </select>
-              </div>
-
-              {/* Emergency & Reference */}
-              <h3 className={`text-lg font-bold mb-4 border-b pb-2 ${isDarkTheme ? 'text-[#EBB700] border-gray-700' : 'text-[#00338D] border-gray-200'}`}>Emergency & Reference</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-8">
-                <div><label className={`block text-sm font-bold mb-2 ${isDarkTheme ? 'text-gray-300' : 'text-gray-700'}`}>Emergency Contact Person's Name *</label><input required type="text" className={`w-full border rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#EBB700] outline-none ${isDarkTheme ? 'bg-[#2A2A2A] border-gray-700 text-white' : 'bg-white border-gray-300 text-black'}`} /></div>
-                <div><label className={`block text-sm font-bold mb-2 ${isDarkTheme ? 'text-gray-300' : 'text-gray-700'}`}>Emergency Contact Number *</label><input required type="tel" className={`w-full border rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#EBB700] outline-none ${isDarkTheme ? 'bg-[#2A2A2A] border-gray-700 text-white' : 'bg-white border-gray-300 text-black'}`} /></div>
-                <div>
-                  <label className={`block text-sm font-bold mb-2 ${isDarkTheme ? 'text-gray-300' : 'text-gray-700'}`}>Do you have an existing Leo Member as your reference? *</label>
-                  <select defaultValue="No" className={`w-full border rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#EBB700] outline-none ${isDarkTheme ? 'bg-[#2A2A2A] border-gray-700 text-white' : 'bg-white border-gray-300 text-black'}`}>
-                    <option>Yes</option><option>No</option>
-                  </select>
+                
+                <p className={`text-lg font-bold mb-4 ${isDarkTheme ? 'text-gray-200' : 'text-gray-800'}`}>Select Available Time *</p>
+                <div className="grid grid-cols-3 sm:grid-cols-4 gap-4 mb-8">
+                  {interviewTimes.map((time) => (
+                    <button 
+                      key={time} 
+                      type="button" 
+                      onClick={() => setInterviewTime(time)} 
+                      className={`border-2 rounded-xl px-3 py-4 font-bold text-lg transition-all ${
+                        interviewTime === time 
+                          ? 'bg-[#EBB700] text-[#172033] border-[#EBB700] shadow-md transform scale-105' 
+                          : isDarkTheme 
+                            ? 'border-gray-700 text-gray-300 hover:border-[#EBB700]' 
+                            : 'border-gray-200 text-gray-700 hover:border-[#EBB700] bg-gray-50'
+                      }`}
+                    >
+                      {time}
+                    </button>
+                  ))}
                 </div>
-                <div><label className={`block text-sm font-bold mb-2 ${isDarkTheme ? 'text-gray-300' : 'text-gray-700'}`}>Reference Person's Name</label><input type="text" placeholder="If Yes, provide name" className={`w-full border rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#EBB700] outline-none ${isDarkTheme ? 'bg-[#2A2A2A] border-gray-700 text-white' : 'bg-white border-gray-300 text-black'}`} /></div>
-              </div>
 
-              <div className="mt-8 flex justify-between gap-4">
-                <button onClick={handleBack} className={`px-8 py-3.5 rounded-xl font-bold border transition-colors ${isDarkTheme ? 'text-gray-300 border-gray-700 hover:bg-gray-800' : 'text-gray-600 border-gray-300 hover:bg-gray-50'}`}>Back</button>
-                <button onClick={handleNext} className="flex-1 bg-[#EBB700] text-[#172033] px-8 py-3.5 rounded-xl font-bold hover:bg-yellow-500 shadow-lg">Choose Interview Slot</button>
+                <div className="mt-12 flex justify-between gap-4">
+                  <button onClick={handleBack} className={`px-8 py-3.5 rounded-xl font-bold border transition-colors ${isDarkTheme ? 'text-gray-300 border-gray-700 hover:bg-gray-800' : 'text-gray-600 border-gray-300 hover:bg-gray-50'}`}>Back</button>
+                  <button disabled={!interviewDate || !interviewTime} onClick={handleNext} className={`flex-1 px-8 py-3.5 rounded-xl font-bold shadow-lg transition-all ${interviewDate && interviewTime ? 'bg-[#EBB700] text-[#172033] hover:bg-yellow-500' : isDarkTheme ? 'bg-gray-800 text-gray-600 cursor-not-allowed shadow-none' : 'bg-gray-200 text-gray-400 cursor-not-allowed shadow-none'}`}>Review & Declare</button>
+                </div>
               </div>
-            </div>
-          )}
+            )}
 
-          {/* STEP 3: INTERVIEW SLOT */}
-          {step === 3 && (
-            <div className="p-8 md:p-10 step-animation">
-              <h2 className={`text-3xl font-bold mb-2 ${isDarkTheme ? 'text-white' : 'text-[#172033]'}`}>Choose your interview slot</h2>
-              <p className={`mb-10 ${isDarkTheme ? 'text-gray-400' : 'text-gray-600'}`}>Interviews are available from 9 August to 6 September, between 8:00 PM and 10:00 PM.</p>
-              
-              <label className={`block text-lg font-bold mb-3 ${isDarkTheme ? 'text-gray-200' : 'text-gray-800'}`}>Select Interview Date *</label>
-              <select value={interviewDate} onChange={(e) => setInterviewDate(e.target.value)} className={`w-full border rounded-xl px-4 py-4 text-lg focus:ring-2 focus:ring-[#EBB700] outline-none mb-8 ${isDarkTheme ? 'bg-[#2A2A2A] border-gray-700 text-white' : 'bg-white border-gray-300 text-black'}`}>
-                <option value="">-- Choose a date --</option>
-                {interviewDates.map((date) => <option key={date.value} value={date.value}>{date.label}</option>)}
-              </select>
-              
-              <p className={`text-lg font-bold mb-4 ${isDarkTheme ? 'text-gray-200' : 'text-gray-800'}`}>Select Available Time *</p>
-              <div className="grid grid-cols-3 sm:grid-cols-4 gap-4 mb-8">
-                {interviewTimes.map((time) => (
+            {/* STEP 4: DECLARATION */}
+            {step === 4 && (
+              <div className="p-8 md:p-10 step-animation">
+                <h2 className={`text-3xl font-bold mb-8 ${isDarkTheme ? 'text-white' : 'text-[#172033]'}`}>Final Declaration</h2>
+                
+                <div className={`p-6 border rounded-2xl mb-8 ${isDarkTheme ? 'bg-[#2A2A2A] border-gray-700' : 'bg-yellow-50 border-yellow-200'}`}>
+                  <label className="flex items-start gap-4 cursor-pointer">
+                    <input required type="checkbox" className="mt-1.5 w-6 h-6 accent-[#EBB700] cursor-pointer" />
+                    <span className={`text-base font-medium leading-relaxed ${isDarkTheme ? 'text-gray-200' : 'text-gray-800'}`}>
+                      As a member, Do you agree to comply with the constitution and bylaws of the Leo Club Programe (Chapter XXII | LEO50-O Omega Application | 03/20 EN - Photo/Video Authorization Form) and to abide by the rules and regulations set forth by the Club's Board.
+                    </span>
+                  </label>
+                </div>
+
+                <div className="mt-10 flex justify-between gap-4">
+                  <button onClick={handleBack} disabled={isSubmitting} className={`px-8 py-3.5 rounded-xl font-bold border transition-colors ${isDarkTheme ? 'text-gray-300 border-gray-700 hover:bg-gray-800' : 'text-gray-600 border-gray-300 hover:bg-gray-50'}`}>Back</button>
                   <button 
-                    key={time} 
-                    type="button" 
-                    onClick={() => setInterviewTime(time)} 
-                    className={`border-2 rounded-xl px-3 py-4 font-bold text-lg transition-all ${
-                      interviewTime === time 
-                        ? 'bg-[#EBB700] text-[#172033] border-[#EBB700] shadow-md transform scale-105' 
-                        : isDarkTheme 
-                          ? 'border-gray-700 text-gray-300 hover:border-[#EBB700]' 
-                          : 'border-gray-200 text-gray-700 hover:border-[#EBB700] bg-gray-50'
-                    }`}
+                    onClick={handleSubmit} 
+                    disabled={isSubmitting}
+                    className="flex-1 bg-[#EBB700] text-[#172033] px-8 py-3.5 rounded-xl font-bold hover:bg-yellow-500 transition-all shadow-lg flex items-center justify-center gap-3"
                   >
-                    {time}
+                    {isSubmitting ? (
+                      <span className="animate-pulse">Submitting Application...</span>
+                    ) : (
+                      <>Submit Application <CheckCircle2 size={20} /></>
+                    )}
                   </button>
-                ))}
+                </div>
               </div>
+            )}
 
-              <div className="mt-12 flex justify-between gap-4">
-                <button onClick={handleBack} className={`px-8 py-3.5 rounded-xl font-bold border transition-colors ${isDarkTheme ? 'text-gray-300 border-gray-700 hover:bg-gray-800' : 'text-gray-600 border-gray-300 hover:bg-gray-50'}`}>Back</button>
-                <button disabled={!interviewDate || !interviewTime} onClick={handleNext} className={`flex-1 px-8 py-3.5 rounded-xl font-bold shadow-lg transition-all ${interviewDate && interviewTime ? 'bg-[#EBB700] text-[#172033] hover:bg-yellow-500' : isDarkTheme ? 'bg-gray-800 text-gray-600 cursor-not-allowed shadow-none' : 'bg-gray-200 text-gray-400 cursor-not-allowed shadow-none'}`}>Review & Declare</button>
+            {/* STEP 5: SUCCESS */}
+            {step === 5 && (
+              <div className="p-10 text-center py-20 step-animation">
+                <div className="w-28 h-28 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-8 shadow-inner">
+                  <CheckCircle2 className="text-green-600" size={56} />
+                </div>
+                <h2 className={`text-4xl font-bold mb-4 ${isDarkTheme ? 'text-white' : 'text-[#172033]'}`}>Application Submitted!</h2>
+                <p className={`text-lg mb-10 max-w-lg mx-auto leading-relaxed ${isDarkTheme ? 'text-gray-300' : 'text-gray-600'}`}>
+                  Thank you. Your interview is scheduled for <br/>
+                  <strong className={isDarkTheme ? 'text-[#EBB700]' : 'text-[#00338D]'}>{interviewDate}</strong> at <strong className={isDarkTheme ? 'text-[#EBB700]' : 'text-[#00338D]'}>{interviewTime}</strong>.<br/><br/>
+                  We will contact you on WhatsApp or email with the next steps.
+                </p>
+                <a href="#home" className="bg-[#EBB700] text-[#172033] px-10 py-4 rounded-xl font-bold text-lg hover:bg-yellow-500 shadow-lg transition-transform hover:-translate-y-1 inline-block">
+                  Return to Home
+                </a>
               </div>
-            </div>
-          )}
+            )}
 
-          {/* STEP 4: DECLARATION */}
-          {step === 4 && (
-            <div className="p-8 md:p-10 step-animation">
-              <h2 className={`text-3xl font-bold mb-8 ${isDarkTheme ? 'text-white' : 'text-[#172033]'}`}>Final Declaration</h2>
-              
-              <div className={`p-6 border rounded-2xl mb-8 ${isDarkTheme ? 'bg-[#2A2A2A] border-gray-700' : 'bg-yellow-50 border-yellow-200'}`}>
-                <label className="flex items-start gap-4 cursor-pointer">
-                  <input required type="checkbox" className="mt-1.5 w-6 h-6 accent-[#EBB700] cursor-pointer" />
-                  <span className={`text-base font-medium leading-relaxed ${isDarkTheme ? 'text-gray-200' : 'text-gray-800'}`}>
-                    As a member, Do you agree to comply with the constitution and bylaws of the Leo Club Programe (Chapter XXII | LEO50-O Omega Application | 03/20 EN - Photo/Video Authorization Form) and to abide by the rules and regulations set forth by the Club's Board.
-                  </span>
-                </label>
-              </div>
-
-              <div className="mt-10 flex justify-between gap-4">
-                <button onClick={handleBack} disabled={isSubmitting} className={`px-8 py-3.5 rounded-xl font-bold border transition-colors ${isDarkTheme ? 'text-gray-300 border-gray-700 hover:bg-gray-800' : 'text-gray-600 border-gray-300 hover:bg-gray-50'}`}>Back</button>
-                <button 
-                  onClick={handleSubmit} 
-                  disabled={isSubmitting}
-                  className="flex-1 bg-[#EBB700] text-[#172033] px-8 py-3.5 rounded-xl font-bold hover:bg-yellow-500 transition-all shadow-lg flex items-center justify-center gap-3"
-                >
-                  {isSubmitting ? (
-                    <span className="animate-pulse">Submitting Application...</span>
-                  ) : (
-                    <>Submit Application <CheckCircle2 size={20} /></>
-                  )}
-                </button>
-              </div>
-            </div>
-          )}
-
-          {/* STEP 5: SUCCESS */}
-          {step === 5 && (
-            <div className="p-10 text-center py-20 step-animation">
-              <div className="w-28 h-28 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-8 shadow-inner">
-                <CheckCircle2 className="text-green-600" size={56} />
-              </div>
-              <h2 className={`text-4xl font-bold mb-4 ${isDarkTheme ? 'text-white' : 'text-[#172033]'}`}>Application Submitted!</h2>
-              <p className={`text-lg mb-10 max-w-lg mx-auto leading-relaxed ${isDarkTheme ? 'text-gray-300' : 'text-gray-600'}`}>
-                Thank you. Your interview is scheduled for <br/>
-                <strong className={isDarkTheme ? 'text-[#EBB700]' : 'text-[#00338D]'}>{interviewDate}</strong> at <strong className={isDarkTheme ? 'text-[#EBB700]' : 'text-[#00338D]'}>{interviewTime}</strong>.<br/><br/>
-                We will contact you on WhatsApp or email with the next steps.
-              </p>
-              <button onClick={() => navigate('home')} className="bg-[#EBB700] text-[#172033] px-10 py-4 rounded-xl font-bold text-lg hover:bg-yellow-500 shadow-lg transition-transform hover:-translate-y-1">
-                Return to Home
-              </button>
-            </div>
-          )}
-
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };
 
-const AdminLoginView = ({ navigate, isDarkTheme, setIsAdminLoggedIn }) => {
+const AdminLoginView = ({ isDarkTheme, setIsAdminLoggedIn }) => {
   const [email, setEmail] = useState('');
   const [pwd, setPwd] = useState('');
   const [loading, setLoading] = useState(false);
@@ -646,7 +745,7 @@ const AdminLoginView = ({ navigate, isDarkTheme, setIsAdminLoggedIn }) => {
     setTimeout(() => {
       setLoading(false);
       setIsAdminLoggedIn(true);
-      navigate('admin');
+      window.location.hash = 'admin';
     }, 1000);
   };
 
@@ -683,7 +782,7 @@ const AdminLoginView = ({ navigate, isDarkTheme, setIsAdminLoggedIn }) => {
   );
 };
 
-const AdminDashboardView = ({ navigate, isDarkTheme, setIsAdminLoggedIn }) => (
+const AdminDashboardView = ({ isDarkTheme, setIsAdminLoggedIn }) => (
   <div className={`min-h-screen flex flex-col md:flex-row ${isDarkTheme ? 'bg-[#121212]' : 'bg-gray-50'}`}>
     {/* Sidebar */}
     <div className={`w-full md:w-64 border-r p-6 flex flex-col ${isDarkTheme ? 'bg-[#1E1E1E] border-gray-800' : 'bg-white border-gray-200'}`}>
@@ -702,7 +801,10 @@ const AdminDashboardView = ({ navigate, isDarkTheme, setIsAdminLoggedIn }) => (
           <UserPlus size={18} /> Applications
         </button>
       </div>
-      <button onClick={() => { setIsAdminLoggedIn(false); navigate('home'); }} className="mt-auto flex items-center gap-2 text-red-500 font-bold px-4 py-3 hover:bg-red-500/10 rounded-xl">
+      <button 
+        onClick={() => { setIsAdminLoggedIn(false); window.location.hash = 'home'; }} 
+        className="mt-auto flex items-center gap-2 text-red-500 font-bold px-4 py-3 hover:bg-red-500/10 rounded-xl"
+      >
         <LogOut size={18} /> Sign Out
       </button>
     </div>
@@ -735,14 +837,14 @@ const AdminDashboardView = ({ navigate, isDarkTheme, setIsAdminLoggedIn }) => (
 
 export default function LeoClubApp() {
   const [currentView, setCurrentView] = useState(() => {
-    const hash = window.location.hash.replace('#', '');
+    const hash = typeof window !== 'undefined' ? window.location.hash.replace('#', '') : '';
     return hash || 'home';
   });
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isDarkTheme, setIsDarkTheme] = useState(false);
   const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(false);
 
-  // Handle browser back button (Hardware back button on mobile)
+  // Handle browser back button natively
   useEffect(() => {
     const handleHashChange = () => {
       const hash = window.location.hash.replace('#', '');
@@ -751,9 +853,9 @@ export default function LeoClubApp() {
       } else {
         setCurrentView('home');
       }
+      window.scrollTo(0, 0);
     };
 
-    // Set initial hash if none exists
     if (!window.location.hash) {
       window.history.replaceState(null, '', '#home');
     }
@@ -762,16 +864,9 @@ export default function LeoClubApp() {
     return () => window.removeEventListener('hashchange', handleHashChange);
   }, []);
 
-  const navigate = (view) => {
-    setIsMobileMenuOpen(false);
-    window.scrollTo(0, 0);
-    window.location.hash = view; // This will trigger handleHashChange and update currentView
-  };
-
   return (
     <div className={isDarkTheme ? 'theme-dark min-h-screen' : 'theme-light min-h-screen'}>
       <NavBar 
-        navigate={navigate} 
         currentView={currentView} 
         isDarkTheme={isDarkTheme} 
         setIsDarkTheme={setIsDarkTheme} 
@@ -780,15 +875,15 @@ export default function LeoClubApp() {
       />
 
       <main>
-        {currentView === 'home' && <HomeView navigate={navigate} isDarkTheme={isDarkTheme} />}
-        {currentView === 'join' && <JoinView navigate={navigate} isDarkTheme={isDarkTheme} />}
-        {currentView === 'projects' && <ProjectsView navigate={navigate} isDarkTheme={isDarkTheme} />}
-        {currentView === 'contact' && <ContactView navigate={navigate} isDarkTheme={isDarkTheme} />}
-        {currentView === 'admin-login' && <AdminLoginView navigate={navigate} isDarkTheme={isDarkTheme} setIsAdminLoggedIn={setIsAdminLoggedIn} />}
-        {currentView === 'admin' && (isAdminLoggedIn ? <AdminDashboardView navigate={navigate} isDarkTheme={isDarkTheme} setIsAdminLoggedIn={setIsAdminLoggedIn} /> : <AdminLoginView navigate={navigate} isDarkTheme={isDarkTheme} setIsAdminLoggedIn={setIsAdminLoggedIn} />)}
+        {currentView === 'home' && <HomeView isDarkTheme={isDarkTheme} />}
+        {currentView === 'join' && <JoinView isDarkTheme={isDarkTheme} />}
+        {currentView === 'projects' && <ProjectsView isDarkTheme={isDarkTheme} />}
+        {currentView === 'contact' && <ContactView isDarkTheme={isDarkTheme} />}
+        {currentView === 'admin-login' && <AdminLoginView isDarkTheme={isDarkTheme} setIsAdminLoggedIn={setIsAdminLoggedIn} />}
+        {currentView === 'admin' && (isAdminLoggedIn ? <AdminDashboardView isDarkTheme={isDarkTheme} setIsAdminLoggedIn={setIsAdminLoggedIn} /> : <AdminLoginView isDarkTheme={isDarkTheme} setIsAdminLoggedIn={setIsAdminLoggedIn} />)}
       </main>
 
-      <Footer navigate={navigate} isDarkTheme={isDarkTheme} />
+      <Footer isDarkTheme={isDarkTheme} />
     </div>
   );
 }
