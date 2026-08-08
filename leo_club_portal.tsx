@@ -87,17 +87,17 @@ const NavBar = ({ currentView, isDarkTheme, setIsDarkTheme, isMobileMenuOpen, se
           
           <div className="h-6 w-px bg-gray-300 mx-2"></div>
           
-          <a href="#join" className="ml-2 bg-[#00338D] text-white px-6 py-2.5 rounded-full font-bold hover:bg-blue-900 transition-all shadow-md shadow-blue-900/20 inline-flex items-center gap-2">
-            Join Leo <ChevronRight size={16} />
+          <a href="#join" className="ml-2 bg-[#00338D] text-white px-6 py-2.5 rounded-full font-bold hover:bg-[#EBB700] hover:text-[#172033] hover:-translate-y-0.5 hover:shadow-lg transition-all duration-300 inline-flex items-center gap-2 group">
+            Join Leo <ChevronRight className="transition-transform duration-300 group-hover:translate-x-1" size={16} />
           </a>
         </div>
 
         {/* Mobile Menu Button */}
         <div className="flex items-center md:hidden gap-3">
-          <button onClick={() => setIsDarkTheme(!isDarkTheme)} className={`w-9 h-9 rounded-full border flex items-center justify-center ${isDarkTheme ? 'border-[#EBB700]' : 'border-gray-300 text-gray-700'}`}>
+          <button onClick={() => setIsDarkTheme(!isDarkTheme)} className={`w-9 h-9 rounded-full border flex items-center justify-center transition-all duration-300 ${isDarkTheme ? 'border-[#EBB700]' : 'border-gray-300 text-gray-700'}`}>
             {isDarkTheme ? <Sun size={16} className="text-[#EBB700]" /> : <Moon size={16} />}
           </button>
-          <a href="#join" className="bg-[#00338D] text-white px-4 py-2 rounded-full font-bold text-sm inline-block">Join</a>
+          <a href="#join" className="bg-[#00338D] text-white px-4 py-2 rounded-full font-bold text-sm inline-block transition-transform active:scale-95">Join</a>
           <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className={isDarkTheme ? 'text-white' : 'text-gray-600'}>
             {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
           </button>
@@ -154,8 +154,8 @@ const Footer = ({ isDarkTheme }) => (
         <div>
           <h3 className="font-bold text-lg mb-4 text-[#EBB700]">Contact</h3>
           <ul className={`space-y-3 text-sm ${isDarkTheme ? 'text-gray-400' : 'text-gray-600'}`}>
-            <li className="flex items-center gap-2"><Mail size={16} className={isDarkTheme ? '' : 'text-[#00338D]'} /> info@leochandigarh.org</li>
-            <li className="flex items-center gap-2"><Phone size={16} className={isDarkTheme ? '' : 'text-[#00338D]'} /> +91 98765 43210</li>
+            <li className="flex items-center gap-2 group"><Mail size={16} className={`transition-transform duration-300 group-hover:scale-110 ${isDarkTheme ? 'text-[#EBB700]' : 'text-[#00338D]'}`} /> info@leochandigarh.org</li>
+            <li className="flex items-center gap-2 group"><Phone size={16} className={`transition-transform duration-300 group-hover:scale-110 ${isDarkTheme ? 'text-[#EBB700]' : 'text-[#00338D]'}`} /> +91 98765 43210</li>
           </ul>
         </div>
       </div>
@@ -169,7 +169,6 @@ const Footer = ({ isDarkTheme }) => (
 
 const HomeView = ({ isDarkTheme }) => (
   <div className="min-h-screen">
-    {/* Hero Section */}
     <div className={`${isDarkTheme ? 'bg-black text-white' : 'bg-blue-50 text-[#172033]'} relative overflow-hidden transition-colors duration-200 border-b-4 border-[#EBB700]`}>
       <div className={`absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] ${isDarkTheme ? 'from-[#00338D]' : 'from-blue-300'} via-transparent to-transparent`}></div>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-32 relative z-10">
@@ -185,15 +184,14 @@ const HomeView = ({ isDarkTheme }) => (
             We have more volunteers in more places than any other service organization in the world. Join Chandigarh's premier youth leadership movement.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 mt-8">
-            <a href="#join" className="bg-[#EBB700] text-white hover:bg-yellow-600 transition-colors px-8 py-4 rounded-md font-bold text-lg inline-flex items-center gap-2 w-fit">
-              Join the Club <ArrowRight className="w-5 h-5" />
+            <a href="#join" className="bg-[#EBB700] text-[#172033] hover:bg-[#00338D] hover:text-white transition-all duration-300 px-8 py-4 rounded-xl font-bold text-lg inline-flex items-center gap-3 w-fit hover:-translate-y-1 hover:shadow-xl group">
+              Join the Club <ArrowRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1.5" />
             </a>
           </div>
         </div>
       </div>
     </div>
 
-    {/* Global Causes Section */}
     <div className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 ${isDarkTheme ? 'bg-[#121212]' : 'bg-white'}`}>
       <div className="text-center mb-16">
         <h2 className={`text-3xl font-bold mb-4 ${isDarkTheme ? 'text-white' : 'text-[#00338D]'}`}>Our Global Causes</h2>
@@ -222,59 +220,98 @@ const HomeView = ({ isDarkTheme }) => (
   </div>
 );
 
-const ProjectsView = ({ isDarkTheme }) => (
-  <div className="min-h-screen">
-    <section className={`${isDarkTheme ? 'bg-black text-white' : 'bg-blue-50 text-[#172033]'} border-b-4 border-[#EBB700] relative overflow-hidden transition-colors duration-200`}>
-      <div className={`absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] ${isDarkTheme ? 'from-[#00338D]' : 'from-blue-300'} via-transparent to-transparent`}></div>
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20">
-        <p className="text-[#EBB700] font-bold tracking-[0.18em] uppercase text-sm mb-4">OUR INITIATIVES</p>
-        <h1 className={`text-5xl md:text-7xl font-bold tracking-tight mb-6 ${isDarkTheme ? 'text-white' : 'text-[#00338D]'}`}>Projects & Causes</h1>
-        <p className={`text-xl max-w-3xl leading-relaxed ${isDarkTheme ? 'text-gray-200' : 'text-gray-700'}`}>
-          Explore the initiatives through which Leo Club Chandigarh Fortune creates lasting impact across our community. From humanitarian service and youth leadership to environmental sustainability and global causes, every project reflects our commitment to <span className="text-[#EBB700] font-semibold">We Serve.</span>
-        </p>
-      </div>
-    </section>
+const ProjectsView = ({ isDarkTheme }) => {
+  const [filter, setFilter] = useState('All');
 
-    <section className={`${isDarkTheme ? 'bg-[#121212]' : 'bg-white'} py-16 transition-colors duration-200`}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        {/* Updated Recent Projects Header */}
-        <div className="text-center mb-12">
-          <h2 className={`text-3xl font-bold mb-4 ${isDarkTheme ? 'text-white' : 'text-[#00338D]'}`}>Recent & Upcoming Projects</h2>
-          <div className="w-16 h-1.5 bg-[#EBB700] mx-auto rounded-full mb-8"></div>
+  const allProjects = [
+    { date: "AUG 2026", status: "UPCOMING", title: "Blood Donation Camp", loc: "Chandigarh University Campus", color: "text-blue-500" },
+    { date: "SEP 2026", status: "UPCOMING", title: "Tree Plantation Drive", loc: "Sector 42, Chandigarh", color: "text-green-500" },
+    { date: "JUN 2026", status: "COMPLETED", title: "Free Eye Checkup", loc: "Sector 17 Community Hall", color: "text-purple-500" }
+  ];
+
+  const filteredProjects = filter === 'All' ? allProjects : allProjects.filter(p => p.status === filter);
+
+  return (
+    <div className="min-h-screen">
+      <style>{`
+        @keyframes popIn {
+          from { opacity: 0; transform: scale(0.95); }
+          to { opacity: 1; transform: scale(1); }
+        }
+        .animate-pop-in {
+          animation: popIn 0.4s ease-out forwards;
+        }
+      `}</style>
+
+      <section className={`${isDarkTheme ? 'bg-black text-white' : 'bg-blue-50 text-[#172033]'} border-b-4 border-[#EBB700] relative overflow-hidden transition-colors duration-200`}>
+        <div className={`absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] ${isDarkTheme ? 'from-[#00338D]' : 'from-blue-300'} via-transparent to-transparent`}></div>
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20">
+          <p className="text-[#EBB700] font-bold tracking-[0.18em] uppercase text-sm mb-4">OUR INITIATIVES</p>
+          <h1 className={`text-5xl md:text-7xl font-bold tracking-tight mb-6 ${isDarkTheme ? 'text-white' : 'text-[#00338D]'}`}>Projects & Causes</h1>
+          <p className={`text-xl max-w-3xl leading-relaxed ${isDarkTheme ? 'text-gray-200' : 'text-gray-700'}`}>
+            Explore the initiatives through which Leo Club Chandigarh Fortune creates lasting impact across our community. From humanitarian service and youth leadership to environmental sustainability and global causes, every project reflects our commitment to <span className="text-[#EBB700] font-semibold">We Serve.</span>
+          </p>
+        </div>
+      </section>
+
+      <section className={`${isDarkTheme ? 'bg-[#121212]' : 'bg-white'} py-16 transition-colors duration-200`}>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
-          <div className="flex justify-center gap-3">
-            <button className="bg-[#00338D] text-white px-6 py-2 rounded-full font-bold">All</button>
-            <button className={`${isDarkTheme ? 'border-gray-500 text-white hover:bg-[#2A2A2A]' : 'border-gray-300 text-gray-600 hover:bg-gray-100'} border px-6 py-2 rounded-full font-bold transition-colors`}>Upcoming</button>
+          <div className="text-center mb-12">
+            <h2 className={`text-3xl font-bold mb-4 ${isDarkTheme ? 'text-white' : 'text-[#00338D]'}`}>Recent & Upcoming Projects</h2>
+            <div className="w-16 h-1.5 bg-[#EBB700] mx-auto rounded-full mb-8"></div>
+            
+            <div className="flex justify-center gap-3">
+              <button 
+                onClick={() => setFilter('All')} 
+                className={`px-6 py-2 rounded-full font-bold transition-all duration-300 ${
+                  filter === 'All' 
+                    ? 'bg-[#00338D] text-white shadow-md' 
+                    : isDarkTheme ? 'border border-gray-500 text-white hover:bg-[#2A2A2A]' : 'border border-gray-300 text-gray-600 hover:bg-gray-100'
+                }`}
+              >
+                All
+              </button>
+              <button 
+                onClick={() => setFilter('UPCOMING')} 
+                className={`px-6 py-2 rounded-full font-bold transition-all duration-300 ${
+                  filter === 'UPCOMING' 
+                    ? 'bg-[#00338D] text-white shadow-md' 
+                    : isDarkTheme ? 'border border-gray-500 text-white hover:bg-[#2A2A2A]' : 'border border-gray-300 text-gray-600 hover:bg-gray-100'
+                }`}
+              >
+                Upcoming
+              </button>
+            </div>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-6" key={filter}>
+            {filteredProjects.map((proj, i) => (
+              <div 
+                key={proj.title} 
+                className={`animate-pop-in ${isDarkTheme ? 'bg-[#1E1E1E] border-[#333] hover:border-[#EBB700]' : 'bg-white border-gray-200 hover:border-[#00338D] hover:shadow-md'} rounded-2xl overflow-hidden border transition-all`}
+                style={{ animationDelay: `${i * 100}ms`, opacity: 0 }}
+              >
+                <div className={`h-44 flex items-center justify-center ${isDarkTheme ? 'bg-[#2A2A2A]' : 'bg-blue-50'}`}>
+                  <FolderHeart className={isDarkTheme ? 'text-gray-500' : 'text-blue-200'} size={48} />
+                </div>
+                <div className="p-6">
+                  <div className="flex gap-2 text-xs font-bold mb-3">
+                    <span className={proj.status === 'COMPLETED' && !isDarkTheme ? 'text-gray-500' : proj.color}>{proj.date}</span>
+                    <span className={isDarkTheme ? 'text-gray-500' : 'text-gray-300'}>•</span>
+                    <span className={proj.status === 'COMPLETED' ? 'text-green-600' : 'text-[#EBB700]'}>{proj.status}</span>
+                  </div>
+                  <h3 className={`text-xl font-bold mb-2 ${isDarkTheme ? 'text-white' : 'text-[#172033]'}`}>{proj.title}</h3>
+                  <p className={isDarkTheme ? 'text-gray-400' : 'text-gray-600'}>{proj.loc}</p>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
-
-        <div className="grid md:grid-cols-3 gap-6">
-          {[
-            { date: "AUG 2026", status: "UPCOMING", title: "Blood Donation Camp", loc: "Chandigarh University Campus", color: "text-blue-500" },
-            { date: "SEP 2026", status: "UPCOMING", title: "Tree Plantation Drive", loc: "Sector 42, Chandigarh", color: "text-green-500" },
-            { date: "JUN 2026", status: "COMPLETED", title: "Free Eye Checkup", loc: "Sector 17 Community Hall", color: "text-purple-500" }
-          ].map((proj, i) => (
-            <div key={i} className={`${isDarkTheme ? 'bg-[#1E1E1E] border-[#333] hover:border-[#EBB700]' : 'bg-white border-gray-200 hover:border-[#00338D] hover:shadow-md'} rounded-2xl overflow-hidden border transition-all`}>
-              <div className={`h-44 flex items-center justify-center ${isDarkTheme ? 'bg-[#2A2A2A]' : 'bg-blue-50'}`}>
-                <FolderHeart className={isDarkTheme ? 'text-gray-500' : 'text-blue-200'} size={48} />
-              </div>
-              <div className="p-6">
-                <div className="flex gap-2 text-xs font-bold mb-3">
-                  <span className={proj.status === 'COMPLETED' && !isDarkTheme ? 'text-gray-500' : proj.color}>{proj.date}</span>
-                  <span className={isDarkTheme ? 'text-gray-500' : 'text-gray-300'}>•</span>
-                  <span className={proj.status === 'COMPLETED' ? 'text-green-600' : 'text-[#EBB700]'}>{proj.status}</span>
-                </div>
-                <h3 className={`text-xl font-bold mb-2 ${isDarkTheme ? 'text-white' : 'text-[#172033]'}`}>{proj.title}</h3>
-                <p className={isDarkTheme ? 'text-gray-400' : 'text-gray-600'}>{proj.loc}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  </div>
-);
+      </section>
+    </div>
+  );
+};
 
 const ContactView = ({ isDarkTheme }) => {
   const [submitted, setSubmitted] = useState(false);
@@ -286,8 +323,21 @@ const ContactView = ({ isDarkTheme }) => {
 
   return (
     <div className={`min-h-screen ${isDarkTheme ? 'bg-[#121212]' : 'bg-white'}`}>
+      
+      <style>{`
+        @keyframes slideUpFade {
+          from { opacity: 0; transform: translateY(30px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-slide-up {
+          animation: slideUpFade 0.6s ease-out forwards;
+        }
+        .delay-100 { animation-delay: 100ms; opacity: 0; }
+        .delay-200 { animation-delay: 200ms; opacity: 0; }
+      `}</style>
+
       <section className={`${isDarkTheme ? 'bg-black text-white' : 'bg-blue-50 text-[#172033]'} border-b-4 border-[#EBB700] transition-colors duration-200`}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20 animate-slide-up">
           <p className="font-sans text-[#EBB700] font-bold tracking-[0.18em] uppercase text-sm mb-4">Get in touch</p>
           <h1 className={`text-4xl md:text-6xl font-bold tracking-tight mb-5 ${isDarkTheme ? 'text-white' : 'text-[#00338D]'}`}>Let’s serve together.</h1>
           <p className={`text-lg max-w-2xl ${isDarkTheme ? 'text-gray-200' : 'text-gray-700'}`}>Reach out for membership, service partnerships, project ideas or club information. We’ll connect you with the right member of our team.</p>
@@ -295,12 +345,12 @@ const ContactView = ({ isDarkTheme }) => {
       </section>
 
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 md:py-20 grid lg:grid-cols-[0.8fr_1.2fr] gap-12">
-        <aside className="border-l-4 border-[#EBB700] pl-6 self-start">
+        <aside className="border-l-4 border-[#EBB700] pl-6 self-start animate-slide-up delay-100">
           <h2 className={`text-2xl font-bold mb-5 ${isDarkTheme ? "text-white" : "text-[#00338D]"}`}>Leo Club Chandigarh Fortune</h2>
           <div className={`space-y-5 ${isDarkTheme ? 'text-gray-400' : 'text-[#55565A]'}`}>
-            <p className="flex items-start gap-3"><Mail className="shrink-0 text-[#EBB700] mt-1" size={19} /><span><strong className={`font-sans block ${isDarkTheme ? 'text-gray-200' : 'text-[#172033]'}`}>Email</strong>info@leochandigarh.org</span></p>
-            <p className="flex items-start gap-3"><Phone className="shrink-0 text-[#EBB700] mt-1" size={19} /><span><strong className={`font-sans block ${isDarkTheme ? 'text-gray-200' : 'text-[#172033]'}`}>Phone</strong>+91 98765 43210</span></p>
-            <p className="flex items-start gap-3"><MapPin className="shrink-0 text-[#EBB700] mt-1" size={19} /><span><strong className={`font-sans block ${isDarkTheme ? 'text-gray-200' : 'text-[#172033]'}`}>Serving</strong>Chandigarh and the surrounding community</span></p>
+            <p className="flex items-start gap-3 group cursor-default"><Mail className={`shrink-0 mt-1 transition-transform duration-300 group-hover:scale-110 ${isDarkTheme ? 'text-[#EBB700]' : 'text-[#00338D]'}`} size={19} /><span><strong className={`font-sans block ${isDarkTheme ? 'text-gray-200' : 'text-[#172033]'}`}>Email</strong>info@leochandigarh.org</span></p>
+            <p className="flex items-start gap-3 group cursor-default"><Phone className={`shrink-0 mt-1 transition-transform duration-300 group-hover:scale-110 ${isDarkTheme ? 'text-[#EBB700]' : 'text-[#00338D]'}`} size={19} /><span><strong className={`font-sans block ${isDarkTheme ? 'text-gray-200' : 'text-[#172033]'}`}>Phone</strong>+91 98765 43210</span></p>
+            <p className="flex items-start gap-3 group cursor-default"><MapPin className={`shrink-0 mt-1 transition-transform duration-300 group-hover:scale-110 ${isDarkTheme ? 'text-[#EBB700]' : 'text-[#00338D]'}`} size={19} /><span><strong className={`font-sans block ${isDarkTheme ? 'text-gray-200' : 'text-[#172033]'}`}>Serving</strong>Chandigarh and the surrounding community</span></p>
           </div>
           <div className={`mt-10 pt-7 border-t ${isDarkTheme ? 'border-gray-800' : 'border-gray-200'}`}>
             <p className={isDarkTheme ? 'text-gray-500' : 'text-[#55565A]'}>For urgent, time-sensitive service requests, please call rather than using this form.</p>
@@ -308,11 +358,11 @@ const ContactView = ({ isDarkTheme }) => {
         </aside>
 
         <div 
-          className={`border p-7 md:p-10 ${isDarkTheme ? 'bg-[#1E1E1E] border-[#333]' : 'bg-white border-gray-300'}`} 
+          className={`border p-7 md:p-10 transition-all duration-300 animate-slide-up delay-200 ${isDarkTheme ? 'bg-[#1E1E1E] border-[#333]' : 'bg-white border-gray-300'}`} 
           style={{ boxShadow: isDarkTheme ? '8px 8px 0 #EBB700' : '8px 8px 0 #00338D' }}
         >
           {submitted ? (
-            <div className="py-12 text-center">
+            <div className="py-12 text-center animate-slide-up">
               <CheckCircle2 className="mx-auto text-[#EBB700] mb-5" size={52} />
               <h2 className={`text-3xl font-bold mb-3 ${isDarkTheme ? 'text-white' : 'text-[#172033]'}`}>Thank you for reaching out.</h2>
               <p className={`max-w-md mx-auto ${isDarkTheme ? 'text-gray-400' : 'text-[#55565A]'}`}>Your message has been recorded. A club representative will respond soon.</p>
@@ -322,13 +372,13 @@ const ContactView = ({ isDarkTheme }) => {
             <form onSubmit={handleSubmit} className="space-y-6">
               <div><h2 className={`text-2xl font-bold ${isDarkTheme ? "text-white" : "text-[#172033]"}`}>Contact us</h2><p className={`mt-2 ${isDarkTheme ? 'text-gray-400' : 'text-[#55565A]'}`}>Fields marked with an asterisk are required.</p></div>
               <div className="grid sm:grid-cols-2 gap-5">
-                <div><label className={`block text-sm font-bold mb-2 ${isDarkTheme ? 'text-gray-200' : 'text-[#172033]'}`}>Full name *</label><input required type="text" className={`w-full border px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#EBB700] ${isDarkTheme ? 'bg-[#2A2A2A] border-gray-700 text-white' : 'bg-white border-gray-300 text-black'}`} placeholder="Your name" /></div>
-                <div><label className={`block text-sm font-bold mb-2 ${isDarkTheme ? 'text-gray-200' : 'text-[#172033]'}`}>Phone number *</label><input required type="tel" className={`w-full border px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#EBB700] ${isDarkTheme ? 'bg-[#2A2A2A] border-gray-700 text-white' : 'bg-white border-gray-300 text-black'}`} placeholder="+91" /></div>
+                <div><label className={`block text-sm font-bold mb-2 ${isDarkTheme ? 'text-gray-200' : 'text-[#172033]'}`}>Full name *</label><input required type="text" className={`w-full border px-4 py-3 outline-none transition-all duration-300 focus:-translate-y-0.5 focus:shadow-md focus:ring-2 focus:ring-[#EBB700] ${isDarkTheme ? 'bg-[#2A2A2A] border-gray-700 text-white' : 'bg-white border-gray-300 text-black'}`} placeholder="Your name" /></div>
+                <div><label className={`block text-sm font-bold mb-2 ${isDarkTheme ? 'text-gray-200' : 'text-[#172033]'}`}>Phone number *</label><input required type="tel" className={`w-full border px-4 py-3 outline-none transition-all duration-300 focus:-translate-y-0.5 focus:shadow-md focus:ring-2 focus:ring-[#EBB700] ${isDarkTheme ? 'bg-[#2A2A2A] border-gray-700 text-white' : 'bg-white border-gray-300 text-black'}`} placeholder="+91" /></div>
               </div>
-              <div><label className={`block text-sm font-bold mb-2 ${isDarkTheme ? 'text-gray-200' : 'text-[#172033]'}`}>Email address *</label><input required type="email" className={`w-full border px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#EBB700] ${isDarkTheme ? 'bg-[#2A2A2A] border-gray-700 text-white' : 'bg-white border-gray-300 text-black'}`} placeholder="name@example.com" /></div>
-              <div><label className={`block text-sm font-bold mb-2 ${isDarkTheme ? 'text-gray-200' : 'text-[#172033]'}`}>How can we help? *</label><select required defaultValue="" className={`w-full border px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#EBB700] ${isDarkTheme ? 'bg-[#2A2A2A] border-gray-700 text-white' : 'bg-white border-gray-300 text-black'}`}><option value="" disabled>Select a topic</option><option>Membership inquiry</option><option>Project or service partnership</option><option>Volunteer opportunity</option><option>General question</option></select></div>
-              <div><label className={`block text-sm font-bold mb-2 ${isDarkTheme ? 'text-gray-200' : 'text-[#172033]'}`}>Message *</label><textarea required rows={5} className={`w-full border px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#EBB700] ${isDarkTheme ? 'bg-[#2A2A2A] border-gray-700 text-white' : 'bg-white border-gray-300 text-black'}`} placeholder="Tell us a little more about your inquiry." /></div>
-              <button type="submit" className="w-full sm:w-auto bg-[#EBB700] text-[#172033] px-7 py-3.5 font-bold hover:bg-yellow-500 transition-colors inline-flex items-center justify-center gap-2">Send message <Send size={18} /></button>
+              <div><label className={`block text-sm font-bold mb-2 ${isDarkTheme ? 'text-gray-200' : 'text-[#172033]'}`}>Email address *</label><input required type="email" className={`w-full border px-4 py-3 outline-none transition-all duration-300 focus:-translate-y-0.5 focus:shadow-md focus:ring-2 focus:ring-[#EBB700] ${isDarkTheme ? 'bg-[#2A2A2A] border-gray-700 text-white' : 'bg-white border-gray-300 text-black'}`} placeholder="name@example.com" /></div>
+              <div><label className={`block text-sm font-bold mb-2 ${isDarkTheme ? 'text-gray-200' : 'text-[#172033]'}`}>How can we help? *</label><select required defaultValue="" className={`w-full border px-4 py-3 outline-none transition-all duration-300 focus:-translate-y-0.5 focus:shadow-md focus:ring-2 focus:ring-[#EBB700] ${isDarkTheme ? 'bg-[#2A2A2A] border-gray-700 text-white' : 'bg-white border-gray-300 text-black'}`}><option value="" disabled>Select a topic</option><option>Membership inquiry</option><option>Project or service partnership</option><option>Volunteer opportunity</option><option>General question</option></select></div>
+              <div><label className={`block text-sm font-bold mb-2 ${isDarkTheme ? 'text-gray-200' : 'text-[#172033]'}`}>Message *</label><textarea required rows={5} className={`w-full border px-4 py-3 outline-none transition-all duration-300 focus:-translate-y-0.5 focus:shadow-md focus:ring-2 focus:ring-[#EBB700] ${isDarkTheme ? 'bg-[#2A2A2A] border-gray-700 text-white' : 'bg-white border-gray-300 text-black'}`} placeholder="Tell us a little more about your inquiry." /></div>
+              <button type="submit" className="w-full sm:w-auto bg-[#EBB700] text-[#172033] px-7 py-3.5 font-bold hover:bg-yellow-500 transition-colors inline-flex items-center justify-center gap-2 shadow-md">Send message <Send size={18} /></button>
             </form>
           )}
         </div>
@@ -337,12 +387,52 @@ const ContactView = ({ isDarkTheme }) => {
   );
 };
 
-const JoinView = ({ isDarkTheme }) => {
+const JoinView = ({ currentView, isDarkTheme }) => {
   const [selectedPlan, setSelectedPlan] = useState('');
   const [step, setStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [interviewDate, setInterviewDate] = useState('');
   const [interviewTime, setInterviewTime] = useState('');
+  
+  const [dob, setDob] = useState('');
+  const [age, setAge] = useState('');
+  
+  const [hasReference, setHasReference] = useState('No');
+  const [referenceName, setReferenceName] = useState('');
+
+  // Handle direct navigation to form without plan
+  useEffect(() => {
+    if (currentView === 'join-form' && !selectedPlan) {
+      window.location.hash = 'join';
+    }
+  }, [currentView, selectedPlan]);
+
+  const todayStr = new Date().toISOString().split('T')[0];
+
+  const handleDobChange = (e) => {
+    const val = e.target.value;
+    setDob(val);
+    if (val) {
+      const birthDate = new Date(val);
+      const today = new Date();
+      let calculatedAge = today.getFullYear() - birthDate.getFullYear();
+      const m = today.getMonth() - birthDate.getMonth();
+      if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+        calculatedAge--;
+      }
+      setAge(Math.max(0, calculatedAge));
+    } else {
+      setAge('');
+    }
+  };
+
+  const handleRefChange = (e) => {
+    const val = e.target.value;
+    setHasReference(val);
+    if (val === 'No') {
+      setReferenceName('');
+    }
+  };
 
   // Capped Dates: 9th August to 6th September
   const interviewDates = Array.from({ length: 29 }, (_, index) => {
@@ -387,21 +477,19 @@ const JoinView = ({ isDarkTheme }) => {
     </li>
   );
 
+  const isFormView = currentView === 'join-form' && selectedPlan;
+
   return (
     <div className={`min-h-screen py-12 px-4 sm:px-6 lg:px-8 ${isDarkTheme ? 'bg-[#121212]' : 'bg-gray-50'}`}>
-      
-      {/* Inline Style for Smooth Animations */}
       <style>{`
         @keyframes slideFadeIn {
           from { opacity: 0; transform: translateY(15px); }
           to { opacity: 1; transform: translateY(0); }
         }
-        .step-animation {
-          animation: slideFadeIn 0.5s ease-out forwards;
-        }
+        .step-animation { animation: slideFadeIn 0.5s ease-out forwards; }
       `}</style>
 
-      {!selectedPlan ? (
+      {!isFormView ? (
         // PRICING CARDS VIEW
         <div className="max-w-6xl mx-auto step-animation py-8">
           <div className="text-center mb-16">
@@ -411,7 +499,6 @@ const JoinView = ({ isDarkTheme }) => {
           </div>
 
           <div className="grid md:grid-cols-3 gap-8 items-center max-w-5xl mx-auto">
-            
             {/* Regular Plan */}
             <div className={`p-8 rounded-3xl border transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl ${isDarkTheme ? 'bg-[#1A1A1A] border-gray-800 hover:border-gray-600 hover:shadow-white/5' : 'bg-white border-gray-200 hover:border-[#00338D]/40'}`}>
               <h3 className={`text-xl font-bold ${isDarkTheme ? 'text-gray-300' : 'text-gray-600'}`}>Regular</h3>
@@ -419,7 +506,7 @@ const JoinView = ({ isDarkTheme }) => {
                 <span className={`text-4xl font-black ${isDarkTheme ? 'text-white' : 'text-[#172033]'}`}>₹719</span>
                 <span className={`text-sm ${isDarkTheme ? 'text-gray-500' : 'text-gray-500'}`}>/year</span>
               </div>
-              <button onClick={() => { setSelectedPlan('Regular'); window.scrollTo(0,0); }} className={`w-full py-3 rounded-xl font-bold transition-all duration-300 border-2 hover:scale-105 active:scale-95 ${isDarkTheme ? 'border-gray-700 text-white hover:bg-gray-800 hover:border-gray-500' : 'border-gray-200 text-[#172033] hover:bg-gray-50 hover:border-[#00338D]/30'}`}>
+              <button onClick={() => { setSelectedPlan('Regular'); window.location.hash='join-form'; window.scrollTo(0,0); }} className={`w-full py-3 rounded-xl font-bold transition-all duration-300 border-2 hover:scale-105 active:scale-95 ${isDarkTheme ? 'border-gray-700 text-white hover:bg-gray-800 hover:border-gray-500' : 'border-gray-200 text-[#172033] hover:bg-gray-50 hover:border-[#00338D]/30'}`}>
                 Choose Regular
               </button>
               <ul className="mt-8 space-y-4">
@@ -448,7 +535,7 @@ const JoinView = ({ isDarkTheme }) => {
                   <span className={`text-sm ${isDarkTheme ? 'text-gray-400' : 'text-gray-500'}`}>/year</span>
                 </div>
               </div>
-              <button onClick={() => { setSelectedPlan('Fellowship'); window.scrollTo(0,0); }} className="w-full bg-[#EBB700] text-[#172033] py-3 rounded-xl font-bold transition-all duration-300 hover:bg-yellow-400 hover:shadow-lg hover:shadow-[#EBB700]/30 hover:scale-105 active:scale-95">
+              <button onClick={() => { setSelectedPlan('Fellowship'); window.location.hash='join-form'; window.scrollTo(0,0); }} className="w-full bg-[#EBB700] text-[#172033] py-3 rounded-xl font-bold transition-all duration-300 hover:bg-yellow-400 hover:shadow-lg hover:shadow-[#EBB700]/30 hover:scale-105 active:scale-95">
                 Choose Fellowship
               </button>
               <ul className="mt-8 space-y-4">
@@ -473,7 +560,7 @@ const JoinView = ({ isDarkTheme }) => {
                   <span className={`text-sm ${isDarkTheme ? 'text-gray-500' : 'text-gray-500'}`}>/year</span>
                 </div>
               </div>
-              <button onClick={() => { setSelectedPlan('Elite'); window.scrollTo(0,0); }} className={`w-full py-3 rounded-xl font-bold transition-all duration-300 border-2 hover:scale-105 active:scale-95 ${isDarkTheme ? 'border-gray-600 text-white hover:bg-gray-800 hover:border-gray-400' : 'border-gray-300 text-[#172033] hover:bg-white hover:border-gray-500'}`}>
+              <button onClick={() => { setSelectedPlan('Elite'); window.location.hash='join-form'; window.scrollTo(0,0); }} className={`w-full py-3 rounded-xl font-bold transition-all duration-300 border-2 hover:scale-105 active:scale-95 ${isDarkTheme ? 'border-gray-600 text-white hover:bg-gray-800 hover:border-gray-400' : 'border-gray-300 text-[#172033] hover:bg-white hover:border-gray-500'}`}>
                 Choose Elite
               </button>
               <ul className="mt-8 space-y-4">
@@ -484,7 +571,6 @@ const JoinView = ({ isDarkTheme }) => {
                 <FeatureItem text="Priority consideration to lead 1 service project" />
               </ul>
             </div>
-
           </div>
         </div>
       ) : (
@@ -494,7 +580,7 @@ const JoinView = ({ isDarkTheme }) => {
             <div className="mb-8">
               <div className="flex items-center justify-between text-sm font-medium text-gray-500 mb-2">
                 <span>Step {step} of 4</span>
-                <button onClick={() => setSelectedPlan('')} className="text-[#EBB700] hover:underline font-bold">Change Plan</button>
+                <button onClick={() => window.location.hash = 'join'} className="text-[#EBB700] hover:underline font-bold">Change Plan</button>
               </div>
               <div className={`w-full rounded-full h-2 ${isDarkTheme ? 'bg-gray-800' : 'bg-gray-200'}`}>
                 <div className="bg-[#EBB700] h-2 rounded-full transition-all duration-500 ease-out" style={{ width: `${(step/4)*100}%` }}></div>
@@ -510,7 +596,6 @@ const JoinView = ({ isDarkTheme }) => {
                 <h2 className={`text-3xl font-bold mb-2 ${isDarkTheme ? 'text-white' : 'text-[#172033]'}`}>Personal Details</h2>
                 <p className={`mb-8 ${isDarkTheme ? 'text-gray-400' : 'text-gray-600'}`}>Tell us about yourself so we can begin your Leo membership application.</p>
                 
-                {/* Basic Information */}
                 <div className="mb-10">
                   <h3 className={`text-lg font-bold mb-5 border-b pb-2 ${isDarkTheme ? 'text-[#EBB700] border-gray-700' : 'text-[#00338D] border-gray-200'}`}>Basic Information</h3>
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
@@ -518,8 +603,14 @@ const JoinView = ({ isDarkTheme }) => {
                     <div><label className={`block text-sm font-bold mb-2 ${isDarkTheme ? 'text-gray-300' : 'text-gray-700'}`}>Middle Name</label><input type="text" className={`w-full border rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#EBB700] outline-none ${isDarkTheme ? 'bg-[#2A2A2A] border-gray-700 text-white' : 'bg-white border-gray-300 text-black'}`} /></div>
                     <div><label className={`block text-sm font-bold mb-2 ${isDarkTheme ? 'text-gray-300' : 'text-gray-700'}`}>Last Name *</label><input required type="text" className={`w-full border rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#EBB700] outline-none ${isDarkTheme ? 'bg-[#2A2A2A] border-gray-700 text-white' : 'bg-white border-gray-300 text-black'}`} /></div>
                     
-                    <div><label className={`block text-sm font-bold mb-2 ${isDarkTheme ? 'text-gray-300' : 'text-gray-700'}`}>Age *</label><input required min="12" max="30" type="number" className={`w-full border rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#EBB700] outline-none ${isDarkTheme ? 'bg-[#2A2A2A] border-gray-700 text-white' : 'bg-white border-gray-300 text-black'}`} /></div>
-                    <div><label className={`block text-sm font-bold mb-2 ${isDarkTheme ? 'text-gray-300' : 'text-gray-700'}`}>Date of Birth *</label><input required type="date" className={`w-full border rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#EBB700] outline-none ${isDarkTheme ? 'bg-[#2A2A2A] border-gray-700 text-white' : 'bg-white border-gray-300 text-black'}`} /></div>
+                    <div>
+                      <label className={`block text-sm font-bold mb-2 ${isDarkTheme ? 'text-gray-300' : 'text-gray-700'}`}>Date of Birth *</label>
+                      <input required type="date" max={todayStr} value={dob} onChange={handleDobChange} className={`w-full border rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#EBB700] outline-none ${isDarkTheme ? 'bg-[#2A2A2A] border-gray-700 text-white' : 'bg-white border-gray-300 text-black'}`} />
+                    </div>
+                    <div>
+                      <label className={`block text-sm font-bold mb-2 ${isDarkTheme ? 'text-gray-300' : 'text-gray-700'}`}>Age *</label>
+                      <input required type="number" readOnly value={age} placeholder="Auto-calculated" className={`w-full border rounded-xl px-4 py-3 outline-none cursor-not-allowed ${isDarkTheme ? 'bg-[#1A1A1A] border-gray-700 text-gray-400' : 'bg-gray-100 border-gray-200 text-gray-600'}`} />
+                    </div>
                     <div>
                       <label className={`block text-sm font-bold mb-2 ${isDarkTheme ? 'text-gray-300' : 'text-gray-700'}`}>Gender *</label>
                       <select required defaultValue="" className={`w-full border rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#EBB700] outline-none ${isDarkTheme ? 'bg-[#2A2A2A] border-gray-700 text-white' : 'bg-white border-gray-300 text-black'}`}>
@@ -542,7 +633,6 @@ const JoinView = ({ isDarkTheme }) => {
                   </div>
                 </div>
 
-                {/* Contact Information */}
                 <div className="mb-10">
                   <h3 className={`text-lg font-bold mb-4 border-b pb-2 ${isDarkTheme ? 'text-[#EBB700] border-gray-700' : 'text-[#00338D] border-gray-200'}`}>Contact Information</h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
@@ -557,7 +647,6 @@ const JoinView = ({ isDarkTheme }) => {
                   </div>
                 </div>
 
-                {/* Location Details */}
                 <div className="mb-10">
                   <h3 className={`text-lg font-bold mb-4 border-b pb-2 ${isDarkTheme ? 'text-[#EBB700] border-gray-700' : 'text-[#00338D] border-gray-200'}`}>Location Details</h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
@@ -570,7 +659,6 @@ const JoinView = ({ isDarkTheme }) => {
                   </div>
                 </div>
 
-                {/* Professional Information */}
                 <div className="mb-8">
                   <h3 className={`text-lg font-bold mb-4 border-b pb-2 ${isDarkTheme ? 'text-[#EBB700] border-gray-700' : 'text-[#00338D] border-gray-200'}`}>Professional Information</h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
@@ -593,7 +681,6 @@ const JoinView = ({ isDarkTheme }) => {
                 <h2 className={`text-3xl font-bold mb-2 ${isDarkTheme ? 'text-white' : 'text-[#172033]'}`}>Documents & References</h2>
                 <p className={`mb-10 ${isDarkTheme ? 'text-gray-400' : 'text-gray-600'}`}>Upload required documents and provide your emergency contact & reference.</p>
                 
-                {/* Documents */}
                 <h3 className={`text-lg font-bold mb-4 border-b pb-2 ${isDarkTheme ? 'text-[#EBB700] border-gray-700' : 'text-[#00338D] border-gray-200'}`}>File Uploads</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-10">
                   <div>
@@ -606,10 +693,9 @@ const JoinView = ({ isDarkTheme }) => {
                   </div>
                 </div>
 
-                {/* Membership */}
                 <h3 className={`text-lg font-bold mb-4 border-b pb-2 ${isDarkTheme ? 'text-[#EBB700] border-gray-700' : 'text-[#00338D] border-gray-200'}`}>Membership Details</h3>
                 <div className="mb-10">
-                  <label className={`block text-sm font-bold mb-2 ${isDarkTheme ? 'text-gray-300' : 'text-gray-700'}`}>Select your choosen Membership Type *</label>
+                  <label className={`block text-sm font-bold mb-2 ${isDarkTheme ? 'text-gray-300' : 'text-gray-700'}`}>Selected Membership Type *</label>
                   <select required value={selectedPlan} onChange={(e) => setSelectedPlan(e.target.value)} className={`w-full border rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#EBB700] outline-none ${isDarkTheme ? 'bg-[#2A2A2A] border-gray-700 text-white' : 'bg-white border-gray-300 text-black'}`}>
                     <option value="" disabled>Select membership type</option>
                     <option value="Regular">Regular Membership (₹{FEES.regular})</option>
@@ -618,18 +704,23 @@ const JoinView = ({ isDarkTheme }) => {
                   </select>
                 </div>
 
-                {/* Emergency & Reference */}
                 <h3 className={`text-lg font-bold mb-4 border-b pb-2 ${isDarkTheme ? 'text-[#EBB700] border-gray-700' : 'text-[#00338D] border-gray-200'}`}>Emergency & Reference</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-8">
                   <div><label className={`block text-sm font-bold mb-2 ${isDarkTheme ? 'text-gray-300' : 'text-gray-700'}`}>Emergency Contact Person's Name *</label><input required type="text" className={`w-full border rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#EBB700] outline-none ${isDarkTheme ? 'bg-[#2A2A2A] border-gray-700 text-white' : 'bg-white border-gray-300 text-black'}`} /></div>
                   <div><label className={`block text-sm font-bold mb-2 ${isDarkTheme ? 'text-gray-300' : 'text-gray-700'}`}>Emergency Contact Number *</label><input required type="tel" className={`w-full border rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#EBB700] outline-none ${isDarkTheme ? 'bg-[#2A2A2A] border-gray-700 text-white' : 'bg-white border-gray-300 text-black'}`} /></div>
                   <div>
                     <label className={`block text-sm font-bold mb-2 ${isDarkTheme ? 'text-gray-300' : 'text-gray-700'}`}>Do you have an existing Leo Member as your reference? *</label>
-                    <select defaultValue="No" className={`w-full border rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#EBB700] outline-none ${isDarkTheme ? 'bg-[#2A2A2A] border-gray-700 text-white' : 'bg-white border-gray-300 text-black'}`}>
-                      <option>Yes</option><option>No</option>
+                    <select value={hasReference} onChange={handleRefChange} className={`w-full border rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#EBB700] outline-none ${isDarkTheme ? 'bg-[#2A2A2A] border-gray-700 text-white' : 'bg-white border-gray-300 text-black'}`}>
+                      <option value="Yes">Yes</option>
+                      <option value="No">No</option>
                     </select>
                   </div>
-                  <div><label className={`block text-sm font-bold mb-2 ${isDarkTheme ? 'text-gray-300' : 'text-gray-700'}`}>Reference Person's Name</label><input type="text" placeholder="If Yes, provide name" className={`w-full border rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#EBB700] outline-none ${isDarkTheme ? 'bg-[#2A2A2A] border-gray-700 text-white' : 'bg-white border-gray-300 text-black'}`} /></div>
+                  {hasReference === 'Yes' && (
+                    <div className="step-animation">
+                      <label className={`block text-sm font-bold mb-2 ${isDarkTheme ? 'text-gray-300' : 'text-gray-700'}`}>Reference Person's Name *</label>
+                      <input type="text" required value={referenceName} onChange={e => setReferenceName(e.target.value)} placeholder="Provide member name" className={`w-full border rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#EBB700] outline-none ${isDarkTheme ? 'bg-[#2A2A2A] border-gray-700 text-white' : 'bg-white border-gray-300 text-black'}`} />
+                    </div>
+                  )}
                 </div>
 
                 <div className="mt-8 flex justify-between gap-4">
@@ -876,7 +967,7 @@ export default function LeoClubApp() {
 
       <main>
         {currentView === 'home' && <HomeView isDarkTheme={isDarkTheme} />}
-        {currentView === 'join' && <JoinView isDarkTheme={isDarkTheme} />}
+        {currentView.startsWith('join') && <JoinView currentView={currentView} isDarkTheme={isDarkTheme} />}
         {currentView === 'projects' && <ProjectsView isDarkTheme={isDarkTheme} />}
         {currentView === 'contact' && <ContactView isDarkTheme={isDarkTheme} />}
         {currentView === 'admin-login' && <AdminLoginView isDarkTheme={isDarkTheme} setIsAdminLoggedIn={setIsAdminLoggedIn} />}
