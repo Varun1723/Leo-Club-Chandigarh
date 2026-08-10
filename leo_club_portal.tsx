@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { supabase } from './supabaseClient';
+import MemberPortalApp from './member_portal';
+import AdminPortalApp from './admin_portal';
 import { 
   Menu, X, Home, Info, FolderHeart, UserPlus, 
   RefreshCw, Mail, CheckCircle2, ChevronRight, 
@@ -98,12 +100,15 @@ const NavBar = ({ session, currentView, isDarkTheme, setIsDarkTheme, isMobileMen
                <button onClick={async () => { await supabase.auth.signOut(); window.location.hash = 'home'; }} className={`w-10 h-10 flex items-center justify-center rounded-full transition-colors ${isDarkTheme ? 'text-gray-400 hover:text-red-400 hover:bg-gray-800' : 'text-gray-500 hover:text-red-500 hover:bg-gray-100'}`} title="Sign Out">
                  <LogOut size={18} />
                </button>
+               <a href="#member" className={`px-4 py-2 rounded-lg font-medium transition-all duration-300 ${isDarkTheme ? 'text-white hover:bg-[#00338D]' : 'text-gray-600 hover:bg-gray-100 hover:text-[#00338D]'}`}>
+                 Portal
+               </a>
                <a href="#join" className="bg-[#EBB700] text-[#172033] px-6 py-2.5 rounded-full font-bold hover:bg-yellow-500 hover:-translate-y-0.5 hover:shadow-lg transition-all duration-300 inline-flex items-center gap-2 group">
                  Apply <ChevronRight className="transition-transform duration-300 group-hover:translate-x-1" size={16} />
                </a>
              </div>
           ) : (
-            <a href="#login" className="ml-2 bg-[#00338D] text-white px-6 py-2.5 rounded-full font-bold hover:bg-[#EBB700] hover:text-[#172033] hover:-translate-y-0.5 hover:shadow-lg transition-all duration-300 inline-flex items-center gap-2 group">
+            <a href="#join" className="ml-2 bg-[#00338D] text-white px-6 py-2.5 rounded-full font-bold hover:bg-[#EBB700] hover:text-[#172033] hover:-translate-y-0.5 hover:shadow-lg transition-all duration-300 inline-flex items-center gap-2 group">
               Join Leo <ChevronRight className="transition-transform duration-300 group-hover:translate-x-1" size={16} />
             </a>
           )}
@@ -114,7 +119,7 @@ const NavBar = ({ session, currentView, isDarkTheme, setIsDarkTheme, isMobileMen
           <button onClick={() => setIsDarkTheme(!isDarkTheme)} className={`w-9 h-9 rounded-full border flex items-center justify-center transition-all duration-300 ${isDarkTheme ? 'border-[#EBB700]' : 'border-gray-300 text-gray-700'}`}>
             {isDarkTheme ? <Sun size={16} className="text-[#EBB700]" /> : <Moon size={16} />}
           </button>
-          <a href={session ? "#join" : "#login"} className="bg-[#00338D] text-white px-4 py-2 rounded-full font-bold text-sm inline-block transition-transform active:scale-95">
+          <a href="#join" className="bg-[#00338D] text-white px-4 py-2 rounded-full font-bold text-sm inline-block transition-transform active:scale-95">
             {session ? 'Apply' : 'Join'}
           </a>
           <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className={isDarkTheme ? 'text-white' : 'text-gray-600'}>
@@ -133,10 +138,22 @@ const NavBar = ({ session, currentView, isDarkTheme, setIsDarkTheme, isMobileMen
           <a href="#contact" onClick={() => setIsMobileMenuOpen(false)} className={`block w-full text-left px-4 py-3 text-base font-medium rounded-xl ${isDarkTheme ? 'text-white hover:bg-gray-800' : 'text-gray-700 hover:bg-gray-50'}`}>Contact Us</a>
           <div className={`h-px w-full my-2 ${isDarkTheme ? 'bg-gray-800' : 'bg-gray-100'}`}></div>
           <a href="#admin-login" onClick={() => setIsMobileMenuOpen(false)} className={`block w-full text-left px-4 py-3 text-base font-medium rounded-xl ${isDarkTheme ? 'text-gray-400 hover:bg-gray-800' : 'text-gray-500 hover:bg-gray-50'}`}>Admin Portal</a>
-          {session && (
-            <button onClick={async () => { await supabase.auth.signOut(); setIsMobileMenuOpen(false); window.location.hash = 'home'; }} className={`block w-full text-left px-4 py-3 text-base font-medium rounded-xl text-red-500 hover:bg-red-50 dark:hover:bg-gray-800`}>
-              Sign Out
-            </button>
+          {session ? (
+            <div className="mt-8 flex flex-col gap-3">
+              <a href="#member" onClick={() => setIsMobileMenuOpen(false)} className={`w-full py-4 text-center rounded-xl font-bold border-2 transition-colors ${isDarkTheme ? 'border-gray-700 text-gray-300' : 'border-gray-200 text-gray-600'}`}>
+                Member Portal
+              </a>
+              <a href="#join" onClick={() => setIsMobileMenuOpen(false)} className="w-full bg-[#00338D] text-white py-4 rounded-xl font-bold flex items-center justify-center gap-2">
+                Apply Now <ChevronRight size={18} />
+              </a>
+              <button onClick={async () => { await supabase.auth.signOut(); setIsMobileMenuOpen(false); window.location.hash = 'home'; }} className="w-full mt-4 flex items-center justify-center gap-2 text-red-500 font-bold py-3 hover:bg-red-50 rounded-xl transition-colors">
+                <LogOut size={18} /> Sign Out
+              </button>
+            </div>
+          ) : (
+            <a href="#join" onClick={() => setIsMobileMenuOpen(false)} className="block w-full text-center mt-4 bg-[#00338D] text-white py-3 rounded-xl font-bold">
+              Join Now
+            </a>
           )}
         </div>
       </div>
@@ -294,7 +311,7 @@ const HomeView = ({ session, isDarkTheme }) => (
             We have more volunteers in more places than any other service organization in the world. Join Chandigarh's premier youth leadership movement.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 mt-8">
-            <a href={session ? "#join" : "#login"} className="bg-[#EBB700] text-[#172033] hover:bg-[#00338D] hover:text-white transition-all duration-300 px-8 py-4 rounded-xl font-bold text-lg inline-flex items-center gap-3 w-fit hover:-translate-y-1 hover:shadow-xl group">
+            <a href="#join" className="bg-[#EBB700] text-[#172033] hover:bg-[#00338D] hover:text-white transition-all duration-300 px-8 py-4 rounded-xl font-bold text-lg inline-flex items-center gap-3 w-fit hover:-translate-y-1 hover:shadow-xl group">
               {session ? "Apply Now" : "Join the Club"} <ArrowRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1.5" />
             </a>
           </div>
@@ -598,6 +615,71 @@ const JoinView = ({ currentView, isDarkTheme, session }) => {
     return `${hours}:${mins}`;
   });
 
+  const [stepErrors, setStepErrors] = useState({});
+
+  const handleStep1Submit = (e) => {
+    e.preventDefault();
+    const data = new FormData(e.target);
+    const errors = {};
+    const emailStr = data.get("email") || email;
+    const phoneStr = data.get("phone");
+    const ageVal = parseInt(age, 10);
+    const dobStr = data.get("dob") || dob;
+
+    if (!phoneStr || !/^[6-9]\d{9}$/.test(phoneStr.replace(/\D/g, ''))) {
+      errors.phone = "Enter a valid 10-digit phone number.";
+    }
+    if (!emailStr || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailStr)) {
+      errors.email = "Enter a valid email address.";
+    }
+    if (!dobStr) {
+      errors.dob = "Date of birth is required.";
+    } else if (isNaN(ageVal) || ageVal <= 0) {
+      errors.dob = "Invalid date of birth (must be > 0 years).";
+    }
+
+    if (Object.keys(errors).length > 0) {
+       setStepErrors(errors);
+       return;
+    }
+    setStepErrors({});
+    window.scrollTo(0, 0);
+    setStep(s => s + 1);
+  };
+
+  const handleStep2Submit = (e) => {
+    e.preventDefault();
+    const data = new FormData(e.target);
+    const errors = {};
+    
+    const omega = data.get("omegaForm");
+    const idProof = data.get("idProof");
+    const plan = selectedPlan;
+    const emergContact = data.get("emergencyNumber");
+    const hasRef = hasReference;
+    const refName = referenceName;
+
+    if (!plan) errors.plan = "Membership type must be selected.";
+    if (omega && omega.size > 5 * 1024 * 1024) errors.omegaForm = "File too large (max 5MB).";
+    if (idProof && idProof.size > 5 * 1024 * 1024) errors.idProof = "File too large (max 5MB).";
+    
+    if (!emergContact || !/^[6-9]\d{9}$/.test(emergContact.replace(/\D/g, ''))) {
+      errors.emergencyNumber = "Enter a valid 10-digit phone number.";
+    }
+    
+    if (hasRef === 'Yes' && (!refName || refName.trim() === '')) {
+      errors.referenceName = "Reference name is required if you select 'Yes'.";
+    }
+
+    if (Object.keys(errors).length > 0) {
+       setStepErrors(errors);
+       return;
+    }
+    setStepErrors({});
+    window.scrollTo(0, 0);
+    setStep(s => s + 1);
+  };
+
   const handleNext = () => {
     window.scrollTo(0, 0);
     setStep(s => s + 1);
@@ -608,7 +690,8 @@ const JoinView = ({ currentView, isDarkTheme, session }) => {
     setStep(s => s - 1);
   };
   
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
     setIsSubmitting(true);
     setTimeout(() => {
       setIsSubmitting(false);
@@ -741,7 +824,7 @@ const JoinView = ({ currentView, isDarkTheme, session }) => {
 
             {/* STEP 1: PERSONAL DETAILS */}
             {step === 1 && (
-              <div className="p-8 md:p-10 step-animation">
+              <form onSubmit={handleStep1Submit} className="p-8 md:p-10 step-animation">
                 <h2 className={`text-3xl font-bold mb-2 ${isDarkTheme ? 'text-white' : 'text-[#172033]'}`}>Personal Details</h2>
                 <p className={`mb-8 ${isDarkTheme ? 'text-gray-400' : 'text-gray-600'}`}>Tell us about yourself so we can begin your Leo membership application.</p>
 
@@ -763,7 +846,8 @@ const JoinView = ({ currentView, isDarkTheme, session }) => {
 
                     <div>
                       <label className={`block text-sm font-bold mb-2 ${isDarkTheme ? 'text-gray-300' : 'text-gray-700'}`}>Date of Birth *</label>
-                      <input required type="date" max={todayStr} value={dob} onChange={handleDobChange} className={`w-full border rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#EBB700] outline-none ${isDarkTheme ? 'bg-[#2A2A2A] border-gray-700 text-white' : 'bg-white border-gray-300 text-black'}`} />
+                      <input required type="date" name="dob" max={todayStr} value={dob} onChange={handleDobChange} className={`w-full border rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#EBB700] outline-none ${isDarkTheme ? 'bg-[#2A2A2A] border-gray-700 text-white' : 'bg-white border-gray-300 text-black'}`} />
+                      {stepErrors.dob && <p className="text-red-500 text-xs mt-1">{stepErrors.dob}</p>}
                     </div>
                     <div>
                       <label className={`block text-sm font-bold mb-2 ${isDarkTheme ? 'text-gray-300' : 'text-gray-700'}`}>Age *</label>
@@ -796,11 +880,13 @@ const JoinView = ({ currentView, isDarkTheme, session }) => {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                     <div>
                       <label className={`block text-sm font-bold mb-2 ${isDarkTheme ? 'text-gray-300' : 'text-gray-700'}`}>Contact Number <span className="font-normal text-xs block">(Should be available on WhatsApp) *</span></label>
-                      <input required type="tel" placeholder="+91" className={`w-full border rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#EBB700] outline-none ${isDarkTheme ? 'bg-[#2A2A2A] border-gray-700 text-white' : 'bg-white border-gray-300 text-black'}`} />
+                      <input required type="tel" name="phone" placeholder="+91" className={`w-full border rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#EBB700] outline-none ${isDarkTheme ? 'bg-[#2A2A2A] border-gray-700 text-white' : 'bg-white border-gray-300 text-black'}`} />
+                      {stepErrors.phone && <p className="text-red-500 text-xs mt-1">{stepErrors.phone}</p>}
                     </div>
                     <div>
                       <label className={`block text-sm font-bold mb-2 ${isDarkTheme ? 'text-gray-300' : 'text-gray-700'}`}>Personal Email ID * <span className="font-normal text-xs block opacity-0">spacer</span></label>
-                      <input required type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="name@example.com" className={`w-full border rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#EBB700] outline-none ${isDarkTheme ? 'bg-[#2A2A2A] border-gray-700 text-white' : 'bg-white border-gray-300 text-black'}`} />
+                      <input required type="email" name="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="name@example.com" className={`w-full border rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#EBB700] outline-none ${isDarkTheme ? 'bg-[#2A2A2A] border-gray-700 text-white' : 'bg-white border-gray-300 text-black'}`} />
+                      {stepErrors.email && <p className="text-red-500 text-xs mt-1">{stepErrors.email}</p>}
                     </div>
                   </div>
                 </div>
@@ -826,16 +912,16 @@ const JoinView = ({ currentView, isDarkTheme, session }) => {
                 </div>
 
                 <div className="mt-8 flex justify-end">
-                  <button onClick={handleNext} className="w-full sm:w-auto bg-[#EBB700] text-[#172033] px-10 py-3.5 rounded-xl font-bold hover:bg-yellow-500 transition-colors shadow-lg">
+                  <button type="submit" className="w-full sm:w-auto bg-[#EBB700] text-[#172033] px-10 py-3.5 rounded-xl font-bold hover:bg-yellow-500 transition-colors shadow-lg">
                     Continue to Documents
                   </button>
                 </div>
-              </div>
+              </form>
             )}
 
             {/* STEP 2: DOCUMENTS AND MEMBERSHIP */}
             {step === 2 && (
-              <div className="p-8 md:p-10 step-animation">
+              <form onSubmit={handleStep2Submit} className="p-8 md:p-10 step-animation">
                 <h2 className={`text-3xl font-bold mb-2 ${isDarkTheme ? 'text-white' : 'text-[#172033]'}`}>Documents & References</h2>
                 <p className={`mb-10 ${isDarkTheme ? 'text-gray-400' : 'text-gray-600'}`}>Upload required documents and provide your emergency contact & reference.</p>
 
@@ -843,11 +929,13 @@ const JoinView = ({ currentView, isDarkTheme, session }) => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-10">
                   <div>
                     <label className={`block text-sm font-bold mb-2 ${isDarkTheme ? 'text-gray-300' : 'text-gray-700'}`}>Upload Leo Omega Form *</label>
-                    <input required type="file" accept=".pdf,image/*" className={`w-full border rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#EBB700] outline-none ${isDarkTheme ? 'bg-[#2A2A2A] border-gray-700 text-white' : 'bg-white border-gray-300 text-black'}`} />
+                    <input required type="file" name="omegaForm" accept=".pdf,image/*" className={`w-full border rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#EBB700] outline-none ${isDarkTheme ? 'bg-[#2A2A2A] border-gray-700 text-white' : 'bg-white border-gray-300 text-black'}`} />
+                    {stepErrors.omegaForm && <p className="text-red-500 text-xs mt-1">{stepErrors.omegaForm}</p>}
                   </div>
                   <div>
                     <label className={`block text-sm font-bold mb-2 ${isDarkTheme ? 'text-gray-300' : 'text-gray-700'}`}>Upload Government ID <span className="font-normal text-xs">(Front & Back Scanned PDF) *</span></label>
-                    <input required type="file" accept="application/pdf" className={`w-full border rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#EBB700] outline-none ${isDarkTheme ? 'bg-[#2A2A2A] border-gray-700 text-white' : 'bg-white border-gray-300 text-black'}`} />
+                    <input required type="file" name="idProof" accept="application/pdf" className={`w-full border rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#EBB700] outline-none ${isDarkTheme ? 'bg-[#2A2A2A] border-gray-700 text-white' : 'bg-white border-gray-300 text-black'}`} />
+                    {stepErrors.idProof && <p className="text-red-500 text-xs mt-1">{stepErrors.idProof}</p>}
                   </div>
                 </div>
 
@@ -865,7 +953,11 @@ const JoinView = ({ currentView, isDarkTheme, session }) => {
                 <h3 className={`text-lg font-bold mb-4 border-b pb-2 ${isDarkTheme ? 'text-[#EBB700] border-gray-700' : 'text-[#00338D] border-gray-200'}`}>Emergency & Reference</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-8">
                   <div><label className={`block text-sm font-bold mb-2 ${isDarkTheme ? 'text-gray-300' : 'text-gray-700'}`}>Emergency Contact Person's Name *</label><input required type="text" className={`w-full border rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#EBB700] outline-none ${isDarkTheme ? 'bg-[#2A2A2A] border-gray-700 text-white' : 'bg-white border-gray-300 text-black'}`} /></div>
-                  <div><label className={`block text-sm font-bold mb-2 ${isDarkTheme ? 'text-gray-300' : 'text-gray-700'}`}>Emergency Contact Number *</label><input required type="tel" className={`w-full border rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#EBB700] outline-none ${isDarkTheme ? 'bg-[#2A2A2A] border-gray-700 text-white' : 'bg-white border-gray-300 text-black'}`} /></div>
+                  <div>
+                    <label className={`block text-sm font-bold mb-2 ${isDarkTheme ? 'text-gray-300' : 'text-gray-700'}`}>Emergency Contact Number *</label>
+                    <input required type="tel" name="emergencyNumber" className={`w-full border rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#EBB700] outline-none ${isDarkTheme ? 'bg-[#2A2A2A] border-gray-700 text-white' : 'bg-white border-gray-300 text-black'}`} />
+                    {stepErrors.emergencyNumber && <p className="text-red-500 text-xs mt-1">{stepErrors.emergencyNumber}</p>}
+                  </div>
                   <div>
                     <label className={`block text-sm font-bold mb-2 ${isDarkTheme ? 'text-gray-300' : 'text-gray-700'}`}>Do you have an existing Leo Member as your reference? *</label>
                     <select value={hasReference} onChange={handleRefChange} className={`w-full border rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#EBB700] outline-none ${isDarkTheme ? 'bg-[#2A2A2A] border-gray-700 text-white' : 'bg-white border-gray-300 text-black'}`}>
@@ -877,15 +969,16 @@ const JoinView = ({ currentView, isDarkTheme, session }) => {
                     <div className="step-animation">
                       <label className={`block text-sm font-bold mb-2 ${isDarkTheme ? 'text-gray-300' : 'text-gray-700'}`}>Reference Person's Name *</label>
                       <input type="text" required value={referenceName} onChange={e => setReferenceName(e.target.value)} placeholder="Provide member name" className={`w-full border rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#EBB700] outline-none ${isDarkTheme ? 'bg-[#2A2A2A] border-gray-700 text-white' : 'bg-white border-gray-300 text-black'}`} />
+                      {stepErrors.referenceName && <p className="text-red-500 text-xs mt-1">{stepErrors.referenceName}</p>}
                     </div>
                   )}
                 </div>
 
                 <div className="mt-8 flex justify-between gap-4">
-                  <button onClick={handleBack} className={`px-8 py-3.5 rounded-xl font-bold border transition-colors ${isDarkTheme ? 'text-gray-300 border-gray-700 hover:bg-gray-800' : 'text-gray-600 border-gray-300 hover:bg-gray-50'}`}>Back</button>
-                  <button onClick={handleNext} className="flex-1 bg-[#EBB700] text-[#172033] px-8 py-3.5 rounded-xl font-bold hover:bg-yellow-500 shadow-lg">Choose Interview Slot</button>
+                  <button type="button" onClick={handleBack} className={`px-8 py-3.5 rounded-xl font-bold border transition-colors ${isDarkTheme ? 'text-gray-300 border-gray-700 hover:bg-gray-800' : 'text-gray-600 border-gray-300 hover:bg-gray-50'}`}>Back</button>
+                  <button type="submit" className="flex-1 bg-[#EBB700] text-[#172033] px-8 py-3.5 rounded-xl font-bold hover:bg-yellow-500 shadow-lg">Choose Interview Slot</button>
                 </div>
-              </div>
+              </form>
             )}
 
             {/* STEP 3: INTERVIEW SLOT */}
@@ -928,7 +1021,7 @@ const JoinView = ({ currentView, isDarkTheme, session }) => {
 
             {/* STEP 4: DECLARATION */}
             {step === 4 && (
-              <div className="p-8 md:p-10 step-animation">
+              <form onSubmit={handleSubmit} className="p-8 md:p-10 step-animation">
                 <h2 className={`text-3xl font-bold mb-8 ${isDarkTheme ? 'text-white' : 'text-[#172033]'}`}>Final Declaration</h2>
 
                 <div className={`p-6 border rounded-2xl mb-8 ${isDarkTheme ? 'bg-[#2A2A2A] border-gray-700' : 'bg-yellow-50 border-yellow-200'}`}>
@@ -941,9 +1034,9 @@ const JoinView = ({ currentView, isDarkTheme, session }) => {
                 </div>
 
                 <div className="mt-10 flex justify-between gap-4">
-                  <button onClick={handleBack} disabled={isSubmitting} className={`px-8 py-3.5 rounded-xl font-bold border transition-colors ${isDarkTheme ? 'text-gray-300 border-gray-700 hover:bg-gray-800' : 'text-gray-600 border-gray-300 hover:bg-gray-50'}`}>Back</button>
+                  <button type="button" onClick={handleBack} disabled={isSubmitting} className={`px-8 py-3.5 rounded-xl font-bold border transition-colors ${isDarkTheme ? 'text-gray-300 border-gray-700 hover:bg-gray-800' : 'text-gray-600 border-gray-300 hover:bg-gray-50'}`}>Back</button>
                   <button
-                    onClick={handleSubmit}
+                    type="submit"
                     disabled={isSubmitting}
                     className="flex-1 bg-[#EBB700] text-[#172033] px-8 py-3.5 rounded-xl font-bold hover:bg-yellow-500 transition-all shadow-lg flex items-center justify-center gap-3"
                   >
@@ -954,7 +1047,7 @@ const JoinView = ({ currentView, isDarkTheme, session }) => {
                     )}
                   </button>
                 </div>
-              </div>
+              </form>
             )}
 
             {/* STEP 5: SUCCESS */}
@@ -1149,14 +1242,17 @@ export default function LeoClubApp() {
 
   return (
     <div className={isDarkTheme ? 'theme-dark min-h-screen' : 'theme-light min-h-screen'}>
-      <NavBar
-        session={session}
-        currentView={currentView}
-        isDarkTheme={isDarkTheme}
-        setIsDarkTheme={setIsDarkTheme}
-        isMobileMenuOpen={isMobileMenuOpen}
-        setIsMobileMenuOpen={setIsMobileMenuOpen}
-      />
+      {/* Hide main NavBar and Footer for Portal views */}
+      {!['admin', 'member'].includes(currentView) && (
+        <NavBar
+          session={session}
+          currentView={currentView}
+          isDarkTheme={isDarkTheme}
+          setIsDarkTheme={setIsDarkTheme}
+          isMobileMenuOpen={isMobileMenuOpen}
+          setIsMobileMenuOpen={setIsMobileMenuOpen}
+        />
+      )}
 
       <main>
         {currentView === 'home' && <HomeView isDarkTheme={isDarkTheme} session={session} />}
@@ -1165,10 +1261,13 @@ export default function LeoClubApp() {
         {currentView === 'projects' && <ProjectsView isDarkTheme={isDarkTheme} />}
         {currentView === 'contact' && <ContactView isDarkTheme={isDarkTheme} />}
         {currentView === 'admin-login' && <AdminLoginView isDarkTheme={isDarkTheme} setIsAdminLoggedIn={setIsAdminLoggedIn} />}
-        {currentView === 'admin' && (isAdminLoggedIn ? <AdminDashboardView isDarkTheme={isDarkTheme} setIsAdminLoggedIn={setIsAdminLoggedIn} /> : <AdminLoginView isDarkTheme={isDarkTheme} setIsAdminLoggedIn={setIsAdminLoggedIn} />)}
+        
+        {/* New Portal Routes */}
+        {currentView === 'member' && <MemberPortalApp session={session} isDarkTheme={isDarkTheme} />}
+        {currentView === 'admin' && (isAdminLoggedIn ? <AdminPortalApp isDarkTheme={isDarkTheme} setIsAdminLoggedIn={setIsAdminLoggedIn} /> : <AdminLoginView isDarkTheme={isDarkTheme} setIsAdminLoggedIn={setIsAdminLoggedIn} />)}
       </main>
 
-      <Footer isDarkTheme={isDarkTheme} />
+      {!['admin', 'member'].includes(currentView) && <Footer isDarkTheme={isDarkTheme} />}
     </div>
   );
 }
