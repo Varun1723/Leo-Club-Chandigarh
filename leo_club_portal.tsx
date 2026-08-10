@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import {
-  Menu, X, Home, Info, FolderHeart, UserPlus,
-  RefreshCw, Mail, CheckCircle2, ChevronRight,
-  UploadCloud, CreditCard, ShieldCheck, HeartPulse,
+import { supabase } from './supabaseClient';
+import { 
+  Menu, X, Home, Info, FolderHeart, UserPlus, 
+  RefreshCw, Mail, CheckCircle2, ChevronRight, 
+  UploadCloud, CreditCard, ShieldCheck, HeartPulse, 
   Leaf, Eye, Utensils, Baby, ShieldAlert, ArrowRight,
   Users, Phone, Send, MapPin, LayoutDashboard, Sun, Moon,
-  LogOut, IndianRupee
+  LogOut, IndianRupee, LogIn
 } from 'lucide-react';
 
 const BRAND = {
@@ -42,7 +43,7 @@ const ASSETS = {
    COMPONENTS
    ========================================================================= */
 
-const NavBar = ({ currentView, isDarkTheme, setIsDarkTheme, isMobileMenuOpen, setIsMobileMenuOpen }) => (
+const NavBar = ({ session, currentView, isDarkTheme, setIsDarkTheme, isMobileMenuOpen, setIsMobileMenuOpen }) => (
   <nav className={`sticky top-0 z-50 border-b-4 border-[#EBB700] shadow-sm transition-colors duration-200 ${isDarkTheme ? 'bg-[#1E1E1E]' : 'bg-white'}`}>
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div className="flex justify-between h-20">
@@ -52,44 +53,60 @@ const NavBar = ({ currentView, isDarkTheme, setIsDarkTheme, isMobileMenuOpen, se
             <img src={ASSETS.leoLogo} alt="Leo Club emblem" className="w-11 h-11 object-contain" />
           </div>
           <div className="hidden sm:block border-l border-[#B3B2B1] pl-4">
-            <h1 className={`font-bold text-lg leading-tight ${isDarkTheme ? "text-white" : "text-[#00338D]"}`}>Leo Club Chandigarh Fortune</h1>
+            <h1 className={`font-bold text-lg leading-tight ${ isDarkTheme ? "text-white" : "text-[#00338D]"}`}>Leo Club Chandigarh Fortune</h1>
             <p className="text-xs text-[#55565A] font-medium tracking-[0.18em] uppercase">We Serve</p>
           </div>
         </a>
 
         {/* Desktop Nav */}
         <div className="hidden md:flex items-center space-x-1">
-          <a href="#home" className={`px-4 py-2 rounded-lg font-medium transition-all duration-300 ${currentView === 'home'
-              ? isDarkTheme ? 'bg-[#00338D] text-white' : 'bg-blue-50 text-[#00338D]'
-              : isDarkTheme ? 'text-white hover:bg-[#EBB700] hover:text-[#172033]' : 'text-gray-600 hover:bg-gray-100 hover:text-[#00338D]'
+          <a href="#home" className={`px-4 py-2 rounded-lg font-medium transition-all duration-300 ${
+              currentView === 'home'
+                ? isDarkTheme ? 'bg-[#00338D] text-white' : 'bg-blue-50 text-[#00338D]'
+                : isDarkTheme ? 'text-white hover:bg-[#EBB700] hover:text-[#172033]' : 'text-gray-600 hover:bg-gray-100 hover:text-[#00338D]'
             }`}>Home</a>
-          <a href="#projects" className={`px-4 py-2 rounded-lg font-medium transition-all duration-300 ${currentView === 'projects'
-              ? isDarkTheme ? 'bg-[#00338D] text-white' : 'bg-blue-50 text-[#00338D]'
-              : isDarkTheme ? 'text-white hover:bg-[#EBB700] hover:text-[#172033]' : 'text-gray-600 hover:bg-gray-100 hover:text-[#00338D]'
+          <a href="#projects" className={`px-4 py-2 rounded-lg font-medium transition-all duration-300 ${
+              currentView === 'projects'
+                ? isDarkTheme ? 'bg-[#00338D] text-white' : 'bg-blue-50 text-[#00338D]'
+                : isDarkTheme ? 'text-white hover:bg-[#EBB700] hover:text-[#172033]' : 'text-gray-600 hover:bg-gray-100 hover:text-[#00338D]'
             }`}>Projects</a>
-          <a href="#contact" className={`px-4 py-2 rounded-lg font-medium transition-all duration-300 ${currentView === 'contact'
-              ? isDarkTheme ? 'bg-[#00338D] text-white' : 'bg-blue-50 text-[#00338D]'
-              : isDarkTheme ? 'text-white hover:bg-[#EBB700] hover:text-[#172033]' : 'text-gray-600 hover:bg-gray-100 hover:text-[#00338D]'
+          <a href="#contact" className={`px-4 py-2 rounded-lg font-medium transition-all duration-300 ${
+              currentView === 'contact'
+                ? isDarkTheme ? 'bg-[#00338D] text-white' : 'bg-blue-50 text-[#00338D]'
+                : isDarkTheme ? 'text-white hover:bg-[#EBB700] hover:text-[#172033]' : 'text-gray-600 hover:bg-gray-100 hover:text-[#00338D]'
             }`}>Contact</a>
-          <a href="#admin-login" className={`px-4 py-2 rounded-lg font-medium transition-all duration-300 ${currentView === 'admin-login' || currentView === 'admin'
-              ? isDarkTheme ? 'bg-[#00338D] text-white' : 'bg-blue-50 text-[#00338D]'
-              : isDarkTheme ? 'text-white hover:bg-[#EBB700] hover:text-[#172033]' : 'text-gray-600 hover:bg-gray-100 hover:text-[#00338D]'
+          <a href="#admin-login" className={`px-4 py-2 rounded-lg font-medium transition-all duration-300 ${
+              currentView === 'admin-login' || currentView === 'admin'
+                ? isDarkTheme ? 'bg-[#00338D] text-white' : 'bg-blue-50 text-[#00338D]'
+                : isDarkTheme ? 'text-white hover:bg-[#EBB700] hover:text-[#172033]' : 'text-gray-600 hover:bg-gray-100 hover:text-[#00338D]'
             }`}>Admin</a>
-
-          <button
-            onClick={() => setIsDarkTheme(!isDarkTheme)}
-            aria-label={isDarkTheme ? 'Switch to light theme' : 'Switch to dark theme'}
-            className={`ml-2 w-10 h-10 rounded-full border flex items-center justify-center transition-all duration-300 ${isDarkTheme ? 'border-[#EBB700] text-[#EBB700] hover:bg-[#EBB700] hover:text-[#172033]' : 'border-[#55565A] text-[#00338D] hover:bg-[#00338D] hover:text-white'
-              }`}
+          
+          <button 
+            onClick={() => setIsDarkTheme(!isDarkTheme)} 
+            aria-label={isDarkTheme ? 'Switch to light theme' : 'Switch to dark theme'} 
+            className={`ml-2 w-10 h-10 rounded-full border flex items-center justify-center transition-all duration-300 ${
+              isDarkTheme ? 'border-[#EBB700] text-[#EBB700] hover:bg-[#EBB700] hover:text-[#172033]' : 'border-[#55565A] text-[#00338D] hover:bg-[#00338D] hover:text-white'
+            }`}
           >
             {isDarkTheme ? <Sun size={18} className="text-[#EBB700]" /> : <Moon size={18} />}
           </button>
-
+          
           <div className="h-6 w-px bg-gray-300 mx-2"></div>
-
-          <a href="#join" className="ml-2 bg-[#00338D] text-white px-6 py-2.5 rounded-full font-bold hover:bg-[#EBB700] hover:text-[#172033] hover:-translate-y-0.5 hover:shadow-lg transition-all duration-300 inline-flex items-center gap-2 group">
-            Join Leo <ChevronRight className="transition-transform duration-300 group-hover:translate-x-1" size={16} />
-          </a>
+          
+          {session ? (
+             <div className="flex items-center gap-2 ml-2">
+               <button onClick={async () => { await supabase.auth.signOut(); window.location.hash = 'home'; }} className={`w-10 h-10 flex items-center justify-center rounded-full transition-colors ${isDarkTheme ? 'text-gray-400 hover:text-red-400 hover:bg-gray-800' : 'text-gray-500 hover:text-red-500 hover:bg-gray-100'}`} title="Sign Out">
+                 <LogOut size={18} />
+               </button>
+               <a href="#join" className="bg-[#EBB700] text-[#172033] px-6 py-2.5 rounded-full font-bold hover:bg-yellow-500 hover:-translate-y-0.5 hover:shadow-lg transition-all duration-300 inline-flex items-center gap-2 group">
+                 Apply <ChevronRight className="transition-transform duration-300 group-hover:translate-x-1" size={16} />
+               </a>
+             </div>
+          ) : (
+            <a href="#login" className="ml-2 bg-[#00338D] text-white px-6 py-2.5 rounded-full font-bold hover:bg-[#EBB700] hover:text-[#172033] hover:-translate-y-0.5 hover:shadow-lg transition-all duration-300 inline-flex items-center gap-2 group">
+              Join Leo <ChevronRight className="transition-transform duration-300 group-hover:translate-x-1" size={16} />
+            </a>
+          )}
         </div>
 
         {/* Mobile Menu Button */}
@@ -97,7 +114,9 @@ const NavBar = ({ currentView, isDarkTheme, setIsDarkTheme, isMobileMenuOpen, se
           <button onClick={() => setIsDarkTheme(!isDarkTheme)} className={`w-9 h-9 rounded-full border flex items-center justify-center transition-all duration-300 ${isDarkTheme ? 'border-[#EBB700]' : 'border-gray-300 text-gray-700'}`}>
             {isDarkTheme ? <Sun size={16} className="text-[#EBB700]" /> : <Moon size={16} />}
           </button>
-          <a href="#join" className="bg-[#00338D] text-white px-4 py-2 rounded-full font-bold text-sm inline-block transition-transform active:scale-95">Join</a>
+          <a href={session ? "#join" : "#login"} className="bg-[#00338D] text-white px-4 py-2 rounded-full font-bold text-sm inline-block transition-transform active:scale-95">
+            {session ? 'Apply' : 'Join'}
+          </a>
           <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className={isDarkTheme ? 'text-white' : 'text-gray-600'}>
             {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
           </button>
@@ -114,6 +133,11 @@ const NavBar = ({ currentView, isDarkTheme, setIsDarkTheme, isMobileMenuOpen, se
           <a href="#contact" onClick={() => setIsMobileMenuOpen(false)} className={`block w-full text-left px-4 py-3 text-base font-medium rounded-xl ${isDarkTheme ? 'text-white hover:bg-gray-800' : 'text-gray-700 hover:bg-gray-50'}`}>Contact Us</a>
           <div className={`h-px w-full my-2 ${isDarkTheme ? 'bg-gray-800' : 'bg-gray-100'}`}></div>
           <a href="#admin-login" onClick={() => setIsMobileMenuOpen(false)} className={`block w-full text-left px-4 py-3 text-base font-medium rounded-xl ${isDarkTheme ? 'text-gray-400 hover:bg-gray-800' : 'text-gray-500 hover:bg-gray-50'}`}>Admin Portal</a>
+          {session && (
+            <button onClick={async () => { await supabase.auth.signOut(); setIsMobileMenuOpen(false); window.location.hash = 'home'; }} className={`block w-full text-left px-4 py-3 text-base font-medium rounded-xl text-red-500 hover:bg-red-50 dark:hover:bg-gray-800`}>
+              Sign Out
+            </button>
+          )}
         </div>
       </div>
     )}
@@ -133,7 +157,7 @@ const Footer = ({ isDarkTheme }) => (
             Affiliated with Lions Clubs International. Empowering youth to lead, serve, and inspire in Chandigarh and beyond.
           </p>
         </div>
-
+        
         <div>
           <h3 className="font-bold text-lg mb-4 text-[#EBB700]">Organization</h3>
           <ul className={`space-y-3 text-sm ${isDarkTheme ? 'text-gray-400' : 'text-gray-600'}`}>
@@ -167,12 +191,97 @@ const Footer = ({ isDarkTheme }) => (
   </footer>
 );
 
-const HomeView = ({ isDarkTheme }) => (
+const AuthView = ({ isDarkTheme }) => {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleGoogleLogin = async () => {
+    setIsLoading(true);
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: 'google',
+      options: {
+        redirectTo: window.location.origin
+      }
+    });
+    
+    if (error) {
+      console.error("Authentication error:", error.message);
+      setIsLoading(false);
+    }
+  };
+
+  return (
+    <div className={`min-h-screen flex items-center justify-center p-4 transition-colors duration-200 ${isDarkTheme ? 'bg-[#121212]' : 'bg-gray-50'}`}>
+      <style>{`
+        @keyframes slideUpFade {
+          from { opacity: 0; transform: translateY(20px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-slide-up {
+          animation: slideUpFade 0.6s ease-out forwards;
+        }
+      `}</style>
+      
+      <div className={`w-full max-w-md rounded-3xl shadow-2xl border p-8 sm:p-10 animate-slide-up ${isDarkTheme ? 'bg-[#1E1E1E] border-gray-800' : 'bg-white border-gray-100'}`}>
+        <div className="w-20 h-20 mx-auto mb-6 flex items-center justify-center">
+          <img src={ASSETS.leoLogo} alt="Leo Club emblem" className="w-full h-full object-contain drop-shadow-md" />
+        </div>
+        <h1 className={`text-3xl font-bold text-center mb-3 tracking-tight ${isDarkTheme ? 'text-white' : 'text-[#00338D]'}`}>Welcome to Leo</h1>
+        <p className={`text-center text-sm mb-8 leading-relaxed ${isDarkTheme ? 'text-gray-400' : 'text-gray-600'}`}>
+          Sign in to start your membership application, track your status, and access your member dashboard.
+        </p>
+
+        <button 
+          onClick={handleGoogleLogin} 
+          disabled={isLoading}
+          className={`w-full py-3.5 rounded-xl font-bold transition-all duration-300 flex items-center justify-center gap-3 border shadow-sm hover:-translate-y-1 hover:shadow-md ${
+            isDarkTheme 
+              ? 'bg-[#2A2A2A] border-gray-700 text-white hover:border-gray-500' 
+              : 'bg-white border-gray-300 text-gray-800 hover:border-gray-400'
+          }`}
+        >
+          {isLoading ? (
+            <span className="animate-pulse">Connecting securely...</span>
+          ) : (
+            <>
+              {/* Minimalist Google 'G' SVG */}
+              <svg className="w-5 h-5" viewBox="0 0 24 24">
+                <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+              </svg>
+              Continue with Google
+            </>
+          )}
+        </button>
+        
+        <div className="mt-8 pt-6 border-t border-gray-200 dark:border-gray-800 text-center">
+          <p className={`text-xs ${isDarkTheme ? 'text-gray-500' : 'text-gray-500'}`}>
+            By continuing, you agree to our <a href="#" className="underline">Terms of Service</a> and <a href="#" className="underline">Privacy Policy</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const HomeView = ({ session, isDarkTheme }) => (
   <div className="min-h-screen">
+    <style>{`
+      @keyframes slideUpFade {
+        from { opacity: 0; transform: translateY(30px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      .animate-slide-up {
+        animation: slideUpFade 0.7s ease-out forwards;
+      }
+      .delay-150 { animation-delay: 150ms; opacity: 0; }
+    `}</style>
+    
     {/* Hero Section */}
     <div className={`${isDarkTheme ? 'bg-black text-white' : 'bg-blue-50 text-[#172033]'} relative overflow-hidden transition-colors duration-200 border-b-4 border-[#EBB700]`}>
       <div className={`absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] ${isDarkTheme ? 'from-[#00338D]' : 'from-blue-300'} via-transparent to-transparent`}></div>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-32 relative z-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-32 relative z-10 animate-slide-up">
         <div className="max-w-3xl">
           <span className="text-[#EBB700] font-bold tracking-widest uppercase text-sm mb-4 block flex items-center gap-2">
             <ShieldCheck size={18} /> Lions Clubs International
@@ -185,8 +294,8 @@ const HomeView = ({ isDarkTheme }) => (
             We have more volunteers in more places than any other service organization in the world. Join Chandigarh's premier youth leadership movement.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 mt-8">
-            <a href="#join" className="bg-[#EBB700] text-[#172033] hover:bg-[#00338D] hover:text-white transition-all duration-300 px-8 py-4 rounded-xl font-bold text-lg inline-flex items-center gap-3 w-fit hover:-translate-y-1 hover:shadow-xl group">
-              Join the Club <ArrowRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1.5" />
+            <a href={session ? "#join" : "#login"} className="bg-[#EBB700] text-[#172033] hover:bg-[#00338D] hover:text-white transition-all duration-300 px-8 py-4 rounded-xl font-bold text-lg inline-flex items-center gap-3 w-fit hover:-translate-y-1 hover:shadow-xl group">
+              {session ? "Apply Now" : "Join the Club"} <ArrowRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1.5" />
             </a>
           </div>
         </div>
@@ -195,13 +304,13 @@ const HomeView = ({ isDarkTheme }) => (
 
     {/* Global Causes Section */}
     <div className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 ${isDarkTheme ? 'bg-[#121212]' : 'bg-white'}`}>
-      <div className="text-center mb-16">
+      <div className="text-center mb-16 animate-slide-up delay-150">
         <h2 className={`text-3xl font-bold mb-4 ${isDarkTheme ? 'text-white' : 'text-[#00338D]'}`}>Our Global Causes</h2>
         <div className="w-16 h-1.5 bg-[#EBB700] mx-auto rounded-full mb-6"></div>
         <p className={`max-w-2xl mx-auto text-lg ${isDarkTheme ? 'text-gray-400' : 'text-gray-600'}`}>Lions and Leos are united globally around the largest challenges facing humanity.</p>
       </div>
 
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-5xl mx-auto">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-5xl mx-auto animate-slide-up delay-150">
         {[
           { name: "Vision", icon: ASSETS.causes.vision },
           { name: "Hunger", icon: ASSETS.causes.hunger },
@@ -212,8 +321,8 @@ const HomeView = ({ isDarkTheme }) => (
           { name: "Youth", icon: ASSETS.causes.youth },
           { name: "Humanitarian Efforts", icon: ASSETS.causes.humanitarianEfforts }
         ].map((cause, idx) => (
-          <a href="#projects" key={idx} className={`block ${isDarkTheme ? 'bg-[#1E1E1E] border-[#333] hover:border-[#EBB700]' : 'bg-white border-gray-200 hover:border-[#00338D] hover:shadow-md'} rounded-2xl p-6 border flex flex-col items-center text-center transition-all cursor-pointer`}>
-            <img src={cause.icon} alt="" className="w-16 h-16 object-contain mb-4" />
+          <a href="#projects" key={idx} className={`block ${isDarkTheme ? 'bg-[#1E1E1E] border-[#333] hover:border-[#EBB700]' : 'bg-white border-gray-200 hover:border-[#00338D] hover:shadow-md'} rounded-2xl p-6 border flex flex-col items-center text-center transition-all cursor-pointer hover:-translate-y-1`}>
+            <img src={cause.icon} alt="" className="w-16 h-16 object-contain mb-4 transition-transform duration-300 hover:scale-110" />
             <h3 className={`font-bold ${isDarkTheme ? 'text-white' : 'text-[#172033]'}`}>{cause.name}</h3>
           </a>
         ))}
@@ -243,11 +352,18 @@ const ProjectsView = ({ isDarkTheme }) => {
         .animate-pop-in {
           animation: popIn 0.4s ease-out forwards;
         }
+        @keyframes slideUpFade {
+          from { opacity: 0; transform: translateY(30px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-slide-up {
+          animation: slideUpFade 0.6s ease-out forwards;
+        }
       `}</style>
 
       <section className={`${isDarkTheme ? 'bg-black text-white' : 'bg-blue-50 text-[#172033]'} border-b-4 border-[#EBB700] relative overflow-hidden transition-colors duration-200`}>
         <div className={`absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] ${isDarkTheme ? 'from-[#00338D]' : 'from-blue-300'} via-transparent to-transparent`}></div>
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20 animate-slide-up">
           <p className="text-[#EBB700] font-bold tracking-[0.18em] uppercase text-sm mb-4">OUR INITIATIVES</p>
           <h1 className={`text-5xl md:text-7xl font-bold tracking-tight mb-6 ${isDarkTheme ? 'text-white' : 'text-[#00338D]'}`}>Projects & Causes</h1>
           <p className={`text-xl max-w-3xl leading-relaxed ${isDarkTheme ? 'text-gray-200' : 'text-gray-700'}`}>
@@ -258,27 +374,29 @@ const ProjectsView = ({ isDarkTheme }) => {
 
       <section className={`${isDarkTheme ? 'bg-[#121212]' : 'bg-white'} py-16 transition-colors duration-200`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
-          <div className="text-center mb-12">
+          
+          <div className="text-center mb-12 animate-slide-up">
             <h2 className={`text-3xl font-bold mb-4 ${isDarkTheme ? 'text-white' : 'text-[#00338D]'}`}>Recent & Upcoming Projects</h2>
             <div className="w-16 h-1.5 bg-[#EBB700] mx-auto rounded-full mb-8"></div>
-
+            
             <div className="flex justify-center gap-3">
-              <button
-                onClick={() => setFilter('All')}
-                className={`px-6 py-2 rounded-full font-bold transition-all duration-300 ${filter === 'All'
-                    ? 'bg-[#00338D] text-white shadow-md'
+              <button 
+                onClick={() => setFilter('All')} 
+                className={`px-6 py-2 rounded-full font-bold transition-all duration-300 hover:scale-105 ${
+                  filter === 'All' 
+                    ? 'bg-[#00338D] text-white shadow-md' 
                     : isDarkTheme ? 'border border-gray-500 text-white hover:bg-[#2A2A2A]' : 'border border-gray-300 text-gray-600 hover:bg-gray-100'
-                  }`}
+                }`}
               >
                 All
               </button>
-              <button
-                onClick={() => setFilter('UPCOMING')}
-                className={`px-6 py-2 rounded-full font-bold transition-all duration-300 ${filter === 'UPCOMING'
-                    ? 'bg-[#00338D] text-white shadow-md'
+              <button 
+                onClick={() => setFilter('UPCOMING')} 
+                className={`px-6 py-2 rounded-full font-bold transition-all duration-300 hover:scale-105 ${
+                  filter === 'UPCOMING' 
+                    ? 'bg-[#00338D] text-white shadow-md' 
                     : isDarkTheme ? 'border border-gray-500 text-white hover:bg-[#2A2A2A]' : 'border border-gray-300 text-gray-600 hover:bg-gray-100'
-                  }`}
+                }`}
               >
                 Upcoming
               </button>
@@ -287,9 +405,9 @@ const ProjectsView = ({ isDarkTheme }) => {
 
           <div className="grid md:grid-cols-3 gap-6" key={filter}>
             {filteredProjects.map((proj, i) => (
-              <div
-                key={proj.title}
-                className={`animate-pop-in ${isDarkTheme ? 'bg-[#1E1E1E] border-[#333] hover:border-[#EBB700]' : 'bg-white border-gray-200 hover:border-[#00338D] hover:shadow-md'} rounded-2xl overflow-hidden border transition-all`}
+              <div 
+                key={proj.title} 
+                className={`animate-pop-in ${isDarkTheme ? 'bg-[#1E1E1E] border-[#333] hover:border-[#EBB700]' : 'bg-white border-gray-200 hover:border-[#00338D] hover:shadow-xl'} rounded-2xl overflow-hidden border transition-all duration-300 hover:-translate-y-2`}
                 style={{ animationDelay: `${i * 100}ms`, opacity: 0 }}
               >
                 <div className={`h-44 flex items-center justify-center ${isDarkTheme ? 'bg-[#2A2A2A]' : 'bg-blue-50'}`}>
@@ -323,7 +441,7 @@ const ContactView = ({ isDarkTheme }) => {
 
   return (
     <div className={`min-h-screen ${isDarkTheme ? 'bg-[#121212]' : 'bg-white'}`}>
-
+      
       <style>{`
         @keyframes slideUpFade {
           from { opacity: 0; transform: translateY(30px); }
@@ -357,8 +475,8 @@ const ContactView = ({ isDarkTheme }) => {
           </div>
         </aside>
 
-        <div
-          className={`border p-7 md:p-10 transition-all duration-300 animate-slide-up delay-200 ${isDarkTheme ? 'bg-[#1E1E1E] border-[#333]' : 'bg-white border-gray-300'}`}
+        <div 
+          className={`border p-7 md:p-10 transition-all duration-300 animate-slide-up delay-200 ${isDarkTheme ? 'bg-[#1E1E1E] border-[#333]' : 'bg-white border-gray-300'}`} 
           style={{ boxShadow: isDarkTheme ? '8px 8px 0 #EBB700' : '8px 8px 0 #00338D' }}
         >
           {submitted ? (
@@ -387,18 +505,35 @@ const ContactView = ({ isDarkTheme }) => {
   );
 };
 
-const JoinView = ({ currentView, isDarkTheme }) => {
+const JoinView = ({ currentView, isDarkTheme, session }) => {
   const [selectedPlan, setSelectedPlan] = useState('');
   const [step, setStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [interviewDate, setInterviewDate] = useState('');
   const [interviewTime, setInterviewTime] = useState('');
+  
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
 
   const [dob, setDob] = useState('');
   const [age, setAge] = useState('');
-
+  
   const [hasReference, setHasReference] = useState('No');
   const [referenceName, setReferenceName] = useState('');
+
+  // Handle auto-fill from Google OAuth
+  useEffect(() => {
+    if (session?.user) {
+      const meta = session.user.user_metadata || {};
+      const fName = meta.full_name || meta.name || '';
+      const parts = fName.split(' ');
+      
+      if (!firstName && parts.length > 0) setFirstName(parts[0]);
+      if (!lastName && parts.length > 1) setLastName(parts.slice(1).join(' '));
+      if (!email && session.user.email) setEmail(session.user.email);
+    }
+  }, [session]);
 
   // Handle direct navigation to form without plan
   useEffect(() => {
@@ -434,6 +569,18 @@ const JoinView = ({ currentView, isDarkTheme }) => {
     }
   };
 
+  const handlePlanSelection = (plan) => {
+    if (!session) {
+      localStorage.setItem('intendedPlan', plan);
+      window.location.hash = 'login';
+      window.scrollTo(0, 0);
+    } else {
+      setSelectedPlan(plan);
+      window.location.hash = 'join-form';
+      window.scrollTo(0, 0);
+    }
+  };
+
   // Capped Dates: 9th August to 6th September
   const interviewDates = Array.from({ length: 29 }, (_, index) => {
     const date = new Date(2026, 7, 9 + index);
@@ -445,7 +592,7 @@ const JoinView = ({ currentView, isDarkTheme }) => {
 
   // 8 PM to 10 PM slots (20:00 to 21:50) - 10 min each
   const interviewTimes = Array.from({ length: 12 }, (_, index) => {
-    const minutes = 20 * 60 + index * 10;
+    const minutes = 20 * 60 + index * 10; 
     const hours = String(Math.floor(minutes / 60)).padStart(2, '0');
     const mins = String(minutes % 60).padStart(2, '0');
     return `${hours}:${mins}`;
@@ -455,12 +602,12 @@ const JoinView = ({ currentView, isDarkTheme }) => {
     window.scrollTo(0, 0);
     setStep(s => s + 1);
   };
-
+  
   const handleBack = () => {
     window.scrollTo(0, 0);
     setStep(s => s - 1);
   };
-
+  
   const handleSubmit = () => {
     setIsSubmitting(true);
     setTimeout(() => {
@@ -502,11 +649,13 @@ const JoinView = ({ currentView, isDarkTheme }) => {
             {/* Regular Plan */}
             <div className={`p-8 rounded-3xl border transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl ${isDarkTheme ? 'bg-[#1A1A1A] border-gray-800 hover:border-gray-600 hover:shadow-white/5' : 'bg-white border-gray-200 hover:border-[#00338D]/40'}`}>
               <h3 className={`text-xl font-bold ${isDarkTheme ? 'text-gray-300' : 'text-gray-600'}`}>Regular</h3>
-              <div className="mt-4 mb-6">
-                <span className={`text-4xl font-black ${isDarkTheme ? 'text-white' : 'text-[#172033]'}`}>₹719</span>
-                <span className={`text-sm ${isDarkTheme ? 'text-gray-500' : 'text-gray-500'}`}>/year</span>
+              <div className="mt-4 mb-6 flex flex-col justify-end h-[68px]">
+                <div>
+                  <span className={`text-4xl font-black ${isDarkTheme ? 'text-white' : 'text-[#172033]'}`}>₹719</span>
+                  <span className={`text-sm ${isDarkTheme ? 'text-gray-500' : 'text-gray-500'}`}>/year</span>
+                </div>
               </div>
-              <button onClick={() => { setSelectedPlan('Regular'); window.location.hash = 'join-form'; window.scrollTo(0, 0); }} className={`w-full py-3 rounded-xl font-bold transition-all duration-300 border-2 hover:scale-105 active:scale-95 ${isDarkTheme ? 'border-gray-700 text-white hover:bg-gray-800 hover:border-gray-500' : 'border-gray-200 text-[#172033] hover:bg-gray-50 hover:border-[#00338D]/30'}`}>
+              <button onClick={() => handlePlanSelection('Regular')} className={`w-full py-3 rounded-xl font-bold transition-all duration-300 border-2 hover:scale-105 active:scale-95 ${isDarkTheme ? 'border-gray-700 text-white hover:bg-gray-800 hover:border-gray-500' : 'border-gray-200 text-[#172033] hover:bg-gray-50 hover:border-[#00338D]/30'}`}>
                 Choose Regular
               </button>
               <ul className="mt-8 space-y-4">
@@ -525,7 +674,7 @@ const JoinView = ({ currentView, isDarkTheme }) => {
                 Best Value
               </div>
               <h3 className={`text-xl font-bold ${isDarkTheme ? 'text-[#EBB700]' : 'text-[#00338D]'}`}>Fellowship</h3>
-              <div className="mt-4 mb-6 flex flex-col">
+              <div className="mt-4 mb-6 flex flex-col justify-end h-[68px]">
                 <div className="flex items-center gap-2 mb-1">
                   <span className={`text-lg line-through font-semibold ${isDarkTheme ? 'text-gray-500' : 'text-gray-400'}`}>₹1,999</span>
                   <span className={`text-xs font-bold px-2.5 py-0.5 rounded-full border ${isDarkTheme ? 'bg-[#EBB700]/10 text-[#EBB700] border-[#EBB700]/30' : 'bg-[#00338D]/10 text-[#00338D] border-[#00338D]/30'}`}>SAVE ₹850</span>
@@ -535,7 +684,7 @@ const JoinView = ({ currentView, isDarkTheme }) => {
                   <span className={`text-sm ${isDarkTheme ? 'text-gray-400' : 'text-gray-500'}`}>/year</span>
                 </div>
               </div>
-              <button onClick={() => { setSelectedPlan('Fellowship'); window.location.hash = 'join-form'; window.scrollTo(0, 0); }} className="w-full bg-[#EBB700] text-[#172033] py-3 rounded-xl font-bold transition-all duration-300 hover:bg-yellow-400 hover:shadow-lg hover:shadow-[#EBB700]/30 hover:scale-105 active:scale-95">
+              <button onClick={() => handlePlanSelection('Fellowship')} className="w-full bg-[#EBB700] text-[#172033] py-3 rounded-xl font-bold transition-all duration-300 hover:bg-yellow-400 hover:shadow-lg hover:shadow-[#EBB700]/30 hover:scale-105 active:scale-95">
                 Choose Fellowship
               </button>
               <ul className="mt-8 space-y-4">
@@ -550,7 +699,7 @@ const JoinView = ({ currentView, isDarkTheme }) => {
             {/* Elite Plan */}
             <div className={`p-8 rounded-3xl border transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl ${isDarkTheme ? 'bg-gradient-to-b from-[#1C1C1C] to-[#121212] border-gray-700 hover:border-gray-500 hover:shadow-white/10' : 'bg-gradient-to-b from-gray-50 to-white border-gray-200 hover:border-gray-400'}`}>
               <h3 className={`text-xl font-bold ${isDarkTheme ? 'text-gray-300' : 'text-gray-800'}`}>Elite</h3>
-              <div className="mt-4 mb-6 flex flex-col">
+              <div className="mt-4 mb-6 flex flex-col justify-end h-[68px]">
                 <div className="flex items-center gap-2 mb-1">
                   <span className={`text-lg line-through font-semibold ${isDarkTheme ? 'text-gray-500' : 'text-gray-400'}`}>₹2,799</span>
                   <span className={`text-xs font-bold px-2.5 py-0.5 rounded-full border ${isDarkTheme ? 'bg-gray-800 text-gray-300 border-gray-600' : 'bg-gray-200 text-gray-700 border-gray-300'}`}>SAVE ₹600</span>
@@ -560,7 +709,7 @@ const JoinView = ({ currentView, isDarkTheme }) => {
                   <span className={`text-sm ${isDarkTheme ? 'text-gray-500' : 'text-gray-500'}`}>/year</span>
                 </div>
               </div>
-              <button onClick={() => { setSelectedPlan('Elite'); window.location.hash = 'join-form'; window.scrollTo(0, 0); }} className={`w-full py-3 rounded-xl font-bold transition-all duration-300 border-2 hover:scale-105 active:scale-95 ${isDarkTheme ? 'border-gray-600 text-white hover:bg-gray-800 hover:border-gray-400' : 'border-gray-300 text-[#172033] hover:bg-white hover:border-gray-500'}`}>
+              <button onClick={() => handlePlanSelection('Elite')} className={`w-full py-3 rounded-xl font-bold transition-all duration-300 border-2 hover:scale-105 active:scale-95 ${isDarkTheme ? 'border-gray-600 text-white hover:bg-gray-800 hover:border-gray-400' : 'border-gray-300 text-[#172033] hover:bg-white hover:border-gray-500'}`}>
                 Choose Elite
               </button>
               <ul className="mt-8 space-y-4">
@@ -599,9 +748,18 @@ const JoinView = ({ currentView, isDarkTheme }) => {
                 <div className="mb-10">
                   <h3 className={`text-lg font-bold mb-5 border-b pb-2 ${isDarkTheme ? 'text-[#EBB700] border-gray-700' : 'text-[#00338D] border-gray-200'}`}>Basic Information</h3>
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-                    <div><label className={`block text-sm font-bold mb-2 ${isDarkTheme ? 'text-gray-300' : 'text-gray-700'}`}>First Name *</label><input required type="text" className={`w-full border rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#EBB700] outline-none ${isDarkTheme ? 'bg-[#2A2A2A] border-gray-700 text-white' : 'bg-white border-gray-300 text-black'}`} /></div>
-                    <div><label className={`block text-sm font-bold mb-2 ${isDarkTheme ? 'text-gray-300' : 'text-gray-700'}`}>Middle Name</label><input type="text" className={`w-full border rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#EBB700] outline-none ${isDarkTheme ? 'bg-[#2A2A2A] border-gray-700 text-white' : 'bg-white border-gray-300 text-black'}`} /></div>
-                    <div><label className={`block text-sm font-bold mb-2 ${isDarkTheme ? 'text-gray-300' : 'text-gray-700'}`}>Last Name *</label><input required type="text" className={`w-full border rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#EBB700] outline-none ${isDarkTheme ? 'bg-[#2A2A2A] border-gray-700 text-white' : 'bg-white border-gray-300 text-black'}`} /></div>
+                    <div>
+                      <label className={`block text-sm font-bold mb-2 ${isDarkTheme ? 'text-gray-300' : 'text-gray-700'}`}>First Name *</label>
+                      <input required type="text" value={firstName} onChange={e => setFirstName(e.target.value)} className={`w-full border rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#EBB700] outline-none ${isDarkTheme ? 'bg-[#2A2A2A] border-gray-700 text-white' : 'bg-white border-gray-300 text-black'}`} />
+                    </div>
+                    <div>
+                      <label className={`block text-sm font-bold mb-2 ${isDarkTheme ? 'text-gray-300' : 'text-gray-700'}`}>Middle Name</label>
+                      <input type="text" className={`w-full border rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#EBB700] outline-none ${isDarkTheme ? 'bg-[#2A2A2A] border-gray-700 text-white' : 'bg-white border-gray-300 text-black'}`} />
+                    </div>
+                    <div>
+                      <label className={`block text-sm font-bold mb-2 ${isDarkTheme ? 'text-gray-300' : 'text-gray-700'}`}>Last Name *</label>
+                      <input required type="text" value={lastName} onChange={e => setLastName(e.target.value)} className={`w-full border rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#EBB700] outline-none ${isDarkTheme ? 'bg-[#2A2A2A] border-gray-700 text-white' : 'bg-white border-gray-300 text-black'}`} />
+                    </div>
 
                     <div>
                       <label className={`block text-sm font-bold mb-2 ${isDarkTheme ? 'text-gray-300' : 'text-gray-700'}`}>Date of Birth *</label>
@@ -642,7 +800,7 @@ const JoinView = ({ currentView, isDarkTheme }) => {
                     </div>
                     <div>
                       <label className={`block text-sm font-bold mb-2 ${isDarkTheme ? 'text-gray-300' : 'text-gray-700'}`}>Personal Email ID * <span className="font-normal text-xs block opacity-0">spacer</span></label>
-                      <input required type="email" placeholder="name@example.com" className={`w-full border rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#EBB700] outline-none ${isDarkTheme ? 'bg-[#2A2A2A] border-gray-700 text-white' : 'bg-white border-gray-300 text-black'}`} />
+                      <input required type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="name@example.com" className={`w-full border rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#EBB700] outline-none ${isDarkTheme ? 'bg-[#2A2A2A] border-gray-700 text-white' : 'bg-white border-gray-300 text-black'}`} />
                     </div>
                   </div>
                 </div>
@@ -933,13 +1091,48 @@ export default function LeoClubApp() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isDarkTheme, setIsDarkTheme] = useState(false);
   const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(false);
+  const [session, setSession] = useState(null);
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session);
+    });
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      setSession(session);
+      
+      // Post-Login Redirect Logic
+      if (event === 'SIGNED_IN') {
+         if (window.location.hash.includes('access_token')) {
+             const intended = localStorage.getItem('intendedPlan');
+             if (intended) {
+                 window.location.hash = 'join-form';
+             } else {
+                 window.location.hash = 'join';
+             }
+         }
+      }
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
 
   // Handle browser back button natively
   useEffect(() => {
     const handleHashChange = () => {
-      const hash = window.location.hash.replace('#', '');
+      let hash = window.location.hash.replace('#', '');
+      
+      // If it's a Supabase OAuth token URL, ignore our router and let Supabase process it.
+      // We render 'home' temporarily to avoid a blank screen while processing.
+      if (hash.startsWith('access_token') || hash.startsWith('error')) {
+        setCurrentView('home'); 
+        window.scrollTo(0, 0);
+        return; 
+      }
+
       if (hash) {
-        setCurrentView(hash);
+        // Drop any URL parameters just in case
+        setCurrentView(hash.split('?')[0]);
       } else {
         setCurrentView('home');
       }
@@ -957,6 +1150,7 @@ export default function LeoClubApp() {
   return (
     <div className={isDarkTheme ? 'theme-dark min-h-screen' : 'theme-light min-h-screen'}>
       <NavBar
+        session={session}
         currentView={currentView}
         isDarkTheme={isDarkTheme}
         setIsDarkTheme={setIsDarkTheme}
@@ -965,8 +1159,9 @@ export default function LeoClubApp() {
       />
 
       <main>
-        {currentView === 'home' && <HomeView isDarkTheme={isDarkTheme} />}
-        {currentView.startsWith('join') && <JoinView currentView={currentView} isDarkTheme={isDarkTheme} />}
+        {currentView === 'home' && <HomeView isDarkTheme={isDarkTheme} session={session} />}
+        {currentView === 'login' && <AuthView isDarkTheme={isDarkTheme} />}
+        {currentView.startsWith('join') && <JoinView currentView={currentView} isDarkTheme={isDarkTheme} session={session} />}
         {currentView === 'projects' && <ProjectsView isDarkTheme={isDarkTheme} />}
         {currentView === 'contact' && <ContactView isDarkTheme={isDarkTheme} />}
         {currentView === 'admin-login' && <AdminLoginView isDarkTheme={isDarkTheme} setIsAdminLoggedIn={setIsAdminLoggedIn} />}
