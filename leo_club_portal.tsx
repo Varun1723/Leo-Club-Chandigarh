@@ -2,10 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { supabase } from './supabaseClient';
 import MemberPortalApp from './member_portal';
 import AdminPortalApp from './admin_portal';
-import { 
-  Menu, X, Home, Info, FolderHeart, UserPlus, 
-  RefreshCw, Mail, CheckCircle2, ChevronRight, 
-  UploadCloud, CreditCard, ShieldCheck, HeartPulse, 
+import { isValidPhoneNumber } from 'libphonenumber-js';
+import {
+  Menu, X, Home, Info, FolderHeart, UserPlus,
+  RefreshCw, Mail, CheckCircle2, ChevronRight,
+  UploadCloud, CreditCard, ShieldCheck, HeartPulse,
   Leaf, Eye, Utensils, Baby, ShieldAlert, ArrowRight,
   Users, Phone, Send, MapPin, LayoutDashboard, Sun, Moon,
   LogOut, IndianRupee, LogIn
@@ -55,58 +56,53 @@ const NavBar = ({ session, currentView, isDarkTheme, setIsDarkTheme, isMobileMen
             <img src={ASSETS.leoLogo} alt="Leo Club emblem" className="w-11 h-11 object-contain" />
           </div>
           <div className="hidden sm:block border-l border-[#B3B2B1] pl-4">
-            <h1 className={`font-bold text-lg leading-tight ${ isDarkTheme ? "text-white" : "text-[#00338D]"}`}>Leo Club Chandigarh Fortune</h1>
+            <h1 className={`font-bold text-lg leading-tight ${isDarkTheme ? "text-white" : "text-[#00338D]"}`}>Leo Club Chandigarh Fortune</h1>
             <p className="text-xs text-[#55565A] font-medium tracking-[0.18em] uppercase">We Serve</p>
           </div>
         </a>
 
         {/* Desktop Nav */}
         <div className="hidden md:flex items-center space-x-1">
-          <a href="#home" className={`px-4 py-2 rounded-lg font-medium transition-all duration-300 ${
-              currentView === 'home'
-                ? isDarkTheme ? 'bg-[#00338D] text-white' : 'bg-blue-50 text-[#00338D]'
-                : isDarkTheme ? 'text-white hover:bg-[#EBB700] hover:text-[#172033]' : 'text-gray-600 hover:bg-gray-100 hover:text-[#00338D]'
+          <a href="#home" className={`px-4 py-2 rounded-lg font-medium transition-all duration-300 ${currentView === 'home'
+            ? isDarkTheme ? 'bg-[#00338D] text-white' : 'bg-blue-50 text-[#00338D]'
+            : isDarkTheme ? 'text-white hover:bg-[#EBB700] hover:text-[#172033]' : 'text-gray-600 hover:bg-gray-100 hover:text-[#00338D]'
             }`}>Home</a>
-          <a href="#projects" className={`px-4 py-2 rounded-lg font-medium transition-all duration-300 ${
-              currentView === 'projects'
-                ? isDarkTheme ? 'bg-[#00338D] text-white' : 'bg-blue-50 text-[#00338D]'
-                : isDarkTheme ? 'text-white hover:bg-[#EBB700] hover:text-[#172033]' : 'text-gray-600 hover:bg-gray-100 hover:text-[#00338D]'
+          <a href="#projects" className={`px-4 py-2 rounded-lg font-medium transition-all duration-300 ${currentView === 'projects'
+            ? isDarkTheme ? 'bg-[#00338D] text-white' : 'bg-blue-50 text-[#00338D]'
+            : isDarkTheme ? 'text-white hover:bg-[#EBB700] hover:text-[#172033]' : 'text-gray-600 hover:bg-gray-100 hover:text-[#00338D]'
             }`}>Projects</a>
-          <a href="#contact" className={`px-4 py-2 rounded-lg font-medium transition-all duration-300 ${
-              currentView === 'contact'
-                ? isDarkTheme ? 'bg-[#00338D] text-white' : 'bg-blue-50 text-[#00338D]'
-                : isDarkTheme ? 'text-white hover:bg-[#EBB700] hover:text-[#172033]' : 'text-gray-600 hover:bg-gray-100 hover:text-[#00338D]'
+          <a href="#contact" className={`px-4 py-2 rounded-lg font-medium transition-all duration-300 ${currentView === 'contact'
+            ? isDarkTheme ? 'bg-[#00338D] text-white' : 'bg-blue-50 text-[#00338D]'
+            : isDarkTheme ? 'text-white hover:bg-[#EBB700] hover:text-[#172033]' : 'text-gray-600 hover:bg-gray-100 hover:text-[#00338D]'
             }`}>Contact</a>
-          <a href="#admin-login" className={`px-4 py-2 rounded-lg font-medium transition-all duration-300 ${
-              currentView === 'admin-login' || currentView === 'admin'
-                ? isDarkTheme ? 'bg-[#00338D] text-white' : 'bg-blue-50 text-[#00338D]'
-                : isDarkTheme ? 'text-white hover:bg-[#EBB700] hover:text-[#172033]' : 'text-gray-600 hover:bg-gray-100 hover:text-[#00338D]'
+          <a href="#admin-login" className={`px-4 py-2 rounded-lg font-medium transition-all duration-300 ${currentView === 'admin-login' || currentView === 'admin'
+            ? isDarkTheme ? 'bg-[#00338D] text-white' : 'bg-blue-50 text-[#00338D]'
+            : isDarkTheme ? 'text-white hover:bg-[#EBB700] hover:text-[#172033]' : 'text-gray-600 hover:bg-gray-100 hover:text-[#00338D]'
             }`}>Admin</a>
-          
-          <button 
-            onClick={() => setIsDarkTheme(!isDarkTheme)} 
-            aria-label={isDarkTheme ? 'Switch to light theme' : 'Switch to dark theme'} 
-            className={`ml-2 w-10 h-10 rounded-full border flex items-center justify-center transition-all duration-300 ${
-              isDarkTheme ? 'border-[#EBB700] text-[#EBB700] hover:bg-[#EBB700] hover:text-[#172033]' : 'border-[#55565A] text-[#00338D] hover:bg-[#00338D] hover:text-white'
-            }`}
+
+          <button
+            onClick={() => setIsDarkTheme(!isDarkTheme)}
+            aria-label={isDarkTheme ? 'Switch to light theme' : 'Switch to dark theme'}
+            className={`ml-2 w-10 h-10 rounded-full border flex items-center justify-center transition-all duration-300 ${isDarkTheme ? 'border-[#EBB700] text-[#EBB700] hover:bg-[#EBB700] hover:text-[#172033]' : 'border-[#55565A] text-[#00338D] hover:bg-[#00338D] hover:text-white'
+              }`}
           >
             {isDarkTheme ? <Sun size={18} className="text-[#EBB700]" /> : <Moon size={18} />}
           </button>
-          
+
           <div className="h-6 w-px bg-gray-300 mx-2"></div>
-          
+
           {session ? (
-             <div className="flex items-center gap-2 ml-2">
-               <button onClick={async () => { await supabase.auth.signOut(); window.location.hash = 'home'; }} className={`w-10 h-10 flex items-center justify-center rounded-full transition-colors ${isDarkTheme ? 'text-gray-400 hover:text-red-400 hover:bg-gray-800' : 'text-gray-500 hover:text-red-500 hover:bg-gray-100'}`} title="Sign Out">
-                 <LogOut size={18} />
-               </button>
-               <a href="#member" className={`px-4 py-2 rounded-lg font-medium transition-all duration-300 ${isDarkTheme ? 'text-white hover:bg-[#00338D]' : 'text-gray-600 hover:bg-gray-100 hover:text-[#00338D]'}`}>
-                 Portal
-               </a>
-               <a href="#join" className="bg-[#EBB700] text-[#172033] px-6 py-2.5 rounded-full font-bold hover:bg-yellow-500 hover:-translate-y-0.5 hover:shadow-lg transition-all duration-300 inline-flex items-center gap-2 group">
-                 Apply <ChevronRight className="transition-transform duration-300 group-hover:translate-x-1" size={16} />
-               </a>
-             </div>
+            <div className="flex items-center gap-2 ml-2">
+              <button onClick={async () => { await supabase.auth.signOut(); window.location.hash = 'home'; }} className={`w-10 h-10 flex items-center justify-center rounded-full transition-colors ${isDarkTheme ? 'text-gray-400 hover:text-red-400 hover:bg-gray-800' : 'text-gray-500 hover:text-red-500 hover:bg-gray-100'}`} title="Sign Out">
+                <LogOut size={18} />
+              </button>
+              <a href="#member" className={`px-4 py-2 rounded-lg font-medium transition-all duration-300 ${isDarkTheme ? 'text-white hover:bg-[#00338D]' : 'text-gray-600 hover:bg-gray-100 hover:text-[#00338D]'}`}>
+                Portal
+              </a>
+              <a href="#join" className="bg-[#EBB700] text-[#172033] px-6 py-2.5 rounded-full font-bold hover:bg-yellow-500 hover:-translate-y-0.5 hover:shadow-lg transition-all duration-300 inline-flex items-center gap-2 group">
+                Apply <ChevronRight className="transition-transform duration-300 group-hover:translate-x-1" size={16} />
+              </a>
+            </div>
           ) : (
             <a href="#join" className="ml-2 bg-[#00338D] text-white px-6 py-2.5 rounded-full font-bold hover:bg-[#EBB700] hover:text-[#172033] hover:-translate-y-0.5 hover:shadow-lg transition-all duration-300 inline-flex items-center gap-2 group">
               Join Leo <ChevronRight className="transition-transform duration-300 group-hover:translate-x-1" size={16} />
@@ -174,7 +170,7 @@ const Footer = ({ isDarkTheme }) => (
             Affiliated with Lions Clubs International. Empowering youth to lead, serve, and inspire in Chandigarh and beyond.
           </p>
         </div>
-        
+
         <div>
           <h3 className="font-bold text-lg mb-4 text-[#EBB700]">Organization</h3>
           <ul className={`space-y-3 text-sm ${isDarkTheme ? 'text-gray-400' : 'text-gray-600'}`}>
@@ -219,7 +215,7 @@ const AuthView = ({ isDarkTheme }) => {
         redirectTo: window.location.origin
       }
     });
-    
+
     if (error) {
       console.error("Authentication error:", error.message);
       setIsLoading(false);
@@ -237,7 +233,7 @@ const AuthView = ({ isDarkTheme }) => {
           animation: slideUpFade 0.6s ease-out forwards;
         }
       `}</style>
-      
+
       <div className={`w-full max-w-md rounded-3xl shadow-2xl border p-8 sm:p-10 animate-slide-up ${isDarkTheme ? 'bg-[#1E1E1E] border-gray-800' : 'bg-white border-gray-100'}`}>
         <div className="w-20 h-20 mx-auto mb-6 flex items-center justify-center">
           <img src={ASSETS.leoLogo} alt="Leo Club emblem" className="w-full h-full object-contain drop-shadow-md" />
@@ -247,14 +243,13 @@ const AuthView = ({ isDarkTheme }) => {
           Sign in to start your membership application, track your status, and access your member dashboard.
         </p>
 
-        <button 
-          onClick={handleGoogleLogin} 
+        <button
+          onClick={handleGoogleLogin}
           disabled={isLoading}
-          className={`w-full py-3.5 rounded-xl font-bold transition-all duration-300 flex items-center justify-center gap-3 border shadow-sm hover:-translate-y-1 hover:shadow-md ${
-            isDarkTheme 
-              ? 'bg-[#2A2A2A] border-gray-700 text-white hover:border-gray-500' 
-              : 'bg-white border-gray-300 text-gray-800 hover:border-gray-400'
-          }`}
+          className={`w-full py-3.5 rounded-xl font-bold transition-all duration-300 flex items-center justify-center gap-3 border shadow-sm hover:-translate-y-1 hover:shadow-md ${isDarkTheme
+            ? 'bg-[#2A2A2A] border-gray-700 text-white hover:border-gray-500'
+            : 'bg-white border-gray-300 text-gray-800 hover:border-gray-400'
+            }`}
         >
           {isLoading ? (
             <span className="animate-pulse">Connecting securely...</span>
@@ -262,16 +257,16 @@ const AuthView = ({ isDarkTheme }) => {
             <>
               {/* Minimalist Google 'G' SVG */}
               <svg className="w-5 h-5" viewBox="0 0 24 24">
-                <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
-                <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
-                <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
-                <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
+                <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
+                <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" />
+                <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" />
               </svg>
               Continue with Google
             </>
           )}
         </button>
-        
+
         <div className="mt-8 pt-6 border-t border-gray-200 dark:border-gray-800 text-center">
           <p className={`text-xs ${isDarkTheme ? 'text-gray-500' : 'text-gray-500'}`}>
             By continuing, you agree to our <a href="#" className="underline">Terms of Service</a> and <a href="#" className="underline">Privacy Policy</a>.
@@ -294,7 +289,7 @@ const HomeView = ({ session, isDarkTheme }) => (
       }
       .delay-150 { animation-delay: 150ms; opacity: 0; }
     `}</style>
-    
+
     {/* Hero Section */}
     <div className={`${isDarkTheme ? 'bg-black text-white' : 'bg-blue-50 text-[#172033]'} relative overflow-hidden transition-colors duration-200 border-b-4 border-[#EBB700]`}>
       <div className={`absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] ${isDarkTheme ? 'from-[#00338D]' : 'from-blue-300'} via-transparent to-transparent`}></div>
@@ -391,29 +386,27 @@ const ProjectsView = ({ isDarkTheme }) => {
 
       <section className={`${isDarkTheme ? 'bg-[#121212]' : 'bg-white'} py-16 transition-colors duration-200`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          
+
           <div className="text-center mb-12 animate-slide-up">
             <h2 className={`text-3xl font-bold mb-4 ${isDarkTheme ? 'text-white' : 'text-[#00338D]'}`}>Recent & Upcoming Projects</h2>
             <div className="w-16 h-1.5 bg-[#EBB700] mx-auto rounded-full mb-8"></div>
-            
+
             <div className="flex justify-center gap-3">
-              <button 
-                onClick={() => setFilter('All')} 
-                className={`px-6 py-2 rounded-full font-bold transition-all duration-300 hover:scale-105 ${
-                  filter === 'All' 
-                    ? 'bg-[#00338D] text-white shadow-md' 
-                    : isDarkTheme ? 'border border-gray-500 text-white hover:bg-[#2A2A2A]' : 'border border-gray-300 text-gray-600 hover:bg-gray-100'
-                }`}
+              <button
+                onClick={() => setFilter('All')}
+                className={`px-6 py-2 rounded-full font-bold transition-all duration-300 hover:scale-105 ${filter === 'All'
+                  ? 'bg-[#00338D] text-white shadow-md'
+                  : isDarkTheme ? 'border border-gray-500 text-white hover:bg-[#2A2A2A]' : 'border border-gray-300 text-gray-600 hover:bg-gray-100'
+                  }`}
               >
                 All
               </button>
-              <button 
-                onClick={() => setFilter('UPCOMING')} 
-                className={`px-6 py-2 rounded-full font-bold transition-all duration-300 hover:scale-105 ${
-                  filter === 'UPCOMING' 
-                    ? 'bg-[#00338D] text-white shadow-md' 
-                    : isDarkTheme ? 'border border-gray-500 text-white hover:bg-[#2A2A2A]' : 'border border-gray-300 text-gray-600 hover:bg-gray-100'
-                }`}
+              <button
+                onClick={() => setFilter('UPCOMING')}
+                className={`px-6 py-2 rounded-full font-bold transition-all duration-300 hover:scale-105 ${filter === 'UPCOMING'
+                  ? 'bg-[#00338D] text-white shadow-md'
+                  : isDarkTheme ? 'border border-gray-500 text-white hover:bg-[#2A2A2A]' : 'border border-gray-300 text-gray-600 hover:bg-gray-100'
+                  }`}
               >
                 Upcoming
               </button>
@@ -422,8 +415,8 @@ const ProjectsView = ({ isDarkTheme }) => {
 
           <div className="grid md:grid-cols-3 gap-6" key={filter}>
             {filteredProjects.map((proj, i) => (
-              <div 
-                key={proj.title} 
+              <div
+                key={proj.title}
                 className={`animate-pop-in ${isDarkTheme ? 'bg-[#1E1E1E] border-[#333] hover:border-[#EBB700]' : 'bg-white border-gray-200 hover:border-[#00338D] hover:shadow-xl'} rounded-2xl overflow-hidden border transition-all duration-300 hover:-translate-y-2`}
                 style={{ animationDelay: `${i * 100}ms`, opacity: 0 }}
               >
@@ -458,7 +451,7 @@ const ContactView = ({ isDarkTheme }) => {
 
   return (
     <div className={`min-h-screen ${isDarkTheme ? 'bg-[#121212]' : 'bg-white'}`}>
-      
+
       <style>{`
         @keyframes slideUpFade {
           from { opacity: 0; transform: translateY(30px); }
@@ -492,8 +485,8 @@ const ContactView = ({ isDarkTheme }) => {
           </div>
         </aside>
 
-        <div 
-          className={`border p-7 md:p-10 transition-all duration-300 animate-slide-up delay-200 ${isDarkTheme ? 'bg-[#1E1E1E] border-[#333]' : 'bg-white border-gray-300'}`} 
+        <div
+          className={`border p-7 md:p-10 transition-all duration-300 animate-slide-up delay-200 ${isDarkTheme ? 'bg-[#1E1E1E] border-[#333]' : 'bg-white border-gray-300'}`}
           style={{ boxShadow: isDarkTheme ? '8px 8px 0 #EBB700' : '8px 8px 0 #00338D' }}
         >
           {submitted ? (
@@ -528,14 +521,31 @@ const JoinView = ({ currentView, isDarkTheme, session }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [interviewDate, setInterviewDate] = useState('');
   const [interviewTime, setInterviewTime] = useState('');
-  
+
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
 
   const [dob, setDob] = useState('');
   const [age, setAge] = useState('');
-  
+
+  const [countries, setCountries] = useState([]);
+
+  const [phoneCountry, setPhoneCountry] = useState({
+    name: 'India',
+    dial_code: '+91',
+    code: 'IN'
+  });
+
+  const [phoneNumber, setPhoneNumber] = useState('');
+
+  const [emergencyCountry, setEmergencyCountry] = useState({
+    name: 'India',
+    dial_code: '+91',
+    code: 'IN'
+  });
+
+  const [emergencyNumber, setEmergencyNumber] = useState('');
   const [hasReference, setHasReference] = useState('No');
   const [referenceName, setReferenceName] = useState('');
 
@@ -545,12 +555,31 @@ const JoinView = ({ currentView, isDarkTheme, session }) => {
       const meta = session.user.user_metadata || {};
       const fName = meta.full_name || meta.name || '';
       const parts = fName.split(' ');
-      
+
       if (!firstName && parts.length > 0) setFirstName(parts[0]);
       if (!lastName && parts.length > 1) setLastName(parts.slice(1).join(' '));
       if (!email && session.user.email) setEmail(session.user.email);
     }
   }, [session]);
+
+  useEffect(() => {
+    const loadCountries = async () => {
+      try {
+        const response = await fetch('/data/countries.json');
+
+        if (!response.ok) {
+          throw new Error('Failed to load country codes');
+        }
+
+        const data = await response.json();
+        setCountries(data);
+      } catch (error) {
+        console.error('Error loading country codes:', error);
+      }
+    };
+
+    loadCountries();
+  }, []);
 
   // Handle direct navigation to form without plan
   useEffect(() => {
@@ -599,17 +628,40 @@ const JoinView = ({ currentView, isDarkTheme, session }) => {
   };
 
   // Capped Dates: 9th August to 6th September
-  const interviewDates = Array.from({ length: 29 }, (_, index) => {
-    const date = new Date(2026, 7, 9 + index);
-    return {
-      value: date.toISOString().slice(0, 10),
-      label: date.toLocaleDateString('en-IN', { weekday: 'short', day: 'numeric', month: 'long' })
-    };
-  });
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  const endDate = new Date(2026, 8, 13); // 13 September 2026
+
+  const interviewDates = [];
+
+  for (
+    let date = new Date(today);
+    date <= endDate;
+    date.setDate(date.getDate() + 1)
+  ) {
+    const day = date.getDay();
+
+    // 0 = Sunday, 6 = Saturday
+    if (day === 0 || day === 6) {
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const dayOfMonth = String(date.getDate()).padStart(2, '0');
+
+      interviewDates.push({
+        value: `${year}-${month}-${dayOfMonth}`,
+        label: date.toLocaleDateString('en-IN', {
+          weekday: 'short',
+          day: 'numeric',
+          month: 'long'
+        })
+      });
+    }
+  }
 
   // 8 PM to 10 PM slots (20:00 to 21:50) - 10 min each
   const interviewTimes = Array.from({ length: 12 }, (_, index) => {
-    const minutes = 20 * 60 + index * 10; 
+    const minutes = 20 * 60 + index * 10;
     const hours = String(Math.floor(minutes / 60)).padStart(2, '0');
     const mins = String(minutes % 60).padStart(2, '0');
     return `${hours}:${mins}`;
@@ -617,31 +669,76 @@ const JoinView = ({ currentView, isDarkTheme, session }) => {
 
   const [stepErrors, setStepErrors] = useState({});
 
+  const validateName = (value) => {
+    return /^[A-Za-z]+(?:[ '-][A-Za-z]+)*$/.test(value.trim());
+  };
+
+  const getCountryFlag = (code) => {
+    if (!code || code.length !== 2) return '';
+
+    return code
+      .toUpperCase()
+      .split('')
+      .map(char => String.fromCodePoint(127397 + char.charCodeAt(0)))
+      .join('');
+  };
+
   const handleStep1Submit = (e) => {
     e.preventDefault();
+
     const data = new FormData(e.target);
     const errors = {};
+
     const emailStr = data.get("email") || email;
     const phoneStr = data.get("phone");
+    const firstNameStr = data.get("firstName")?.trim() || "";
+    const middleNameStr = data.get("middleName")?.trim() || "";
+    const lastNameStr = data.get("lastName")?.trim() || "";
     const ageVal = parseInt(age, 10);
     const dobStr = data.get("dob") || dob;
 
-    if (!phoneStr || !/^[6-9]\d{9}$/.test(phoneStr.replace(/\D/g, ''))) {
-      errors.phone = "Enter a valid 10-digit phone number.";
+    // Phone validation
+    // Phone validation
+    if (!phoneStr) {
+      errors.phone = "Phone number is required.";
+    } else if (!isValidPhoneNumber(phoneStr, phoneCountry.code)) {
+      errors.phone = `Enter a valid ${phoneCountry.name} phone number.`;
     }
+
+    // Email validation
     if (!emailStr || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailStr)) {
       errors.email = "Enter a valid email address.";
     }
+
+    // Name validation
+    if (!firstNameStr || !validateName(firstNameStr)) {
+      errors.firstName =
+        "First name can contain only alphabets, spaces, hyphens, and apostrophes.";
+    }
+
+    if (middleNameStr && !validateName(middleNameStr)) {
+      errors.middleName =
+        "Middle name can contain only alphabets, spaces, hyphens, and apostrophes.";
+    }
+
+    if (!lastNameStr || !validateName(lastNameStr)) {
+      errors.lastName =
+        "Last name can contain only alphabets, spaces, hyphens, and apostrophes.";
+    }
+
+    // DOB validation
     if (!dobStr) {
       errors.dob = "Date of birth is required.";
     } else if (isNaN(ageVal) || ageVal <= 0) {
       errors.dob = "Invalid date of birth (must be > 0 years).";
     }
 
+    // Stop if validation errors exist
     if (Object.keys(errors).length > 0) {
-       setStepErrors(errors);
-       return;
+      setStepErrors(errors);
+      return;
     }
+
     setStepErrors({});
     window.scrollTo(0, 0);
     setStep(s => s + 1);
@@ -651,7 +748,7 @@ const JoinView = ({ currentView, isDarkTheme, session }) => {
     e.preventDefault();
     const data = new FormData(e.target);
     const errors = {};
-    
+
     const omega = data.get("omegaForm");
     const idProof = data.get("idProof");
     const plan = selectedPlan;
@@ -662,18 +759,21 @@ const JoinView = ({ currentView, isDarkTheme, session }) => {
     if (!plan) errors.plan = "Membership type must be selected.";
     if (omega && omega.size > 5 * 1024 * 1024) errors.omegaForm = "File too large (max 5MB).";
     if (idProof && idProof.size > 5 * 1024 * 1024) errors.idProof = "File too large (max 5MB).";
-    
-    if (!emergContact || !/^[6-9]\d{9}$/.test(emergContact.replace(/\D/g, ''))) {
-      errors.emergencyNumber = "Enter a valid 10-digit phone number.";
+
+    if (!emergContact) {
+      errors.emergencyNumber = "Emergency contact number is required.";
+    } else if (!isValidPhoneNumber(emergContact, emergencyCountry.code)) {
+      errors.emergencyNumber =
+        `Enter a valid ${emergencyCountry.name} phone number.`;
     }
-    
+
     if (hasRef === 'Yes' && (!refName || refName.trim() === '')) {
       errors.referenceName = "Reference name is required if you select 'Yes'.";
     }
 
     if (Object.keys(errors).length > 0) {
-       setStepErrors(errors);
-       return;
+      setStepErrors(errors);
+      return;
     }
     setStepErrors({});
     window.scrollTo(0, 0);
@@ -684,12 +784,12 @@ const JoinView = ({ currentView, isDarkTheme, session }) => {
     window.scrollTo(0, 0);
     setStep(s => s + 1);
   };
-  
+
   const handleBack = () => {
     window.scrollTo(0, 0);
     setStep(s => s - 1);
   };
-  
+
   const handleSubmit = (e) => {
     e.preventDefault();
     setIsSubmitting(true);
@@ -833,15 +933,63 @@ const JoinView = ({ currentView, isDarkTheme, session }) => {
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
                     <div>
                       <label className={`block text-sm font-bold mb-2 ${isDarkTheme ? 'text-gray-300' : 'text-gray-700'}`}>First Name *</label>
-                      <input required type="text" value={firstName} onChange={e => setFirstName(e.target.value)} className={`w-full border rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#EBB700] outline-none ${isDarkTheme ? 'bg-[#2A2A2A] border-gray-700 text-white' : 'bg-white border-gray-300 text-black'}`} />
+                      <input
+                        required
+                        type="text"
+                        name="firstName"
+                        value={firstName}
+                        onChange={e => setFirstName(e.target.value)}
+                        pattern="[A-Za-z]+(?:[ '-][A-Za-z]+)*"
+                        title="Name can contain only alphabets, spaces, hyphens, and apostrophes."
+                        className={`w-full border rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#EBB700] outline-none ${isDarkTheme
+                          ? 'bg-[#2A2A2A] border-gray-700 text-white'
+                          : 'bg-white border-gray-300 text-black'
+                          }`}
+                      />
+                      {stepErrors.firstName && (
+                        <p className="text-red-500 text-xs mt-1">
+                          {stepErrors.firstName}
+                        </p>
+                      )}
                     </div>
                     <div>
                       <label className={`block text-sm font-bold mb-2 ${isDarkTheme ? 'text-gray-300' : 'text-gray-700'}`}>Middle Name</label>
-                      <input type="text" className={`w-full border rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#EBB700] outline-none ${isDarkTheme ? 'bg-[#2A2A2A] border-gray-700 text-white' : 'bg-white border-gray-300 text-black'}`} />
+                      <input
+                        type="text"
+                        name="middleName"
+                        pattern="[A-Za-z]+(?:[ '-][A-Za-z]+)*"
+                        title="Name can contain only alphabets, spaces, hyphens, and apostrophes."
+                        className={`w-full border rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#EBB700] outline-none ${isDarkTheme
+                          ? 'bg-[#2A2A2A] border-gray-700 text-white'
+                          : 'bg-white border-gray-300 text-black'
+                          }`}
+                      />
+                      {stepErrors.middleName && (
+                        <p className="text-red-500 text-xs mt-1">
+                          {stepErrors.middleName}
+                        </p>
+                      )}
                     </div>
                     <div>
                       <label className={`block text-sm font-bold mb-2 ${isDarkTheme ? 'text-gray-300' : 'text-gray-700'}`}>Last Name *</label>
-                      <input required type="text" value={lastName} onChange={e => setLastName(e.target.value)} className={`w-full border rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#EBB700] outline-none ${isDarkTheme ? 'bg-[#2A2A2A] border-gray-700 text-white' : 'bg-white border-gray-300 text-black'}`} />
+                      <input
+                        required
+                        type="text"
+                        name="lastName"
+                        value={lastName}
+                        onChange={e => setLastName(e.target.value)}
+                        pattern="[A-Za-z]+(?:[ '-][A-Za-z]+)*"
+                        title="Name can contain only alphabets, spaces, hyphens, and apostrophes."
+                        className={`w-full border rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#EBB700] outline-none ${isDarkTheme
+                          ? 'bg-[#2A2A2A] border-gray-700 text-white'
+                          : 'bg-white border-gray-300 text-black'
+                          }`}
+                      />
+                      {stepErrors.lastName && (
+                        <p className="text-red-500 text-xs mt-1">
+                          {stepErrors.lastName}
+                        </p>
+                      )}
                     </div>
 
                     <div>
@@ -879,9 +1027,74 @@ const JoinView = ({ currentView, isDarkTheme, session }) => {
                   <h3 className={`text-lg font-bold mb-4 border-b pb-2 ${isDarkTheme ? 'text-[#EBB700] border-gray-700' : 'text-[#00338D] border-gray-200'}`}>Contact Information</h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                     <div>
-                      <label className={`block text-sm font-bold mb-2 ${isDarkTheme ? 'text-gray-300' : 'text-gray-700'}`}>Contact Number <span className="font-normal text-xs block">(Should be available on WhatsApp) *</span></label>
-                      <input required type="tel" name="phone" placeholder="+91" className={`w-full border rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#EBB700] outline-none ${isDarkTheme ? 'bg-[#2A2A2A] border-gray-700 text-white' : 'bg-white border-gray-300 text-black'}`} />
-                      {stepErrors.phone && <p className="text-red-500 text-xs mt-1">{stepErrors.phone}</p>}
+                      <label className={`block text-sm font-bold mb-2 ${isDarkTheme ? 'text-gray-300' : 'text-gray-700'
+                        }`}>
+                        Contact Number
+                        <span className="font-normal text-xs block">
+                          (Should be available on WhatsApp) *
+                        </span>
+                      </label>
+
+                      <div className="flex gap-2">
+
+                        {/* Country Code */}
+                        <select
+                          value={phoneCountry.code}
+                          onChange={(e) => {
+                            const selected = countries.find(
+                              country => country.code === e.target.value
+                            );
+
+                            if (selected) {
+                              setPhoneCountry(selected);
+                              setPhoneNumber('');
+                            }
+                          }}
+                          className={`w-[145px] border rounded-xl px-3 py-3 focus:ring-2 focus:ring-[#EBB700] outline-none ${isDarkTheme
+                            ? 'bg-[#2A2A2A] border-gray-700 text-white'
+                            : 'bg-white border-gray-300 text-black'
+                            }`}
+                        >
+                          {countries.map(country => (
+                            <option
+                              key={`${country.code}-${country.dial_code}`}
+                              value={country.code}
+                            >
+                              {getCountryFlag(country.code)} {country.dial_code}
+                            </option>
+                          ))}
+                        </select>
+
+                        {/* Phone Number */}
+                        <input
+                          required
+                          type="tel"
+                          name="phone"
+                          value={phoneNumber}
+                          onChange={(e) => {
+                            const value = e.target.value.replace(/\D/g, '');
+                            setPhoneNumber(value);
+                          }}
+                          placeholder="Phone number"
+                          inputMode="numeric"
+                          className={`flex-1 border rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#EBB700] outline-none ${isDarkTheme
+                            ? 'bg-[#2A2A2A] border-gray-700 text-white'
+                            : 'bg-white border-gray-300 text-black'
+                            }`}
+                        />
+
+                      </div>
+
+                      <p className={`text-xs mt-1 ${isDarkTheme ? 'text-gray-500' : 'text-gray-500'
+                        }`}>
+                        {phoneCountry.name} ({phoneCountry.dial_code})
+                      </p>
+
+                      {stepErrors.phone && (
+                        <p className="text-red-500 text-xs mt-1">
+                          {stepErrors.phone}
+                        </p>
+                      )}
                     </div>
                     <div>
                       <label className={`block text-sm font-bold mb-2 ${isDarkTheme ? 'text-gray-300' : 'text-gray-700'}`}>Personal Email ID * <span className="font-normal text-xs block opacity-0">spacer</span></label>
@@ -954,9 +1167,71 @@ const JoinView = ({ currentView, isDarkTheme, session }) => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-8">
                   <div><label className={`block text-sm font-bold mb-2 ${isDarkTheme ? 'text-gray-300' : 'text-gray-700'}`}>Emergency Contact Person's Name *</label><input required type="text" className={`w-full border rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#EBB700] outline-none ${isDarkTheme ? 'bg-[#2A2A2A] border-gray-700 text-white' : 'bg-white border-gray-300 text-black'}`} /></div>
                   <div>
-                    <label className={`block text-sm font-bold mb-2 ${isDarkTheme ? 'text-gray-300' : 'text-gray-700'}`}>Emergency Contact Number *</label>
-                    <input required type="tel" name="emergencyNumber" className={`w-full border rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#EBB700] outline-none ${isDarkTheme ? 'bg-[#2A2A2A] border-gray-700 text-white' : 'bg-white border-gray-300 text-black'}`} />
-                    {stepErrors.emergencyNumber && <p className="text-red-500 text-xs mt-1">{stepErrors.emergencyNumber}</p>}
+                    <label className={`block text-sm font-bold mb-2 ${isDarkTheme ? 'text-gray-300' : 'text-gray-700'
+                      }`}>
+                      Emergency Contact Number *
+                    </label>
+
+                    <div className="flex gap-2">
+
+                      {/* Emergency Country Code */}
+                      <select
+                        value={emergencyCountry.code}
+                        onChange={(e) => {
+                          const selected = countries.find(
+                            country => country.code === e.target.value
+                          );
+
+                          if (selected) {
+                            setEmergencyCountry(selected);
+                            setEmergencyNumber('');
+                          }
+                        }}
+                        className={`w-[145px] border rounded-xl px-3 py-3 focus:ring-2 focus:ring-[#EBB700] outline-none ${isDarkTheme
+                          ? 'bg-[#2A2A2A] border-gray-700 text-white'
+                          : 'bg-white border-gray-300 text-black'
+                          }`}
+                      >
+                        {countries.map(country => (
+                          <option
+                            key={`${country.code}-${country.dial_code}`}
+                            value={country.code}
+                          >
+                            {getCountryFlag(country.code)} {country.dial_code}
+                          </option>
+                        ))}
+                      </select>
+
+                      {/* Emergency Phone Number */}
+                      <input
+                        required
+                        type="tel"
+                        name="emergencyNumber"
+                        value={emergencyNumber}
+                        onChange={(e) => {
+                          const value = e.target.value.replace(/\D/g, '');
+                          setEmergencyNumber(value);
+                        }}
+                        placeholder="Phone number"
+                        inputMode="numeric"
+                        className={`flex-1 border rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#EBB700] outline-none ${isDarkTheme
+                          ? 'bg-[#2A2A2A] border-gray-700 text-white'
+                          : 'bg-white border-gray-300 text-black'
+                          }`}
+                      />
+
+                    </div>
+
+                    <p className={`text-xs mt-1 ${isDarkTheme ? 'text-gray-500' : 'text-gray-500'
+                      }`}>
+                      {emergencyCountry.name} ({emergencyCountry.dial_code})
+                    </p>
+
+                    {stepErrors.emergencyNumber && (
+                      <p className="text-red-500 text-xs mt-1">
+                        {stepErrors.emergencyNumber}
+                      </p>
+                    )}
                   </div>
                   <div>
                     <label className={`block text-sm font-bold mb-2 ${isDarkTheme ? 'text-gray-300' : 'text-gray-700'}`}>Do you have an existing Leo Member as your reference? *</label>
@@ -993,7 +1268,7 @@ const JoinView = ({ currentView, isDarkTheme, session }) => {
                   {interviewDates.map((date) => <option key={date.value} value={date.value}>{date.label}</option>)}
                 </select>
 
-                <p className={`text-lg font-bold mb-4 ${isDarkTheme ? 'text-gray-200' : 'text-gray-800'}`}>Select Available Time *</p>
+                <p className={`text-lg font-bold mb-4 ${isDarkTheme ? 'text-gray-200' : 'text-gray-800'}`}>Select Available Time (in PM)*</p>
                 <div className="grid grid-cols-3 sm:grid-cols-4 gap-4 mb-8">
                   {interviewTimes.map((time) => (
                     <button
@@ -1001,10 +1276,10 @@ const JoinView = ({ currentView, isDarkTheme, session }) => {
                       type="button"
                       onClick={() => setInterviewTime(time)}
                       className={`border-2 rounded-xl px-3 py-4 font-bold text-lg transition-all ${interviewTime === time
-                          ? 'bg-[#EBB700] text-[#172033] border-[#EBB700] shadow-md transform scale-105'
-                          : isDarkTheme
-                            ? 'border-gray-700 text-gray-300 hover:border-[#EBB700]'
-                            : 'border-gray-200 text-gray-700 hover:border-[#EBB700] bg-gray-50'
+                        ? 'bg-[#EBB700] text-[#172033] border-[#EBB700] shadow-md transform scale-105'
+                        : isDarkTheme
+                          ? 'border-gray-700 text-gray-300 hover:border-[#EBB700]'
+                          : 'border-gray-200 text-gray-700 hover:border-[#EBB700] bg-gray-50'
                         }`}
                     >
                       {time}
@@ -1193,17 +1468,17 @@ export default function LeoClubApp() {
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
       setSession(session);
-      
+
       // Post-Login Redirect Logic
       if (event === 'SIGNED_IN') {
-         if (window.location.hash.includes('access_token')) {
-             const intended = localStorage.getItem('intendedPlan');
-             if (intended) {
-                 window.location.hash = 'join-form';
-             } else {
-                 window.location.hash = 'join';
-             }
-         }
+        if (window.location.hash.includes('access_token')) {
+          const intended = localStorage.getItem('intendedPlan');
+          if (intended) {
+            window.location.hash = 'join-form';
+          } else {
+            window.location.hash = 'join';
+          }
+        }
       }
     });
 
@@ -1214,13 +1489,13 @@ export default function LeoClubApp() {
   useEffect(() => {
     const handleHashChange = () => {
       let hash = window.location.hash.replace('#', '');
-      
+
       // If it's a Supabase OAuth token URL, ignore our router and let Supabase process it.
       // We render 'home' temporarily to avoid a blank screen while processing.
       if (hash.startsWith('access_token') || hash.startsWith('error')) {
-        setCurrentView('home'); 
+        setCurrentView('home');
         window.scrollTo(0, 0);
-        return; 
+        return;
       }
 
       if (hash) {
@@ -1261,7 +1536,7 @@ export default function LeoClubApp() {
         {currentView === 'projects' && <ProjectsView isDarkTheme={isDarkTheme} />}
         {currentView === 'contact' && <ContactView isDarkTheme={isDarkTheme} />}
         {currentView === 'admin-login' && <AdminLoginView isDarkTheme={isDarkTheme} setIsAdminLoggedIn={setIsAdminLoggedIn} />}
-        
+
         {/* New Portal Routes */}
         {currentView === 'member' && <MemberPortalApp session={session} isDarkTheme={isDarkTheme} />}
         {currentView === 'admin' && (isAdminLoggedIn ? <AdminPortalApp isDarkTheme={isDarkTheme} setIsAdminLoggedIn={setIsAdminLoggedIn} /> : <AdminLoginView isDarkTheme={isDarkTheme} setIsAdminLoggedIn={setIsAdminLoggedIn} />)}
